@@ -13,6 +13,11 @@ app.post("/testing", res => {
   res.send(JSON.stringify({ success: "none" }));
 });
 
+app.get("/delete-all", (req, res) => {
+  console.log("deleting all of the posts!");
+  dbo.collection("posts").deleteMany({});
+});
+
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {
