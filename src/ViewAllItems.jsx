@@ -25,9 +25,9 @@ class UnconnectedViewAllItems extends Component {
       <div>
         {this.props.items.map(item => {
           return (
-            <li>
+            <div>
               <Item contents={item} />
-            </li>
+            </div>
           );
         })}
       </div>
@@ -35,11 +35,7 @@ class UnconnectedViewAllItems extends Component {
   };
 
   render = () => {
-    return (
-      <div>
-        <ul>{this.renderItemsAsLiElems()}</ul>
-      </div>
-    );
+    return <div>{this.renderItemsAsLiElems()}</div>;
   };
 }
 
