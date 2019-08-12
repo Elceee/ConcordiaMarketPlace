@@ -6,14 +6,15 @@ import Cart from "./Cart.jsx";
 class UnconnectedCartItem extends Component {
   constructor(props) {
     super(props);
-    itemId = this.props.contents._id;
+    this.itemId = this.props.contents._id;
+    this.amountInCart = this.props.cart[itemId];
   }
 
   minus = () => {
     this.props.dispatch({
       type: "update-quantity",
       id: this.itemId,
-      quantity: this.props.cart[this.itemId] - 1
+      quantity: this.CartamountInCart - 1
     });
   };
 
@@ -21,7 +22,7 @@ class UnconnectedCartItem extends Component {
     this.props.dispatch({
       type: "update-quantity",
       id: this.itemId,
-      quantity: this.props.cart[this.itemId] + 1
+      quantity: this.amountInCart + 1
     });
   };
 
@@ -41,14 +42,14 @@ class UnconnectedCartItem extends Component {
           <input
             type="text"
             size="25"
-            value={this.props.cart[this.itemId]}
+            value={this.amountInCart}
             onChange={this.changeQuantityHandler}
           />
           <input type="button" value="-" onClick={this.minus} />
           <input type="button" value="+" onClick={this.plus} />
         </div>
 
-        <div>Count: {this.props.cart[itemId]}</div>
+        <div>Count: {this.amountInCart}</div>
       </div>
     );
   }

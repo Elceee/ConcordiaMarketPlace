@@ -52,7 +52,7 @@ class UnconnectedApp extends Component {
   render = () => {
     if (this.props.username === undefined) {
       return (
-        <div>
+        <div className="card center">
           <Login />
           <Signup />
         </div>

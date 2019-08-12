@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
-  background-color: #fff4ec;
+  background-color: #fffaf7;
 }
 
 .overlay {
@@ -56,11 +56,13 @@ body {
   width: 60%;
   padding: 20px;
   border-radius: 2px;
+  min-height: 40%;
+  max-height: 40%;
 }
 
 button {
   background-color: #f2b880;
-  color: #fff4ec;
+  color: #fffaf7;
   transition: 0.3s;
   border-radius: 2px;
 }
