@@ -25,6 +25,10 @@ class UnconnectedItemDetails extends Component {
     }
   };
   addToCart = () => {
+    let item = this.props.contents;
+    let data = new FormData();
+    data.append("item", item);
+    fetch("/add-to-cart", { method: "POST", body: data });
     this.props.dispatch({ type: "addToCart", item: this.props.contents });
   };
 
@@ -35,7 +39,9 @@ class UnconnectedItemDetails extends Component {
         <h4>Sold by: {this.state.item.seller}</h4>
         <div>Sold from </div>
         <div>Reviews here</div>
-        <button onClick={this.addToCart}>Add to Cart</button>
+        <div>
+          <button onClick={this.addToCart}>Add to Cart</button>
+        </div>
       </div>
     );
   };
