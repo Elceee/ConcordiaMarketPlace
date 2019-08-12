@@ -100,7 +100,6 @@ app.get("/all-items", (req, res) => {
     });
 });
 
-//allows user to post an item for sale
 app.post("/sell-item", upload.single("image"), (req, res) => {
   let name = req.body.itemName;
   let file = req.file;
