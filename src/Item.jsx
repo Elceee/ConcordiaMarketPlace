@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Item extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Item extends Component {
       <div>{this.props.contents.seller}</div>
       <div>Price: ${this.props.contents.price}</div>
       <div>{this.props.contents.stock} in stock</div>
+      <Link to={"/itemdetails/" + this.props.contents._id} />
     </div>;
   };
 }

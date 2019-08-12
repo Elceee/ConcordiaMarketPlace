@@ -37,7 +37,7 @@ class UnconnectedViewAllItems extends Component {
   render = () => {
     return (
       <div>
-        <ul>{this.renderItemsAsLiElems}</ul>
+        <ul>{this.renderItemsAsLiElems()}</ul>
       </div>
     );
   };
