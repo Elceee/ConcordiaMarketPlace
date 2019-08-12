@@ -12,7 +12,7 @@ class Item extends Component {
     return (
       <div>
         <h3>{this.props.contents.name}</h3>
-        <img src={this.props.contents.frontEnd} />
+        <img src={this.props.contents.imagePath} />
         <div>{this.props.contents.description}</div>
         <div>{this.props.contents.seller}</div>
         <div>Price: ${this.props.contents.price}</div>
