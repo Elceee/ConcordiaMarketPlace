@@ -76,7 +76,7 @@ app.post("/login", upload.none(), (req, res) => {
         let sessionId = generateID();
         dbo
           .collection("sessions")
-          .insertOne({ user: usernameEntered, sessionId: sessionId });
+          .insertOne({ username: usernameEntered, sessionId: sessionId });
         res.cookie("sid", sessionId);
         res.send(JSON.stringify({ success: true }));
         return;
@@ -116,16 +116,48 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
   });
 });
 
+app.post("/add-to-cart", upload.none(), (req, res) => {
+  console.log("request to /add-to-cart endpoint");
+  let itemId = req.body.item._id;
+  let buyer = findUserByCookie(req.cookie.sid);
+  let buyerProfile = findUserObjectByName(buyer);
+  let cartItem = `cart.${itemId}`;
+  if (buyerProfile.cart.itemId === null) {
+    dbo
+      .collections("users")
+      .updateOne(
+        { username: buyer },
+        { $set: { [cartItem]: { quantity: 1 } } },
+        (err, update) => {
+          if (err) {
+            console.log("ERROR: ", err);
+            res.send(JSON.stringify({ success: false }));
+            return;
+          }
+          res.send(JSON.stringify({ success: true }));
+        }
+      );
+  } else {
+    let quant = `cart.${itemId}.quanity`;
+    dbo
+      .collections("users")
+      .updateOne(
+        { username: buyer },
+        { $inc: { [quant]: 1 } },
+        (err, update) => {
+          if (err) {
+            console.log("ERROR: ", err);
+            res.send(JSON.stringify({ success: false }));
+            return;
+          }
+          res.send(JSON.stringify({ success: true }));
+        }
+      );
+  }
+});
+
 app.post("/sell-item", upload.single("image"), (req, res) => {
-  let seller = dbo
-    .collection("sessions")
-    .findOne({ sessionId: req.cookie.sid }, (err, seller) => {
-      if (err) {
-        console.log("ERROR", err);
-        return;
-      }
-      return seller.user;
-    });
+  let seller = findUsernameByCookie(req.cookie.sid);
   let name = req.body.itemName;
   let file = req.file;
   let imagePath = "/uploads/" + file.filename;
@@ -161,6 +193,34 @@ let generateID = () => {
   return "" + Math.floor(Math.random() * 1000000000);
 };
 
+let findUsernameByCookie = async cookie => {
+  let username;
+  await dbo
+    .collection("sessions")
+    .findOne({ sessionId: cookie }, (err, user) => {
+      if (err) {
+        console.log("ERROR", err);
+        return;
+      }
+      username = user.username;
+    });
+  return username;
+};
+
+let findUserObjectByName = async username => {
+  let userObject;
+  await dbo
+    .collection("users")
+    .findOne({ username: username }, (err, object) => {
+      if (err) {
+        console.log("ERROR", err);
+        return;
+      }
+      userObject = object;
+    });
+  return userObject;
+};
+
 app.all("/*", (req, res, next) => {
   // needed for react router
   res.sendFile(__dirname + "/build/index.html");
@@ -169,3 +229,5 @@ app.all("/*", (req, res, next) => {
 app.listen(4000, "0.0.0.0", () => {
   console.log("Server running on port 4000");
 });
+
+//Cart Object: {itemId: {quantity: 3}}

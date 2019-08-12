@@ -21,6 +21,13 @@ let reducer = (state, action) => {
     cart[itemId] = 1;
     return { ...state, cart: cart };
   }
+
+  if (action.type === "update-quantity") {
+    let cart = { ...state.cart };
+    cart[action.id] = action.quantity;
+    return { ...state, cart: cart };
+  }
+
   return state;
 };
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Item from "./Item.jsx";
+import CartItem from "./CartItem.jsx";
 
 class UnconnectedCart extends Component {
   constructor(props) {
@@ -17,15 +17,20 @@ class UnconnectedCart extends Component {
   render() {
     let items = Object.keys(this.props.cart).map(itemId => {
       {
+        let item = this.findItemById(itemId);
         return (
           <div>
-            <Item contents={this.findItemById(itemId)} />
-            <div>Count: {this.props.cart[itemId]}</div>
+            <CartItem contents={item} />
           </div>
         );
       }
     });
-    return <div>{items}</div>;
+    return (
+      <div>
+        <h3>Cart</h3>
+        {items}
+      </div>
+    );
   }
 }
 
