@@ -1,10 +1,14 @@
 import { createStore } from "redux";
 
-let initialState = { username: undefined };
+let initialState = { username: undefined, items: [] };
 
 let reducer = (state, action) => {
   if (action.type === "login-success") {
     return { ...state, username: action.username };
+  }
+
+  if (action.type === "updateItems") {
+    return { ...state, items: action.items };
   }
   return state;
 };
