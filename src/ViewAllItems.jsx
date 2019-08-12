@@ -14,7 +14,7 @@ class UnconnectedViewAllItems extends Component {
       let responseBody = await response.text();
       let body = JSON.parse(responseBody);
       if (body.success !== false) {
-        this.props.dispatch({ type: "updateItems" });
+        this.props.dispatch({ type: "updateItems", items: body });
       }
     };
     getAllItems();
