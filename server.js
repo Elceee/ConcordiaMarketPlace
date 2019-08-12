@@ -131,7 +131,6 @@ app.post("/sell-item", upload.single("image"), (req, res) => {
   let imagePath = "/uploads/" + file.filename;
   let categories = req.body.categories;
   let description = req.body.description;
-  let seller = seller;
   let price = req.body.price;
   let stock = req.body.stock;
   dbo.collection("items").insertOne(
