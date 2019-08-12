@@ -22,7 +22,8 @@ class UnconnectedViewAllItems extends Component {
 
   renderItemsAsLiElems = () => {
     return (
-      <div>
+      //class to auto-place items in css
+      <div className="wrapper">
         {this.props.items.map(item => {
           return (
             <div>
