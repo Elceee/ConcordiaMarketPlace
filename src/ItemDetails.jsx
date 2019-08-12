@@ -29,7 +29,7 @@ class ItemDetails extends Component {
       <div>
         <h3>{this.state.item.name}</h3>
         <h4>Sold by: {this.state.item.seller}</h4>
-        <div>Sold from {this.location}</div>
+        <div>Sold from </div>
         <div>Reviews here</div>
       </div>
     );
