@@ -3,6 +3,8 @@ let app = express();
 let reloadMagic = require("./reload-magic.js");
 let MongoClient = require("mongodb").MongoClient;
 let ObjectID = require("mongoDB").ObjectID;
+let cookieParser = require("cookie-parser");
+app.use(cookieParser());
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "/uploads/" });
 app.use("/uploads", express.static("uploads"));
@@ -72,9 +74,8 @@ app.post("login", upload.none(), (req, res) => {
       if (user.password === pwd) {
         ////password matches
         let sessionId = generateID();
-        dbo
-          .collection("sessions")
-          .insertOne({ username: usernameEntered, sessionId: sessionId });
+        dbo.collection("sessions").insertOne({ sessionId: usernameEntered });
+        res.cookie("sid", sessionId);
         res.send(JSON.stringify({ success: true }));
         return;
       }
@@ -99,6 +100,7 @@ app.get("/all-items", (req, res) => {
     });
 });
 
+//allows user to post an item for sale
 app.post("/sell-item", upload.single("image"), (req, res) => {
   let name = req.body.itemName;
   let file = req.file;
@@ -130,12 +132,11 @@ app.post("/sell-item", upload.single("image"), (req, res) => {
   );
 });
 
-app.get("/delete-all", (req, res) => {
-  console.log("deleting all of the posts!");
-  dbo.collection("posts").deleteMany({});
-});
-
 // Your endpoints go before this line
+
+let generateID = () => {
+  return "" + Math.floor(Math.random() * 1000000000);
+};
 
 app.all("/*", (req, res, next) => {
   // needed for react router
