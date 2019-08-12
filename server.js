@@ -1,6 +1,8 @@
 let express = require("express");
 let app = express();
 let reloadMagic = require("./reload-magic.js");
+let MongoClient = require("mongodb").MongoClient;
+let ObjectID = require("mongoDB").ObjectID;
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "/uploads/" });
 app.use("/uploads", express.static("uploads"));
