@@ -58,17 +58,39 @@ body {
   border-radius: 2px;
   min-height: 40%;
   max-height: 40%;
+  min-width: 150px;
 }
 
+/*Css for my fancy button*/
 button {
   background-color: #f2b880;
   color: #fffaf7;
   transition: 0.3s;
-  border-radius: 2px;
+  border-color: #f2b880;
+  border-radius: 0 3px 0px 3px;
+}
+button:hover {
+  box-shadow: 0 0px 2px 1px #f2b880;
+  letter-spacing: 0.5px;
 }
 
-button:hover {
-  box-shadow: 0 0px 2px 2px #f2b880;
+button:active {
+  letter-spacing: -0.5px;
+}
+button:focus {
+  outline: none;
+}
+
+/*Changing hyperlink*/
+
+a {
+  color: #6b8d9e;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .wrapper {
