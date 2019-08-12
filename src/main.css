@@ -58,7 +58,7 @@ body {
   border-radius: 2px;
   min-height: 40%;
   max-height: 40%;
-  min-width: 150px;
+  min-width: 1=0px;
 }
 
 /*Css for my fancy button*/
@@ -91,6 +91,9 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+a:active {
+  color: #3a405a;
 }
 
 .wrapper {
