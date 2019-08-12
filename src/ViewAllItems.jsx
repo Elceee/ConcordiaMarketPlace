@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Item from "./Item.jsxx";
+import Item from "./Item.jsx";
 import { connect } from "react-redux";
 
 class UnconnectedViewAllItems extends Component {
