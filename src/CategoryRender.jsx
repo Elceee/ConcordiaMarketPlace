@@ -13,7 +13,7 @@ export default class CategoryRender extends Component {
         let responseBody = await response.text()
         let body = JSON.parse(responseBody)
         let items = body.filter(item => {
-            return item.categories.contains(this.props.category)
+            return item.categories.includes(this.props.category)
         })
         this.setState({items})
     }

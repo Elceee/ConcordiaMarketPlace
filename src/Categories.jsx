@@ -16,7 +16,7 @@ export default class Categories extends Component {
     let allCategories = [];
     body.forEach(item => {
       item.categories.forEach(category => {
-        if (!allCategories.contains(category)) {
+        if (!allCategories.includes(category)) {
           allCategories.push(category);
         }
       });

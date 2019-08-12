@@ -49,7 +49,6 @@ class UnconnectedApp extends Component {
     }
     return (
       <div>
-        <NavBar />
         Hey I'm logged in, great.
         <BrowserRouter>
           <Route exact path="/" render={this.renderAllItems} />
