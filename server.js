@@ -15,7 +15,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
   if (err) {
     console.log(err);
   }
-  dbo = db.db("To be determined"); //Let's choose a name to add here.
+  dbo = db.db("alibay"); //Let's choose a name to add here.
 });
 
 //Signup endpoint
