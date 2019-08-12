@@ -1,9 +1,9 @@
 import React, { Componet } from "react";
 import { Link } from "react-router-dom";
 import Search from "Search.jsx";
-import Categories from "./Categories.jsx";
+import Categories from "./src/Categories.jsx/index.js";
 
-class NavBar extends Component {
+export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
