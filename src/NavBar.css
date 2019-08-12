@@ -5,7 +5,7 @@
 
 .navbar {
   overflow: hidden;
-  background-color: black;
+  background-color: #f2b880;
   margin-bottom: 10px;
   text-decoration: none;
 }
@@ -19,11 +19,29 @@
 }
 
 .navbar a:hover {
-  background-color: white;
-  color: black;
+  background-color: #fffaf7;
+  color: #6b8d9e;
 }
 
 .navbar a.active {
   background-color: brown;
   color: white;
+}
+
+.navbar input[type="text"] {
+  background-color: #fffaf7;
+  border: none;
+  color: #6b8d9e;
+  margin-top: 6px;
+  padding: 5px 5px;
+  font-size: 14px;
+}
+.navbar input[type="text"]:focus {
+  outline: none;
+}
+
+.navbar select {
+  border: none;
+  margin-top: 10px;
+  font-size: 14px;
 }

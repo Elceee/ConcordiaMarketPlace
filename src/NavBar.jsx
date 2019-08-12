@@ -12,8 +12,8 @@ export default class NavBar extends Component {
 
   render = () => {
     return (
-      <div className="navcontainer">
-        <div className="navbar">
+      <div className="navcontainer navbar">
+        <div>
           <Search />
         </div>
         <div>
