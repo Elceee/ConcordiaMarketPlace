@@ -74,7 +74,9 @@ app.post("/login", upload.none(), (req, res) => {
       if (user.password === pwd) {
         ////password matches
         let sessionId = generateID();
-        dbo.collection("sessions").insertOne({ sessionId: usernameEntered });
+        dbo
+          .collection("sessions")
+          .insertOne({ user: usernameEntered, sessionId: sessionId });
         res.cookie("sid", sessionId);
         res.send(JSON.stringify({ success: true }));
         return;
@@ -115,12 +117,21 @@ app.get("/get-item-by-id", (req, res) => {
 });
 
 app.post("/sell-item", upload.single("image"), (req, res) => {
+  let seller = dbo
+    .collection("sessions")
+    .findOne({ sessionId: req.cookie.sid }, (err, seller) => {
+      if (err) {
+        console.log("ERROR", err);
+        return;
+      }
+      return seller.user;
+    });
   let name = req.body.itemName;
   let file = req.file;
   let imagePath = "/uploads/" + file.filename;
   let categories = req.body.categories;
   let description = req.body.description;
-  let seller = req.body.username;
+  let seller = seller;
   let price = req.body.price;
   let stock = req.body.stock;
   dbo.collection("items").insertOne(
