@@ -18,6 +18,18 @@ export default class CategoryRender extends Component {
     this.setState({ items });
   };
 
+  componentDidUpdate = async prevProps => {
+    if (this.props.category !== prevProps.category) {
+      let response = await fetch("/all-items");
+      let responseBody = await response.text();
+      let body = JSON.parse(responseBody);
+      let items = body.filter(item => {
+        return item.categories.includes(this.props.category);
+      });
+      this.setState({ items });
+    }
+  };
+
   renderItemsAsDivs = () => {
     return (
       <div>
