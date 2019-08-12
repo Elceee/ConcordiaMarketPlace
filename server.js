@@ -119,7 +119,7 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
 app.post("/add-to-cart", upload.none(), (req, res) => {
   console.log("request to /add-to-cart endpoint");
   let itemId = req.body.item._id;
-  let buyer = findUserByCookie(req.cookie.sid);
+  let buyer = findUsernameByCookie(req.cookie.sid);
   let buyerProfile = findUserObjectByName(buyer);
   let cartItem = `cart.${itemId}`;
   if (buyerProfile.cart.itemId === null) {
