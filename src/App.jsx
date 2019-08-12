@@ -2,9 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Signup from "./Signup.jsx";
 import Login from "./Login.jsx";
+import ViewAllItems from "./ViewAllItems.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 class UnconnectedApp extends Component {
+  renderAllItems = () => {
+    return (
+      <div>
+        <ViewAllItems />
+      </div>
+    );
+  };
   render = () => {
     if (this.props.username === undefined) {
       return (
@@ -17,9 +25,9 @@ class UnconnectedApp extends Component {
     return (
       <div>
         Hey I'm logged in, great.
-        {/* <BrowserRouter>
+        <BrowserRouter>
           <Route exact path="/" render={this.renderAllItems} />
-        </BrowserRouter> */}
+        </BrowserRouter>
       </div>
     );
   };
