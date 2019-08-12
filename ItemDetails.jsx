@@ -20,4 +20,16 @@ class ItemDetails extends Component {
             this.setState({item: body.item})
         }
     }
+
+
+    render = () => {
+        return (<div>
+            <h3>{this.state.item.name}</h3>
+            <h4>Sold by: {this.state.item.seller}</h4>
+            <div>Sold from {this.location}</div>
+            <div>Reviews here</div>
+        </div>)
+    }
 }
+
+export default ItemDetails
