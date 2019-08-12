@@ -4,6 +4,7 @@ import Signup from "./Signup.jsx";
 import Login from "./Login.jsx";
 import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
+import Cart from "./Cart.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 class UnconnectedApp extends Component {
@@ -11,6 +12,7 @@ class UnconnectedApp extends Component {
     return (
       <div>
         <ViewAllItems />
+        <Link to="/cart">Cart</Link>
       </div>
     );
   };
@@ -21,6 +23,14 @@ class UnconnectedApp extends Component {
     return (
       <div>
         <ItemDetails _id={itemId} />
+      </div>
+    );
+  };
+
+  renderCart = () => {
+    return (
+      <div>
+        <Cart />
       </div>
     );
   };
@@ -43,6 +53,7 @@ class UnconnectedApp extends Component {
             path="/itemdetails/:itemId"
             render={this.renderItemDetails}
           />
+          <Route exact path="/cart" render={this.renderCart} />
         </BrowserRouter>
       </div>
     );
