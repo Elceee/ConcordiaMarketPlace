@@ -13,10 +13,14 @@ class UnconnectedItem extends Component {
     let data = new FormData();
     data.append("item", item);
     fetch("/add-to-cart", { method: "POST", body: data });
-    this.props.dispatch({ type: "addToCart", item: this.props.contents });
+    this.props.dispatch({ type: "addToCart", item: item });
   };
 
   render = () => {
+    let addToCartButtonVisible = "visible";
+    if (this.props.inCart) {
+      addToCartButtonVisible = "hidden";
+    }
     return (
       <div>
         <h3>{this.props.contents.name}</h3>
@@ -27,7 +31,12 @@ class UnconnectedItem extends Component {
         <div>{this.props.contents.stock} in stock</div>
         <Link to={"/itemdetails/" + this.props.contents._id}>Item Details</Link>
         <div>
-          <button onClick={this.addToCart}>Add to Cart</button>
+          <button
+            onClick={this.addToCart}
+            style={{ visibility: addToCartButtonVisible }}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     );
