@@ -6,8 +6,8 @@ import Cart from "./Cart.jsx";
 class UnconnectedCartItem extends Component {
   constructor(props) {
     super(props);
-    itemId = this.props.contents._id;
-    amountInCart = this.props.cart[itemId];
+    this.itemId = this.props.contents._id;
+    this.amountInCart = this.props.cart[itemId];
   }
 
   minus = () => {
