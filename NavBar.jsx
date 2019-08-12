@@ -1,7 +1,7 @@
 import React, { Componet } from "react";
 import { Link } from "react-router-dom";
 import Search from "Search.jsx";
-import Categories from "./Category";
+import Categories from "./Categories.jsx";
 
 class NavBar extends Component {
   constructor(props) {

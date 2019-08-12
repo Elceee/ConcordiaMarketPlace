@@ -5,12 +5,14 @@ import Login from "./Login.jsx";
 import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
 import Cart from "./Cart.jsx";
+import NavBar from "./NavBar.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 class UnconnectedApp extends Component {
   renderAllItems = () => {
     return (
       <div>
+        <NavBar />
         <ViewAllItems />
         <Link to="/cart">Cart</Link>
       </div>
@@ -22,6 +24,7 @@ class UnconnectedApp extends Component {
 
     return (
       <div>
+        <NavBar />
         <ItemDetails _id={itemId} />
       </div>
     );
@@ -30,6 +33,7 @@ class UnconnectedApp extends Component {
   renderCart = () => {
     return (
       <div>
+        <NavBar />
         <Cart />
       </div>
     );
@@ -45,6 +49,7 @@ class UnconnectedApp extends Component {
     }
     return (
       <div>
+        <NavBar />
         Hey I'm logged in, great.
         <BrowserRouter>
           <Route exact path="/" render={this.renderAllItems} />
