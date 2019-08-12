@@ -1,23 +1,59 @@
 body {
-    background-color: #bbb;
-    margin: 0;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  background-color: #fff4ec;
 }
 
 .overlay {
-    z-index:50;
-    position: fixed;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    background-color:rgba(0,0,0,0.5);
+  z-index: 50;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .popup {
-    z-index:100;
-    position: fixed;
-    top:200px;
-    left:200px;
-    right:200px;
-    background-color:white
+  z-index: 100;
+  position: fixed;
+  top: 200px;
+  left: 200px;
+  right: 200px;
+  background-color: white;
 }
+
+/* new adittion*/
+
+.card {
+  /* Add shadows to create the "card" effect */
+  margin: 10px;
+  box-shadow: 0 4px 4px 0 #e7cfbc;
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 4px 6px 0 #c98686;
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  width: 20%;
+  padding: 30px;
+  border-radius: 2px;
+}
+
+
