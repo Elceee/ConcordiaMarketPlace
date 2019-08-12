@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 class UnconnectedSignup extends Component {
   constructor(props) {
     super(props);
-    this.state({ username: "", password: "" });
+    this.state = { username: "", password: "" };
   }
 
   usernameChangeHandler = event => {
@@ -50,6 +50,9 @@ class UnconnectedSignup extends Component {
             onChange={this.passwordChangeHandler}
             value={this.state.password}
           />
+          <div>
+            <input type="submit" value="Signup" />
+          </div>
         </form>
       </div>
     );
