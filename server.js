@@ -56,7 +56,7 @@ app.post("/signup", upload.none(), (req, res) => {
 });
 
 //// login endpoint
-app.post("login", upload.none(), (req, res) => {
+app.post("/login", upload.none(), (req, res) => {
   let usernameEntered = req.body.username;
   let pwd = req.body.password;
   dbo
@@ -98,6 +98,20 @@ app.get("/all-items", (req, res) => {
       console.log("items: ", items);
       res.send(JSON.stringify(items));
     });
+});
+
+app.get("/get-item-by-id", (req, res) => {
+  console.log("request to /get-item-by-id");
+  let itemId = req.body.itemId;
+  dbo.collection("items").findOne({ _id: ObjectID(itemId) }, (err, item) => {
+    if (err) {
+      console.log("ERROR", err);
+      res.send(JSON.stringify({ success: false }));
+      return;
+    }
+    console.log("item: ", item);
+    res.send(JSON.stringify({ success: true, item: item }));
+  });
 });
 
 app.post("/sell-item", upload.single("image"), (req, res) => {
