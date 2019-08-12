@@ -1,0 +1,29 @@
+.navcontainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: black;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  float: right;
+  text-align: center;
+  padding: 10px 16px;
+}
+
+.navbar a:hover {
+  background-color: white;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: brown;
+  color: white;
+}

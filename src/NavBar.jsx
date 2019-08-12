@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
 import Categories from "./Categories.jsx";
+import "./NavBar.css";
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -11,8 +12,8 @@ export default class NavBar extends Component {
 
   render = () => {
     return (
-      <div>
-        <div>
+      <div className="navcontainer">
+        <div className="navbar">
           <Search />
         </div>
         <div>

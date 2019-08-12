@@ -15,7 +15,6 @@ class UnconnectedApp extends Component {
       <div>
         <NavBar />
         <ViewAllItems />
-        <Link to="/cart">Cart</Link>
       </div>
     );
   };
@@ -60,7 +59,6 @@ class UnconnectedApp extends Component {
     }
     return (
       <div>
-        Hey I'm logged in, great.
         <BrowserRouter>
           <Route exact path="/" render={this.renderAllItems} />
           <Route
