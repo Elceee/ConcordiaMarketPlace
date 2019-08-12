@@ -105,3 +105,22 @@ a:active {
 .item-desc {
   font-size: 10px;
 }
+
+input[type="submit"] {
+  background-color: #f2b880;
+  color: #fffaf7;
+  transition: 0.3s;
+  border-color: #f2b880;
+  border-radius: 0 3px 0px 3px;
+}
+input[type="submit"]:hover {
+  box-shadow: 0 0px 2px 1px #f2b880;
+  letter-spacing: 0.5px;
+}
+
+input[type="submit"]:active {
+  letter-spacing: -0.5px;
+}
+input[type="submit"]:focus {
+  outline: none;
+}
