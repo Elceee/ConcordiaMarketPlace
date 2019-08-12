@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-class ItemDetails extends Component {
+class UnconnectedItemDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +24,13 @@ class ItemDetails extends Component {
       this.setState({ item: body.item });
     }
   };
+  addToCart = () => {
+    let item = this.props.contents;
+    let data = new FormData();
+    data.append("item", item);
+    fetch("/add-to-cart", { method: "POST", body: data });
+    this.props.dispatch({ type: "addToCart", item: this.props.contents });
+  };
 
   render = () => {
     return (
@@ -31,9 +39,13 @@ class ItemDetails extends Component {
         <h4>Sold by: {this.state.item.seller}</h4>
         <div>Sold from </div>
         <div>Reviews here</div>
+        <div>
+          <button onClick={this.addToCart}>Add to Cart</button>
+        </div>
       </div>
     );
   };
 }
 
+let ItemDetails = connect()(UnconnectedItemDetails);
 export default ItemDetails;

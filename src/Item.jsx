@@ -2,11 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-class Item extends Component {
+class UnconnectedItem extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  addToCart = () => {
+    let item = this.props.contents;
+    let data = new FormData();
+    data.append("item", item);
+    fetch("/add-to-cart", { method: "POST", body: data });
+    this.props.dispatch({ type: "addToCart", item: this.props.contents });
+  };
 
   render = () => {
     return (
@@ -18,9 +26,14 @@ class Item extends Component {
         <div>Price: ${this.props.contents.price}</div>
         <div>{this.props.contents.stock} in stock</div>
         <Link to={"/itemdetails/" + this.props.contents._id}>Item Details</Link>
+        <div>
+          <button onClick={this.addToCart}>Add to Cart</button>
+        </div>
       </div>
     );
   };
 }
+
+let Item = connect()(UnconnectedItem);
 
 export default Item;

@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 
-let initialState = { username: undefined, items: [] };
+let initialState = { username: undefined, items: [], cart: {} };
 
 let reducer = (state, action) => {
   if (action.type === "login-success") {
@@ -9,6 +9,17 @@ let reducer = (state, action) => {
 
   if (action.type === "updateItems") {
     return { ...state, items: action.items };
+  }
+
+  if (action.type === "addToCart") {
+    let itemId = action.item._id;
+    let cart = { ...state.cart };
+    if (cart[itemId] !== undefined) {
+      cart[itemId] += 1;
+      return { ...state, cart: cart };
+    }
+    cart[itemId] = 1;
+    return { ...state, cart: cart };
   }
   return state;
 };
