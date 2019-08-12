@@ -9,6 +9,10 @@ class UnconnectedItem extends Component {
   }
 
   addToCart = () => {
+    let item = this.props.contents;
+    let data = new FormData();
+    data.append("item", item);
+    fetch("/add-to-cart", { method: "POST", body: data });
     this.props.dispatch({ type: "addToCart", item: this.props.contents });
   };
 
