@@ -102,7 +102,7 @@ app.get("/all-items", (req, res) => {
     });
 });
 
-app.post("/get-item-by-id", (req, res) => {
+app.post("/get-item-by-id", upload.none(), (req, res) => {
   console.log("request to /get-item-by-id");
   let itemId = req.body.itemId;
   dbo.collection("items").findOne({ _id: ObjectID(itemId) }, (err, item) => {
