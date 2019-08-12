@@ -35,7 +35,9 @@ class UnconnectedItemDetails extends Component {
         <h4>Sold by: {this.state.item.seller}</h4>
         <div>Sold from </div>
         <div>Reviews here</div>
-        <button onClick={this.addToCart}>Add to Cart</button>
+        <div>
+          <button onClick={this.addToCart}>Add to Cart</button>
+        </div>
       </div>
     );
   };
