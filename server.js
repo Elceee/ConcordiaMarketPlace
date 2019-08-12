@@ -18,6 +18,68 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
   dbo = db.db("To be determined"); //Let's choose a name to add here.
 });
 
+//Signup endpoint
+
+app.post("/signup", upload.none(), (req, res) => {
+  let usernameEntered = req.body.username;
+  let pwd = req.body.password;
+  dbo
+    .collection("users")
+    .findOne({ username: usernameEntered }, (err, user) => {
+      ///handles error
+      if (err) {
+        console.log("an error occured");
+        res.send(JSON.stringify({ success: false, msg: "error" }));
+        return;
+      }
+      ///handles user existing
+      if (user !== null) {
+        console.log("this user already exists");
+        res.send(JSON.stringify({ success: false, msg: "user-exists" }));
+        return;
+      }
+      ///success case - the user doesn't exists yet, we insert into collection
+      if (user === null) {
+        console.log("username available");
+        dbo
+          .collection("users")
+          .insertOne({ username: usernameEntered, password: pwd });
+        res.send(JSON.stringify({ success: true }));
+        return;
+      }
+      res.send(JSON.stringify({ success: false }));
+    });
+});
+
+//// login endpoint
+app.post("login", upload.none(), (req, res) => {
+  let usernameEntered = req.body.username;
+  let pwd = req.body.password;
+  dbo
+    .collection("users")
+    .findOne({ username: usernameEntered }, (err, user) => {
+      if (err) {
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      ///user doesn't exist
+      if (user === null) {
+        res.send(JSON.stringify({ success: false, msg: "invalid-user" }));
+        return;
+      }
+      if (user.password === pwd) {
+        ////password matches
+        let sessionId = generateID();
+        dbo
+          .collection("sessions")
+          .insertOne({ username: usernameEntered, sessionId: sessionId });
+        res.send(JSON.stringify({ success: true }));
+        return;
+      }
+      res.send(JSON.stringify({ success: false }));
+    });
+});
+
 // all-itmes endpoint. "items" is my provisional collection name
 app.get("/all-items", (req, res) => {
   console.log("request to /all-items endpoint");
