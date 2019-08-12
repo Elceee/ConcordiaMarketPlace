@@ -1,6 +1,8 @@
 let express = require("express");
 let app = express();
 let reloadMagic = require("./reload-magic.js");
+let MongoClient = require("mongodb").MongoClient;
+let ObjectID = require("mongodb").ObjectID;
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "/uploads/" });
 app.use("/uploads", express.static("uploads"));
@@ -15,6 +17,68 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
     console.log(err);
   }
   dbo = db.db("To be determined"); //Let's choose a name to add here.
+});
+
+//Signup endpoint
+
+app.post("/signup", upload.none(), (req, res) => {
+  let usernameEntered = req.body.username;
+  let pwd = req.body.password;
+  dbo
+    .collection("users")
+    .findOne({ username: usernameEntered }, (err, user) => {
+      ///handles error
+      if (err) {
+        console.log("an error occured");
+        res.send(JSON.stringify({ success: false, msg: "error" }));
+        return;
+      }
+      ///handles user existing
+      if (user !== null) {
+        console.log("this user already exists");
+        res.send(JSON.stringify({ success: false, msg: "user-exists" }));
+        return;
+      }
+      ///success case - the user doesn't exists yet, we insert into collection
+      if (user === null) {
+        console.log("username available");
+        dbo
+          .collection("users")
+          .insertOne({ username: usernameEntered, password: pwd });
+        res.send(JSON.stringify({ success: true }));
+        return;
+      }
+      res.send(JSON.stringify({ success: false }));
+    });
+});
+
+//// login endpoint
+app.post("login", upload.none(), (req, res) => {
+  let usernameEntered = req.body.username;
+  let pwd = req.body.password;
+  dbo
+    .collection("users")
+    .findOne({ username: usernameEntered }, (err, user) => {
+      if (err) {
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      ///user doesn't exist
+      if (user === null) {
+        res.send(JSON.stringify({ success: false, msg: "invalid-user" }));
+        return;
+      }
+      if (user.password === pwd) {
+        ////password matches
+        let sessionId = generateID();
+        dbo
+          .collection("sessions")
+          .insertOne({ username: usernameEntered, sessionId: sessionId });
+        res.send(JSON.stringify({ success: true }));
+        return;
+      }
+      res.send(JSON.stringify({ success: false }));
+    });
 });
 
 // all-itmes endpoint. "items" is my provisional collection name
@@ -34,12 +98,12 @@ app.get("/all-items", (req, res) => {
     });
 });
 
-app.get("/delete-all", (req, res) => {
-  console.log("deleting all of the posts!");
-  dbo.collection("posts").deleteMany({});
-});
-
 // Your endpoints go before this line
+
+//to create our cookie
+let generateID = () => {
+  return "" + Math.floor(Math.random() * 100000);
+};
 
 app.all("/*", (req, res, next) => {
   // needed for react router
