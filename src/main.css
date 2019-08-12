@@ -24,63 +24,6 @@ body {
   background-color: white;
 }
 
-/* new adittion*/
-
-.card {
-  /* Add shadows to create the "card" effect */
-  margin: 10px;
-  box-shadow: 0 4px 4px 0 #e7cfbc;
-  transition: 0.3s;
-}
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 4px 6px 0 #f2b880;
-}
-
-/* Add some padding inside the card container */
-.container {
-  padding: 2px 16px;
-}
-/*card centering and display*/
-
-.center {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  margin-top: 10px;
-  width: 60%;
-  padding: 20px;
-  border-radius: 2px;
-  min-height: 40%;
-  max-height: 40%;
-  min-width: 1=0px;
-}
-
-/*Css for my fancy button*/
-button {
-  background-color: #f2b880;
-  color: #fffaf7;
-  transition: 0.2s;
-  border-color: #f2b880;
-  border-radius: 0 3px 0px 3px;
-}
-button:hover {
-  box-shadow: 0 0px 2px 1px #f2b880;
-  letter-spacing: 0.5px;
-}
-
-button:active {
-  letter-spacing: -0.5px;
-}
-button:focus {
-  outline: none;
-}
-
 /*Changing hyperlink*/
 
 a {
@@ -96,6 +39,7 @@ a:active {
   color: #3a405a;
 }
 
+/*grid view of items*/
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -104,23 +48,4 @@ a:active {
 
 .item-desc {
   font-size: 10px;
-}
-
-input[type="submit"] {
-  background-color: #f2b880;
-  color: #fffaf7;
-  transition: 0.3s;
-  border-color: #f2b880;
-  border-radius: 0 3px 0px 3px;
-}
-input[type="submit"]:hover {
-  box-shadow: 0 0px 2px 1px #f2b880;
-  letter-spacing: 0.5px;
-}
-
-input[type="submit"]:active {
-  letter-spacing: -0.5px;
-}
-input[type="submit"]:focus {
-  outline: none;
 }

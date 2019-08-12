@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import "./Card.css";
+import "./DynamicButton.css";
 
 class UnconnectedItem extends Component {
   constructor(props) {

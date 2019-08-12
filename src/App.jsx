@@ -8,6 +8,9 @@ import Cart from "./Cart.jsx";
 import NavBar from "./NavBar.jsx";
 import CategoryRender from "./CategoryRender.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import "./Card.css";
+import "./DynamicButton.css";
+import "./FormButton.css";
 
 class UnconnectedApp extends Component {
   renderAllItems = () => {
