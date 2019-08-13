@@ -118,11 +118,19 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
 });
 
 app.post("/add-to-cart", upload.none(), async (req, res) => {
+  console.log("adding to cart backend");
   let itemId = req.body.itemId;
+  let newQuantity = req.body.quantity;
+  if (isNaN(newQuantity)) {
+    newQuantity = 1;
+  }
+  console.log("newQuantity", newQuantity);
   let buyer = await findUsernameByCookie(req.cookies.sid);
-  let buyerCart = await findUserCartByName(buyer);
+  let userObject = await findUserCartByName(buyer);
+  let buyerCart = userObject.cart;
   let cartItem = `cart.${itemId}`;
   if (buyerCart === null || !buyerCart[itemId]) {
+    console.log("buyerCart at item Id", buyerCart[itemId]);
     dbo
       .collection("users")
       .updateOne(
@@ -138,12 +146,11 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
         }
       );
   } else {
-    let quant = `cart.${itemId}.quanity`;
     dbo
       .collection("users")
       .updateOne(
         { username: buyer },
-        { $inc: { [quant]: 1 } },
+        { $set: { [cartItem]: { quantity: newQuantity } } },
         (err, update) => {
           if (err) {
             console.log("ERROR: ", err);
@@ -151,6 +158,8 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
             return;
           }
           res.send(JSON.stringify({ success: true }));
+          console.log("set new quantity");
+          console.log("buyerCart", buyerCart);
         }
       );
   }

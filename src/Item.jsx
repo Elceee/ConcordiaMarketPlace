@@ -12,16 +12,21 @@ class UnconnectedItem extends Component {
 
   addToCart = () => {
     let item = this.props.contents;
+    let amountInCart = this.props.cart[this.props.contents._id];
+    if (amountInCart === undefined) {
+      amountInCart = 0;
+    }
     let data = new FormData();
     data.append("itemId", item._id);
+    data.append("quantity", amountInCart + 1);
     fetch("/add-to-cart", { method: "POST", body: data });
     this.props.dispatch({ type: "addToCart", item: item });
   };
 
   render = () => {
-    let addToCartButtonVisible = "visible";
+    let inCartNotVisible = "visible";
     if (this.props.inCart) {
-      addToCartButtonVisible = "hidden";
+      inCartNotVisible = "hidden";
     }
     return (
       ///added card center to items
@@ -36,7 +41,7 @@ class UnconnectedItem extends Component {
         <div>
           <button
             onClick={this.addToCart}
-            style={{ visibility: addToCartButtonVisible }}
+            style={{ visibility: inCartNotVisible }}
           >
             Add to Cart
           </button>
@@ -46,6 +51,10 @@ class UnconnectedItem extends Component {
   };
 }
 
-let Item = connect()(UnconnectedItem);
+let mapStateToProps = state => {
+  return { cart: state.cart };
+};
+
+let Item = connect(mapStateToProps)(UnconnectedItem);
 
 export default Item;
