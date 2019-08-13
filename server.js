@@ -118,23 +118,23 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
 });
 
 app.post("/add-to-cart", upload.none(), async (req, res) => {
-  console.log("adding to cart backend");
   let itemId = req.body.itemId;
   let newQuantity = req.body.quantity;
   if (isNaN(newQuantity)) {
     newQuantity = 1;
   }
-  console.log("newQuantity", newQuantity);
-  let buyer = await findUsernameByCookie(req.cookies.sid);
-  let userObject = await findUserCartByName(buyer);
-  let buyerCart = userObject.cart;
+
+  let username = await findUsernameByCookie(req.cookies.sid);
+  let userObject = await findUserObjectByName(username);
+  let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
-  if (buyerCart === null || !buyerCart[itemId]) {
-    console.log("buyerCart at item Id", buyerCart[itemId]);
+  if (cart === null || !cart[itemId]) {
+    // change to cartItem ?
+
     dbo
       .collection("users")
       .updateOne(
-        { username: buyer },
+        { username: username },
         { $set: { [cartItem]: { quantity: 1 } } },
         (err, update) => {
           if (err) {
@@ -149,7 +149,7 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
     dbo
       .collection("users")
       .updateOne(
-        { username: buyer },
+        { username: username },
         { $set: { [cartItem]: { quantity: newQuantity } } },
         (err, update) => {
           if (err) {
@@ -158,19 +158,44 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
             return;
           }
           res.send(JSON.stringify({ success: true }));
-          console.log("set new quantity");
-          console.log("buyerCart", buyerCart);
         }
       );
   }
+});
+
+app.post("/removeFromCart", upload.none(), async (req, res) => {
+  let username = await findUsernameByCookie(req.cookies.sid);
+  let itemId = req.body.itemId;
+  let userObject = await findUserObjectByName(username);
+  let cart = userObject.cart;
+  let cartItem = `cart.${itemId}`;
+  dbo
+    .collection("users")
+    .updateOne(
+      { username: username },
+      { $unset: { [cartItem]: "" } },
+      (err, update) => {
+        if (err) {
+          console.log("ERROR: ", err);
+          res.send(JSON.stringify({ success: false }));
+          return;
+        }
+        res.send(JSON.stringify({ success: true }));
+      }
+    );
 });
 
 app.post("/sell-item", upload.single("image"), (req, res) => {
   let seller = findUsernameBycookie(req.cookies.sid);
   let name = req.body.itemName;
   let file = req.file;
-  let imagePath = "/uploads/" + file.filename;
-  let categories = req.body.categories;
+  let imagePath;
+  if (file === undefined) {
+    imagePath = "/uploads/no-image.png";
+  } else {
+    imagePath = "/uploads/" + file.filename;
+  }
+  let categories = req.body.categories.split(",");
   let description = req.body.description;
   let price = req.body.price;
   let stock = req.body.stock;
@@ -211,7 +236,7 @@ let findUsernameByCookie = async cookie => {
 };
 
 //Returns the cart object from the user object
-let findUserCartByName = async username => {
+let findUserObjectByName = async username => {
   let userCart = await dbo
     .collection("users")
     .findOne({ username: username }, { cart: 1 });

@@ -64,6 +64,14 @@ class UnconnectedCartItem extends Component {
     this.sendQuantityToBackend(newQuanity);
   };
 
+  removeFromCart = () => {
+    let itemId = this.props.contents._id;
+    let data = new FormData();
+    data.append("itemId", itemId);
+    fetch("/removeFromCart", { method: "post", body: data });
+    this.props.dispatch({ type: "removeFromCart", id: itemId });
+  };
+
   render() {
     let amountInCart = parseInt(
       this.props.cart[this.props.contents._id]
@@ -90,6 +98,7 @@ class UnconnectedCartItem extends Component {
             onClick={this.subtractQuanityFromCart}
           />
           <input type="button" value="+" onClick={this.addQuanityToCart} />
+          <button onClick={this.removeFromCart}>Remove From Cart</button>
         </div>
       </div>
     );
