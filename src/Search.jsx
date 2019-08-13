@@ -17,7 +17,6 @@ class UnconnectedSearch extends Component {
     event.preventDefault();
     let query = this.state.userSearchInput;
     this.props.dispatch({ type: "searchTerms", query: query });
-    this.setState({ userSearchInput: "" });
   };
 
   render = () => {
