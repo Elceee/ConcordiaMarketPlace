@@ -1,0 +1,18 @@
+.loginForm input[type="text"] {
+  color: #6b8d9e;
+  padding: 4px;
+  align-items: center;
+}
+
+.loginForm input {
+  margin-top: 12px;
+}
+
+.loginForm input[type="submit"] {
+  align-items: center;
+}
+
+.loginForm p {
+  padding-top: 6px;
+  font-size: 14px;
+}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Signup from "./Signup.jsx";
-import Login from "./Login.jsx";
+import LandingPage from "./LandingPage.jsx";
 import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
 import Cart from "./Cart.jsx";
@@ -53,12 +52,7 @@ class UnconnectedApp extends Component {
   };
   render = () => {
     if (this.props.username === undefined) {
-      return (
-        <div className="card center">
-          <Login />
-          <Signup />
-        </div>
-      );
+      return <LandingPage />;
     }
     return (
       <div>
