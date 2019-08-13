@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./FormButton.css";
-
+import "./signup.css";
 class UnconnectedLogin extends Component {
   constructor(props) {
     super(props);
@@ -38,16 +38,16 @@ class UnconnectedLogin extends Component {
 
   render() {
     return (
-      <div>
+      <div className="loginForm">
         <h3>Login</h3>
         <form onSubmit={this.submitHandler}>
-          <div>Username</div>
+          <p>Username</p>
           <input
             type="text"
             onChange={this.usernameChangeHandler}
             value={this.state.username}
           />
-          <div>Password</div>
+          <p>Password</p>
           <input
             type="text"
             onChange={this.passwordChangeHandler}
