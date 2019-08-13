@@ -102,6 +102,7 @@ app.get("/all-items", (req, res) => {
     });
 });
 
+//get item by Id endpoint
 app.post("/get-item-by-id", upload.none(), (req, res) => {
   console.log("request to /get-item-by-id");
   let itemId = req.body.itemId;
@@ -116,15 +117,19 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
   });
 });
 
-app.post("/add-to-cart", upload.none(), (req, res) => {
+app.post("/add-to-cart", upload.none(), async (req, res) => {
   console.log("request to /add-to-cart endpoint");
-  let itemId = req.body.item._id;
-  let buyer = findUsernameByCookie(req.cookies.sid);
-  let buyerProfile = findUserObjectByName(buyer);
+  let itemId = req.body.itemId;
+  console.log("item: ", JSON.stringify(itemId));
+  let buyer = await findUsernameByCookie(req.cookies.sid);
+  console.log("buyer: ", buyer);
+  let buyerCart = await findUserCartByName(buyer);
+  console.log("buyerCart", buyerCart);
   let cartItem = `cart.${itemId}`;
-  if (buyerProfile.cart.itemId === null) {
+  console.log("cartItem", cartItem);
+  if (buyerCart === null || !buyerCart[itemId]) {
     dbo
-      .collections("users")
+      .collection("users")
       .updateOne(
         { username: buyer },
         { $set: { [cartItem]: { quantity: 1 } } },
@@ -140,7 +145,7 @@ app.post("/add-to-cart", upload.none(), (req, res) => {
   } else {
     let quant = `cart.${itemId}.quanity`;
     dbo
-      .collections("users")
+      .collection("users")
       .updateOne(
         { username: buyer },
         { $inc: { [quant]: 1 } },
@@ -194,31 +199,18 @@ let generateID = () => {
 };
 
 let findUsernameByCookie = async cookie => {
-  let username;
-  await dbo
+  let userObject = await dbo
     .collection("sessions")
-    .findOne({ sessionId: cookie }, (err, user) => {
-      if (err) {
-        console.log("ERROR", err);
-        return;
-      }
-      username = user.username;
-    });
-  return username;
+    .findOne({ sessionId: cookie }, { user: 1 });
+  console.log("userObject", userObject);
+  return userObject.username;
 };
 
-let findUserObjectByName = async username => {
-  let userObject;
-  await dbo
+let findUserCartByName = async username => {
+  let userCart = await dbo
     .collection("users")
-    .findOne({ username: username }, (err, object) => {
-      if (err) {
-        console.log("ERROR", err);
-        return;
-      }
-      userObject = object;
-    });
-  return userObject;
+    .findOne({ username: username }, { cart: 1 });
+  return userCart;
 };
 
 app.all("/*", (req, res, next) => {
