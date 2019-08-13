@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import "./Categories.css";
 
 class UnconnectedCategories extends Component {
   constructor(props) {
@@ -28,7 +29,11 @@ class UnconnectedCategories extends Component {
 
   renderCategoiesasOptions = () => {
     return this.state.allCategories.map(category => {
-      return <option value={category}>{category}</option>;
+      return (
+        <div className="dropDownItem">
+          <Link to={"/category/" + category}>{category}</Link>
+        </div>
+      );
     });
   };
 
@@ -39,11 +44,10 @@ class UnconnectedCategories extends Component {
 
   render = () => {
     return (
-      <form>
-        <select onChange={this.onSubmitHandler}>
-          {this.renderCategoiesasOptions()}
-        </select>
-      </form>
+      <div className="dropDown">
+        <div>Categories</div>
+        <div className="dropDownContent">{this.renderCategoiesasOptions()}</div>
+      </div>
     );
   };
 }
