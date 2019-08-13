@@ -32,7 +32,6 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "removeFromCart") {
-    console.log("removing from item from cart in store");
     let cart = { ...state.cart };
 
     let itemId = action.id;
@@ -41,6 +40,9 @@ let reducer = (state, action) => {
     return { ...state, cart: cart };
   }
 
+  if (action.type === "purchaseCart") {
+    return { ...state, cart: {} };
+  }
   return state;
 };
 
