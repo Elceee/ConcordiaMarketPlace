@@ -12,15 +12,25 @@ export default class LandingPage extends Component {
     };
   }
 
+  loginOnclick = event => {
+    event.preventDefault();
+    this.setState({ status: "login" });
+  };
+
+  sigunpOnclick = event => {
+    event.preventDefault();
+    this.setState({ status: "signup" });
+  };
+
   render = () => {
     if (this.state.status === "") {
       return (
-        <div>
+        <div className="card center">
           <p>Welcome to Alibay!</p>
           <div>New to the site? Create an account here!</div>
-          <button onClick={this.SigunpOnclick}>Sign Up</button>
+          <button onClick={this.sigunpOnclick}>Sign Up</button>
           <div>Already have an account? Log in here!</div>
-          <button onClick={this.LoginpOnclick}>Login</button>
+          <button onClick={this.loginOnclick}>Login</button>
         </div>
       );
     }
@@ -28,7 +38,7 @@ export default class LandingPage extends Component {
       return (
         <div className="card center">
           <Signup />
-          <button onClick={this.LoginpOnclick}>
+          <button onClick={this.loginOnclick}>
             Already have an account? Log in Here!
           </button>
         </div>
@@ -38,7 +48,7 @@ export default class LandingPage extends Component {
       return (
         <div className="card center">
           <Login />
-          <button onClick={this.SignupOnclick}>
+          <button onClick={this.sigunpOnclick}>
             Already have an account? Log in Here!
           </button>
         </div>
