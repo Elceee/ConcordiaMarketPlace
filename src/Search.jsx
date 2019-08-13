@@ -16,7 +16,7 @@ class UnconnectedSearch extends Component {
   onSubmitHandler = event => {
     event.preventDefault();
     let query = this.state.userSearchInput;
-    this.props.dispatch({ type: "searchTerms", query });
+    this.props.dispatch({ type: "searchTerms", query: query });
     this.setState({ userSearchInput: "" });
   };
 
