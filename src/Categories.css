@@ -1,0 +1,27 @@
+.dropDown {
+  overflow: hidden;
+  color: white;
+  text-decoration: none;
+  float: right;
+  text-align: center;
+  padding: 10px 16px;
+  font-weight: bold;
+}
+
+.dropDown:hover {
+  background-color: #fffaf7;
+  color: #6b8d9e;
+}
+
+.dropDownContent {
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  color: white;
+  background-color: #f2b880;
+}
+
+.dropDown:hover .dropDownContent {
+  display: block;
+  box-shadow: 4px 4px 0px 0 #6b8d9e;
+}
