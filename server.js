@@ -192,6 +192,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
   let imagePath;
   if (file === undefined) {
     imagePath = "/uploads/no-image.png";
+    too;
   } else {
     imagePath = "/uploads/" + file.filename;
   }
