@@ -31,3 +31,7 @@ let mapStateToProps = state => {
     items: state.items
   };
 };
+
+let SearchResults = connect(mapStateToProps)(UnconnectedSearchResults);
+
+export default SearchResults;
