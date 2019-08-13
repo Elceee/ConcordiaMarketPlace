@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import "./Card.css";
 
 class UnconnectedSellItem extends Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class UnconnectedSellItem extends Component {
 
   render = () => {
     return (
-      <div>
+      <div className="card center">
         <form onSubmit={this.sellItemSubmitHandler}>
           <input
             type="text"
