@@ -24,53 +24,23 @@ body {
   background-color: white;
 }
 
-/* new adittion*/
+/*Changing hyperlink*/
 
-.card {
-  /* Add shadows to create the "card" effect */
-  margin: 10px;
-  box-shadow: 0 4px 4px 0 #e7cfbc;
+a {
+  color: #6b8d9e;
+  text-decoration: none;
+  font-weight: bold;
   transition: 0.3s;
 }
-
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 4px 6px 0 #f2b880;
+a:hover {
+  text-decoration: underline;
+  font-size: 102%;
+}
+a:active {
+  color: #3a405a;
 }
 
-/* Add some padding inside the card container */
-.container {
-  padding: 2px 16px;
-}
-/*card centering and display*/
-
-.center {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-start;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  margin-top: 10px;
-  width: 60%;
-  padding: 20px;
-  border-radius: 2px;
-  min-height: 40%;
-  max-height: 40%;
-}
-
-button {
-  background-color: #f2b880;
-  color: #fffaf7;
-  transition: 0.3s;
-  border-radius: 2px;
-}
-
-button:hover {
-  box-shadow: 0 0px 2px 2px #f2b880;
-}
-
+/*grid view of items*/
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Item from "./Item.jsx";
 import { connect } from "react-redux";
-import Cart from "./Cart.jsx";
 
 class UnconnectedCartItem extends Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import AddReview from "./AddReview.jsx";
 
 class UnconnectedItemDetails extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class UnconnectedItemDetails extends Component {
         <div>
           <button onClick={this.addToCart}>Add to Cart</button>
         </div>
+        <AddReview id={this.state.item._id} />
       </div>
     );
   };

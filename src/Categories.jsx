@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Categories extends Component {
+class UnconnectedCategories extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,23 +23,31 @@ export default class Categories extends Component {
       });
     });
     this.setState({ allCategories });
+    console.log(this.state.allCategories);
   };
 
   renderCategoiesasOptions = () => {
     return this.state.allCategories.map(category => {
-      return (
-        <option value={category}>
-          <Link to={"/category/" + category}>{category}</Link>
-        </option>
-      );
+      return <option value={category}>{category}</option>;
     });
+  };
+
+  onSubmitHandler = () => {
+    event.preventDefault();
+    this.props.history.push("/category/" + event.target.value);
   };
 
   render = () => {
     return (
       <form>
-        <select>{this.renderCategoiesasOptions()}</select>
+        <select onChange={this.onSubmitHandler}>
+          {this.renderCategoiesasOptions()}
+        </select>
       </form>
     );
   };
 }
+
+let Categories = connect()(withRouter(UnconnectedCategories));
+
+export default Categories;
