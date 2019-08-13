@@ -125,7 +125,7 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
   }
 
   let username = await findUsernameByCookie(req.cookies.sid);
-  let userObject = await fineUserObjectByName(username);
+  let userObject = await findUserObjectByName(username);
   let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
   if (cart === null || !cart[itemId]) {
