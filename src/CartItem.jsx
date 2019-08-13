@@ -5,35 +5,39 @@ import { connect } from "react-redux";
 class UnconnectedCartItem extends Component {
   constructor(props) {
     super(props);
-    this.itemId = this.props.contents._id;
-    this.amountInCart = this.props.cart[this.itemId];
   }
 
   minus = () => {
+    let amountInCart = this.props.cart[this.props.contents._id];
+    let itemId = this.props.contents._id;
     this.props.dispatch({
       type: "update-quantity",
-      id: this.itemId,
-      quantity: this.CartamountInCart - 1
+      id: itemId,
+      quantity: amountInCart - 1
     });
   };
 
   plus = () => {
+    let amountInCart = this.props.cart[this.props.contents._id];
+    let itemId = this.props.contents._id;
     this.props.dispatch({
       type: "update-quantity",
-      id: this.itemId,
-      quantity: this.amountInCart + 1
+      id: itemId,
+      quantity: amountInCart + 1
     });
   };
 
   changeQuantityHandler = event => {
+    let itemId = this.props.contents._id;
     this.props.dispatch({
       type: "update-quantity",
-      id: this.itemId,
+      id: itemId,
       quantity: event.target.value
     });
   };
 
   render() {
+    let amountInCart = this.props.cart[this.props.contents._id];
     return (
       <div>
         <Item contents={this.props.contents} inCart="true" />
@@ -41,14 +45,12 @@ class UnconnectedCartItem extends Component {
           <input
             type="text"
             size="25"
-            value={this.amountInCart}
+            value={amountInCart}
             onChange={this.changeQuantityHandler}
           />
           <input type="button" value="-" onClick={this.minus} />
           <input type="button" value="+" onClick={this.plus} />
         </div>
-
-        <div>Count: {this.amountInCart}</div>
       </div>
     );
   }
