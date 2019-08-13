@@ -6,6 +6,7 @@ import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
 import Cart from "./Cart.jsx";
 import NavBar from "./NavBar.jsx";
+import SellItem from "./SellItem.jsx";
 import CategoryRender from "./CategoryRender.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import "./Card.css";
@@ -51,6 +52,16 @@ class UnconnectedApp extends Component {
       </div>
     );
   };
+
+  renderSellItem = () => {
+    return (
+      <div>
+        <NavBar />
+        <SellItem />
+      </div>
+    );
+  };
+
   render = () => {
     if (this.props.username === undefined) {
       return (
@@ -75,6 +86,7 @@ class UnconnectedApp extends Component {
             path="/category/:categoryID"
             render={this.renderCategory}
           />
+          <Route exact path="/sellitem" render={this.renderSellItem} />
         </BrowserRouter>
       </div>
     );

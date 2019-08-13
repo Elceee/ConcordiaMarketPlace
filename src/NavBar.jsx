@@ -23,6 +23,9 @@ export default class NavBar extends Component {
           <Link to={"/cart"}>Cart</Link>
         </div>
         <div>
+          <Link to={"/sellitem"}>Sell Item</Link>
+        </div>
+        <div>
           <Categories />
         </div>
       </div>
