@@ -45,9 +45,11 @@ app.post("/signup", upload.none(), (req, res) => {
       ///success case - the user doesn't exists yet, we insert into collection
       if (user === null) {
         console.log("username available");
-        dbo
-          .collection("users")
-          .insertOne({ username: usernameEntered, password: pwd });
+        dbo.collection("users").insertOne({
+          username: usernameEntered,
+          password: pwd,
+          purchaseHistory: []
+        });
         res.send(JSON.stringify({ success: true }));
         return;
       }
@@ -166,8 +168,6 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
 app.post("/removeFromCart", upload.none(), async (req, res) => {
   let username = await findUsernameByCookie(req.cookies.sid);
   let itemId = req.body.itemId;
-  let userObject = await findUserObjectByName(username);
-  let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
   dbo
     .collection("users")
@@ -220,6 +220,39 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
       res.send(JSON.stringify({ success: true }));
     }
   );
+});
+
+app.post("/purchaseCart", upload.none(), async (req, res) => {
+  let username = await findUsernameByCookie(req.cookies.sid);
+  let cart = JSON.parse(req.body.cart);
+  dbo
+    .collection("users")
+    .updateOne(
+      { username: username },
+      { $push: { purchaseHistory: { cart } } },
+      (err, update) => {
+        if (err) {
+          console.log("ERROR: ", err);
+          res.send(JSON.stringify({ success: false }));
+          return;
+        }
+      }
+    );
+
+  dbo
+    .collection("users")
+    .updateOne(
+      { username: username },
+      { $unset: { cart: "" } },
+      (err, update) => {
+        if (err) {
+          console.log("ERROR: ", err);
+          res.send(JSON.stringify({ success: false }));
+          return;
+        }
+        res.send(JSON.stringify({ success: true }));
+      }
+    );
 });
 
 // Your endpoints go before this line
