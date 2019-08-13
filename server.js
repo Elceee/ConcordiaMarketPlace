@@ -127,7 +127,7 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
   }
 
   let username = await findUsernameByCookie(req.cookies.sid);
-  let userObject = await fineUserObjectByName(username);
+  let userObject = await findUserObjectByName(username);
   let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
   if (cart === null || !cart[itemId]) {
@@ -185,12 +185,18 @@ app.post("/removeFromCart", upload.none(), async (req, res) => {
     );
 });
 
-app.post("/sell-item", upload.single("image"), (req, res) => {
-  let seller = findUsernameBycookie(req.cookies.sid);
-  let name = req.body.itemName;
+app.post("/sell-item", upload.single("image"), async (req, res) => {
+  let seller = await findUsernameByCookie(req.cookies.sid);
+  let name = req.body.name;
   let file = req.file;
-  let imagePath = "/uploads/" + file.filename;
-  let categories = req.body.categories;
+  let imagePath;
+  if (file === undefined) {
+    imagePath = "/uploads/no-image.png";
+    too;
+  } else {
+    imagePath = "/uploads/" + file.filename;
+  }
+  let categories = req.body.categories.split(",");
   let description = req.body.description;
   let price = req.body.price;
   let stock = req.body.stock;
