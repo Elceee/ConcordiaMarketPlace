@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
-import { connect } from "react-redux";
 import "./Card.css";
+import "./LandingPage.css";
 
 export default class LandingPage extends Component {
   constructor(props) {
@@ -25,32 +25,40 @@ export default class LandingPage extends Component {
   render = () => {
     if (this.state.status === "") {
       return (
-        <div className="card center">
-          <p>Welcome to Alibay!</p>
-          <div>New to the site? Create an account here!</div>
-          <button onClick={this.sigunpOnclick}>Sign Up</button>
-          <div>Already have an account? Log in here!</div>
-          <button onClick={this.loginOnclick}>Login</button>
+        <div className="card center landingPageContainer">
+          <h1>Welcome to Alibay!</h1>
+          <div className="landingPageContainer">
+            <h4>New to the site? Create an account here!</h4>
+            <button onClick={this.sigunpOnclick}>Sign Up</button>
+          </div>
+          <div className="landingPageContainer">
+            <h4>Already have an account? Log in here!</h4>
+            <button onClick={this.loginOnclick}>Login</button>
+          </div>
         </div>
       );
     }
     if (this.state.status === "signup") {
       return (
-        <div className="card center">
+        <div className="card center landingPageContainer">
           <Signup />
-          <button onClick={this.loginOnclick}>
-            Already have an account? Log in Here!
-          </button>
+          <div>
+            <button onClick={this.loginOnclick}>
+              Already have an account? Log in Here!
+            </button>
+          </div>
         </div>
       );
     }
     if (this.state.status === "login") {
       return (
-        <div className="card center">
+        <div className="card center landingPageContainer">
           <Login />
-          <button onClick={this.sigunpOnclick}>
-            Already have an account? Log in Here!
-          </button>
+          <div>
+            <button onClick={this.sigunpOnclick}>
+              New to the site? Sign up here!
+            </button>
+          </div>
         </div>
       );
     }

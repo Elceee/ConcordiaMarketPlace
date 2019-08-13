@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
-  background-color: #fffaf7;
+  background-image: linear-gradient(to right, #f2b880, #e7cfbc);
 }
 
 .overlay {
