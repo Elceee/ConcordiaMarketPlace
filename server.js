@@ -185,9 +185,9 @@ app.post("/removeFromCart", upload.none(), async (req, res) => {
     );
 });
 
-app.post("/sell-item", upload.single("image"), (req, res) => {
-  let seller = findUsernameByCookie(req.cookies.sid);
-  let name = req.body.itemName;
+app.post("/sell-item", upload.single("image"), async (req, res) => {
+  let seller = await findUsernameByCookie(req.cookies.sid);
+  let name = req.body.name;
   let file = req.file;
   let imagePath;
   if (file === undefined) {
