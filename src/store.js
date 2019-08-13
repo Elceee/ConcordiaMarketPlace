@@ -25,9 +25,10 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "update-quantity") {
+    let newQuantity = action.quantity;
     let cart = { ...state.cart };
-    console.log(action.quantity);
-    cart[action.id] = action.quantity;
+    console.log(newQuantity);
+    cart[action.id] = newQuantity;
     return { ...state, cart: cart };
   }
 
