@@ -7,7 +7,7 @@ button {
   border-radius: 0 3px 0px 3px;
 }
 button:hover {
-  box-shadow: 0 0px 2px 1px #f2b880;
+  box-shadow: 0 1px 0px 3px #f2b880;
   letter-spacing: 0.5px;
 }
 
