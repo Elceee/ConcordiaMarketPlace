@@ -22,13 +22,10 @@
   flex-direction: column;
   align-self: flex-start;
   align-items: center;
-  justify-content: center;
   margin: auto;
   margin-top: 10px;
   width: 60%;
   padding: 20px;
   border-radius: 2px;
-  min-height: 40%;
-  max-height: 40%;
-  min-width: 1=0px;
+  min-width: 250px;
 }
