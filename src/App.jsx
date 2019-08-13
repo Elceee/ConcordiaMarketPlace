@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import LandingPage from "./LandingPage.jsx";
 import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
+import SearchResults from "./SearchResults.jsx";
 import Cart from "./Cart.jsx";
 import NavBar from "./NavBar.jsx";
 import CategoryRender from "./CategoryRender.jsx";
@@ -13,10 +14,18 @@ import "./FormButton.css";
 
 class UnconnectedApp extends Component {
   renderAllItems = () => {
+    if (this.props.query === "") {
+      return (
+        <div>
+          <NavBar />
+          <ViewAllItems />
+        </div>
+      );
+    }
     return (
       <div>
         <NavBar />
-        <ViewAllItems />
+        <SearchResults />
       </div>
     );
   };
@@ -76,7 +85,7 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
-  return { username: state.username, items: state.items };
+  return { username: state.username, items: state.items, query: state.query };
 };
 
 let App = connect(mapStateToProps)(UnconnectedApp);

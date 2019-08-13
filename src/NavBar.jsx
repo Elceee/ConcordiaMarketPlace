@@ -1,14 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Search from "./Search.jsx";
 import Categories from "./Categories.jsx";
 import "./NavBar.css";
 
-export default class NavBar extends Component {
+class UnconnectedNavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+  resetQuery = () => {
+    this.props.dispatch({ type: "searchTerms", query: "" });
+  };
 
   render = () => {
     return (
@@ -16,7 +20,7 @@ export default class NavBar extends Component {
         <div>
           <Search />
         </div>
-        <div>
+        <div onClick={this.resetQuery}>
           <Link to={"/"}>Home</Link>
         </div>
         <div>
@@ -29,3 +33,7 @@ export default class NavBar extends Component {
     );
   };
 }
+
+let NavBar = connect()(UnconnectedNavBar);
+
+export default NavBar;
