@@ -26,7 +26,7 @@ class UnconnectedItem extends Component {
     return (
       ///added card center to items
       <div className="card center ">
-        <img src={this.props.contents.imagePath} min-height="150 px" />
+        <img src={this.props.contents.imagePath} height="150 px" />
         <h3>{this.props.contents.name}</h3>
         <div>{this.props.contents.description}</div>
         <div>{this.props.contents.seller}</div>
