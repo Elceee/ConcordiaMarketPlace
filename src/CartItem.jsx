@@ -6,7 +6,7 @@ class UnconnectedCartItem extends Component {
   constructor(props) {
     super(props);
     this.itemId = this.props.contents._id;
-    this.amountInCart = this.props.cart[itemId];
+    this.amountInCart = this.props.cart[this.itemId];
   }
 
   minus = () => {
