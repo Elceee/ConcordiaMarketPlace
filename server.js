@@ -118,15 +118,10 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
 });
 
 app.post("/add-to-cart", upload.none(), async (req, res) => {
-  console.log("request to /add-to-cart endpoint");
   let itemId = req.body.itemId;
-  console.log("item: ", JSON.stringify(itemId));
   let buyer = await findUsernameByCookie(req.cookies.sid);
-  console.log("buyer: ", buyer);
   let buyerCart = await findUserCartByName(buyer);
-  console.log("buyerCart", buyerCart);
   let cartItem = `cart.${itemId}`;
-  console.log("cartItem", cartItem);
   if (buyerCart === null || !buyerCart[itemId]) {
     dbo
       .collection("users")
@@ -202,7 +197,6 @@ let findUsernameByCookie = async cookie => {
   let userObject = await dbo
     .collection("sessions")
     .findOne({ sessionId: cookie }, { user: 1 });
-  console.log("userObject", userObject);
   return userObject.username;
 };
 
