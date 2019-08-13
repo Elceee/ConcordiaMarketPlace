@@ -2,7 +2,7 @@ let express = require("express");
 let app = express();
 let reloadMagic = require("./reload-magic.js");
 let MongoClient = require("mongodb").MongoClient;
-let ObjectID = require("mongoDB").ObjectID;
+let ObjectID = require("mongodb").ObjectID;
 let cookieParser = require("cookie-parser");
 app.use(cookieParser());
 let multer = require("multer");
@@ -193,6 +193,7 @@ let generateID = () => {
   return "" + Math.floor(Math.random() * 1000000000);
 };
 
+//Returns the username by searching sessions collection with the cookie
 let findUsernameByCookie = async cookie => {
   let userObject = await dbo
     .collection("sessions")
@@ -200,6 +201,7 @@ let findUsernameByCookie = async cookie => {
   return userObject.username;
 };
 
+//Returns the cart object from the user object
 let findUserCartByName = async username => {
   let userCart = await dbo
     .collection("users")
