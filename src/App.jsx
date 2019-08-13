@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Signup from "./Signup.jsx";
-import Login from "./Login.jsx";
+import LandingPage from "./LandingPage.jsx";
 import ViewAllItems from "./ViewAllItems.jsx";
 import ItemDetails from "./ItemDetails.jsx";
+import SearchResults from "./SearchResults.jsx";
 import Cart from "./Cart.jsx";
 import NavBar from "./NavBar.jsx";
 import SellItem from "./SellItem.jsx";
@@ -15,10 +15,18 @@ import "./FormButton.css";
 
 class UnconnectedApp extends Component {
   renderAllItems = () => {
+    if (this.props.query === "") {
+      return (
+        <div>
+          <NavBar />
+          <ViewAllItems />
+        </div>
+      );
+    }
     return (
       <div>
         <NavBar />
-        <ViewAllItems />
+        <SearchResults />
       </div>
     );
   };
@@ -64,12 +72,7 @@ class UnconnectedApp extends Component {
 
   render = () => {
     if (this.props.username === undefined) {
-      return (
-        <div className="card center">
-          <Login />
-          <Signup />
-        </div>
-      );
+      return <LandingPage />;
     }
     return (
       <div>
@@ -94,7 +97,7 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
-  return { username: state.username, items: state.items };
+  return { username: state.username, items: state.items, query: state.query };
 };
 
 let App = connect(mapStateToProps)(UnconnectedApp);

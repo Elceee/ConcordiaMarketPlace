@@ -7,37 +7,80 @@ class UnconnectedCartItem extends Component {
     super(props);
   }
 
-  minus = () => {
+  subtractQuanityFromCart = () => {
     let amountInCart = this.props.cart[this.props.contents._id];
-    let itemId = this.props.contents._id;
-    this.props.dispatch({
-      type: "update-quantity",
-      id: itemId,
-      quantity: amountInCart - 1
-    });
+    if (amountInCart === 1) {
+      return;
+    }
+    let newQuanity = amountInCart - 1;
+    this.sendQuantityToBackend(newQuanity);
   };
 
-  plus = () => {
-    let amountInCart = this.props.cart[this.props.contents._id];
-    let itemId = this.props.contents._id;
-    this.props.dispatch({
-      type: "update-quantity",
-      id: itemId,
-      quantity: amountInCart + 1
-    });
+  addQuanityToCart = () => {
+    let amountInCart = parseInt(this.props.cart[this.props.contents._id]);
+
+    let newQuanity = amountInCart + 1;
+    this.sendQuantityToBackend(newQuanity);
   };
 
   changeQuantityHandler = event => {
+    let newQuanity = 1;
+    if (isNaN(event.target.value)) {
+      console.log("not a number");
+      this.sendQuantityToBackend(newQuanity);
+      return;
+    }
+    if (event.target.value < 0) {
+      return;
+    }
+
+    let inputNumberString = event.target.value;
+    if (event.target.value === "0") {
+      inputNumberString = 1;
+    }
+    newQuanity = parseInt(inputNumberString);
+
+    this.sendQuantityToBackend(newQuanity);
+  };
+
+  sendQuantityToBackend = quantity => {
     let itemId = this.props.contents._id;
+    let data = new FormData();
+    data.append("itemId", itemId);
+    data.append("quantity", quantity);
+    fetch("/add-to-cart", { method: "POST", body: data });
     this.props.dispatch({
       type: "update-quantity",
       id: itemId,
-      quantity: event.target.value
+      quantity: quantity
     });
   };
 
+  checkForNull = event => {
+    let newQuanity = event.target.value;
+    if (newQuanity === "") {
+      newQuanity = 1;
+    }
+    this.sendQuantityToBackend(newQuanity);
+  };
+
+  removeFromCart = () => {
+    let itemId = this.props.contents._id;
+    let data = new FormData();
+    data.append("itemId", itemId);
+    fetch("/removeFromCart", { method: "post", body: data });
+    this.props.dispatch({ type: "removeFromCart", id: itemId });
+  };
+
   render() {
-    let amountInCart = this.props.cart[this.props.contents._id];
+    let amountInCart = parseInt(
+      this.props.cart[this.props.contents._id]
+    ).toString();
+
+    if (isNaN(amountInCart)) {
+      amountInCart = "";
+    }
+
     return (
       <div>
         <Item contents={this.props.contents} inCart="true" />
@@ -47,9 +90,15 @@ class UnconnectedCartItem extends Component {
             size="25"
             value={amountInCart}
             onChange={this.changeQuantityHandler}
+            onBlur={this.checkForNull}
           />
-          <input type="button" value="-" onClick={this.minus} />
-          <input type="button" value="+" onClick={this.plus} />
+          <input
+            type="button"
+            value="-"
+            onClick={this.subtractQuanityFromCart}
+          />
+          <input type="button" value="+" onClick={this.addQuanityToCart} />
+          <button onClick={this.removeFromCart}>Remove From Cart</button>
         </div>
       </div>
     );

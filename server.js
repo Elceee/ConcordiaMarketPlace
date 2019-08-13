@@ -119,14 +119,22 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
 
 app.post("/add-to-cart", upload.none(), async (req, res) => {
   let itemId = req.body.itemId;
-  let buyer = await findUsernameByCookie(req.cookies.sid);
-  let buyerCart = await findUserCartByName(buyer);
+  let newQuantity = req.body.quantity;
+  if (isNaN(newQuantity)) {
+    newQuantity = 1;
+  }
+
+  let username = await findUsernameByCookie(req.cookies.sid);
+  let userObject = await fineUserObjectByName(username);
+  let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
-  if (buyerCart === null || !buyerCart[itemId]) {
+  if (cart === null || !cart[itemId]) {
+    // change to cartItem ?
+
     dbo
       .collection("users")
       .updateOne(
-        { username: buyer },
+        { username: username },
         { $set: { [cartItem]: { quantity: 1 } } },
         (err, update) => {
           if (err) {
@@ -138,12 +146,11 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
         }
       );
   } else {
-    let quant = `cart.${itemId}.quanity`;
     dbo
       .collection("users")
       .updateOne(
-        { username: buyer },
-        { $inc: { [quant]: 1 } },
+        { username: username },
+        { $set: { [cartItem]: { quantity: newQuantity } } },
         (err, update) => {
           if (err) {
             console.log("ERROR: ", err);
@@ -156,9 +163,31 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
   }
 });
 
-app.post("/sell-item", upload.single("image"), async (req, res) => {
-  let seller = await findUsernameByCookie(req.cookies.sid);
-  let name = req.body.name;
+app.post("/removeFromCart", upload.none(), async (req, res) => {
+  let username = await findUsernameByCookie(req.cookies.sid);
+  let itemId = req.body.itemId;
+  let userObject = await findUserObjectByName(username);
+  let cart = userObject.cart;
+  let cartItem = `cart.${itemId}`;
+  dbo
+    .collection("users")
+    .updateOne(
+      { username: username },
+      { $unset: { [cartItem]: "" } },
+      (err, update) => {
+        if (err) {
+          console.log("ERROR: ", err);
+          res.send(JSON.stringify({ success: false }));
+          return;
+        }
+        res.send(JSON.stringify({ success: true }));
+      }
+    );
+});
+
+app.post("/sell-item", upload.single("image"), (req, res) => {
+  let seller = findUsernameBycookie(req.cookies.sid);
+  let name = req.body.itemName;
   let file = req.file;
   let imagePath;
   if (file === undefined) {
@@ -207,7 +236,7 @@ let findUsernameByCookie = async cookie => {
 };
 
 //Returns the cart object from the user object
-let findUserCartByName = async username => {
+let findUserObjectByName = async username => {
   let userCart = await dbo
     .collection("users")
     .findOne({ username: username }, { cart: 1 });

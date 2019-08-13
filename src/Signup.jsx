@@ -37,16 +37,18 @@ class UnconnectedSignup extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Signup</h3>
+      <div className="loginForm">
+        <div>
+          <h3>Signup</h3>
+        </div>
         <form onSubmit={this.submitHandler}>
-          <div>Username</div>
+          <p>Username</p>
           <input
             type="text"
             onChange={this.usernameChangeHandler}
             value={this.state.username}
           />
-          <div>Password</div>
+          <p>Password</p>
           <input
             type="text"
             onChange={this.passwordChangeHandler}

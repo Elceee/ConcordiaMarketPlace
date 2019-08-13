@@ -1,0 +1,19 @@
+.landingPageContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.landingPageContainer button {
+  height: 50px;
+  width: 200px;
+  font-size: 12pt;
+  margin-top: 10px;
+}
+
+.landingPageContainer button:hover {
+  box-shadow: 0 1px 0px 3px #f2b880;
+  letter-spacing: 0.2px;
+}

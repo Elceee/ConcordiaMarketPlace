@@ -18,11 +18,7 @@ class UnconnectedCart extends Component {
     let items = Object.keys(this.props.cart).map(itemId => {
       {
         let item = this.findItemById(itemId);
-        return (
-          <div>
-            <CartItem contents={item} />
-          </div>
-        );
+        return <CartItem key={itemId} contents={item} />;
       }
     });
     return (
