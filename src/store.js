@@ -27,8 +27,17 @@ let reducer = (state, action) => {
   if (action.type === "update-quantity") {
     let newQuantity = action.quantity;
     let cart = { ...state.cart };
-    console.log(newQuantity);
     cart[action.id] = newQuantity;
+    return { ...state, cart: cart };
+  }
+
+  if (action.type === "removeFromCart") {
+    console.log("removing from item from cart in store");
+    let cart = { ...state.cart };
+
+    let itemId = action.id;
+    delete cart[itemId];
+
     return { ...state, cart: cart };
   }
 
