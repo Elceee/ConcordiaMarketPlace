@@ -26,7 +26,6 @@ class UnconnectedCartItem extends Component {
   changeQuantityHandler = event => {
     let newQuanity = 1;
     if (isNaN(event.target.value)) {
-      console.log("not a number");
       this.sendQuantityToBackend(newQuanity);
       return;
     }
