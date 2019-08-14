@@ -32,7 +32,7 @@ export default class CategoryRender extends Component {
 
   renderItemsAsDivs = () => {
     return (
-      <div>
+      <div className="wrapper">
         {this.state.items.map(item => {
           return <Item contents={item} />;
         })}
@@ -41,6 +41,10 @@ export default class CategoryRender extends Component {
   };
 
   render = () => {
-    return <div>{this.renderItemsAsDivs()}</div>;
+    return (
+      <div>
+        <div>{this.renderItemsAsDivs()}</div>
+      </div>
+    );
   };
 }
