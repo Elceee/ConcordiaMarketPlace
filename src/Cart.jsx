@@ -5,7 +5,6 @@ import Item from "./Item.jsx";
 class UnconnectedCart extends Component {
   constructor(props) {
     super();
-    this.state = { total: 0 };
   }
 
   findItemById = itemId => {
