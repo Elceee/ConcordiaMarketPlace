@@ -45,3 +45,20 @@
   margin-top: 10px;
   font-size: 14px;
 }
+
+.logOut {
+  color: white;
+  text-decoration: none;
+  float: right;
+  text-align: center;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.logOut:hover {
+  background-color: #fffaf7;
+  color: #6b8d9e;
+  font-size: 102%;
+}

@@ -37,7 +37,12 @@ class UnconnectedItem extends Component {
         <div>{this.props.contents.seller}</div>
         <div>Price: ${this.props.contents.price}</div>
         <div>{this.props.contents.stock} in stock</div>
-        <Link to={"/itemdetails/" + this.props.contents._id}>Item Details</Link>
+        <Link
+          className="detailsLink"
+          to={"/itemdetails/" + this.props.contents._id}
+        >
+          Item Details
+        </Link>
         <div>
           <button
             onClick={this.addToCart}

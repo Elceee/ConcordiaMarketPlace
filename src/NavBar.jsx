@@ -40,8 +40,8 @@ class UnconnectedNavBar extends Component {
         <div>
           <Link to="/purchaseHistory">Purchase History</Link>
         </div>
-        <div>
-          <button onClick={this.logOut}>Log out </button>
+        <div className="logOut" onClick={this.logOut}>
+          Logout
         </div>
       </div>
     );
