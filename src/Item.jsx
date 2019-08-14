@@ -37,10 +37,17 @@ class UnconnectedItem extends Component {
       <div className="card center ">
         <img src={this.props.contents.imagePath} height="150 px" />
         <h3>{this.props.contents.name}</h3>
-        <div style={{ textAlign: "center" }}>
+<<<<<<< HEAD
+        <div>
           {this.props.contents.description}
         </div>
         <div>{this.props.contents.seller}</div>
+=======
+        <div  style={{ textAlign: "center" }}>{this.props.contents.description}</div>
+        <Link to={"/sellerpage/" + this.props.contents.seller}>
+          <div>{this.props.contents.seller}</div>
+        </Link>
+>>>>>>> 1b0065559bfddbdfbe60f2dccd3316e48aedcf5c
         <div>Price: ${this.props.contents.price}</div>
         <div>{this.props.contents.stock} in stock</div>
         <Link

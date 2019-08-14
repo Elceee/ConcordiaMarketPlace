@@ -320,7 +320,6 @@ app.post("/purchaseHistory", upload.none(), async (req, res) => {
 app.post("/customize-seller-page", upload.single(), async (req, res) => {
   console.log("customize-seller-page endpoint");
   let username = req.body.username;
-  let sellerPageCustomization = req.body.sellerPageCustomization;
   let file = req.file;
   let imagePath;
   if (file === undefined) {
@@ -328,7 +327,10 @@ app.post("/customize-seller-page", upload.single(), async (req, res) => {
   } else {
     imagePath = "/uploads/" + file.filename;
   }
+  let sellerPageCustomization = {};
+  sellerPageCustomization[sellerDescription] = req.body.sellerDescription;
   sellerPageCustomization[profilePicture] = imagePath;
+  sellerPageCustomization[backgroundColor] = req.body.backgroundColor;
   dbo
     .collection("users")
     .updateOne(
@@ -345,12 +347,25 @@ app.post("/customize-seller-page", upload.single(), async (req, res) => {
     );
 });
 
-app.get("/seller-profile", async (req, res) => {
-  let seller = req.body.seller;
-  let custom = await dbo
+app.post("/seller-profile", upload.none(), (req, res) => {
+  console.log("request to seller-profile endpoint");
+  console.log("req.body", req.body);
+  let seller = undefined;
+  seller = req.body.seller;
+  dbo
     .collection("users")
-    .findOne({ username: seller }, { sellerPageCustomization: 1 });
-  res.send(JSON.stringify(custom));
+    .findOne(
+      { username: seller },
+      { sellerPageCustomization: 1 },
+      (err, custom) => {
+        if (err) {
+          console.log("ERROR", err);
+          res.send(JSON.stringify({ success: false }));
+          return;
+        }
+        res.send(JSON.stringify({ success: true, custom: custom }));
+      }
+    );
 });
 
 // Your endpoints go before this line
