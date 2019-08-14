@@ -25,9 +25,9 @@ class UnconnectedSellerProfile extends Component {
     let body = JSON.parse(responseBody);
     if (body.success) {
       this.setState({
-        sellerDescription: body.sellerDescription,
-        profilePicture: body.profilePicture,
-        backgroundColor: body.backgroundColor
+        sellerDescription: body.custom.sellerDescription,
+        profilePicture: body.custom.profilePicture,
+        backgroundColor: body.custom.backgroundColor
       });
     }
   };
@@ -51,8 +51,13 @@ class UnconnectedSellerProfile extends Component {
   };
 
   render = () => {
+    if (this.state.backgroundColor === "") {
+      let background = "#fffaf7";
+    } else {
+      let background = this.state.backgroundColor;
+    }
     return (
-      <div>
+      <div style={{ backgroundColor: background }}>
         <h1>{this.state.seller}'s Seller Page</h1>
         <div>
           <img src={this.state.profilePicture} />

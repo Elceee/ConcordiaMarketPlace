@@ -9,6 +9,8 @@ import NavBar from "./NavBar.jsx";
 import SellItem from "./SellItem.jsx";
 import CategoryRender from "./CategoryRender.jsx";
 import PurchaseHistory from "./PurchaseHistory.jsx";
+import SellerProfile from "./SellerProfile.jsx";
+import CustomizeSellerPage from "./CustomizeSellerPage.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import "./Card.css";
 import "./DynamicButton.css";
@@ -71,6 +73,26 @@ class UnconnectedApp extends Component {
     );
   };
 
+  renderCustomizeSellerPage = rd => {
+    let username = rd.match.params.sellerId;
+    return (
+      <div>
+        <NavBar />
+        <CustomizeSellerPage username={username} />
+      </div>
+    );
+  };
+
+  renderSellerProfile = rd => {
+    let seller = rd.match.params.sellerId;
+    return (
+      <div>
+        <NavBar />
+        <SellerProfile seller={seller} />
+      </div>
+    );
+  };
+
   renderPurchaseHistory = () => {
     return (
       <div>
@@ -104,6 +126,16 @@ class UnconnectedApp extends Component {
             exact
             path="/purchaseHistory"
             render={this.renderPurchaseHistory}
+          />
+          <Route
+            exact
+            path="/sellerpage/:sellerId"
+            render={this.renderSellerProfile}
+          />
+          <Route
+            exact
+            path="/customizesellerpage/:sellerId"
+            render={this.renderCustomizeSellerPage}
           />
         </BrowserRouter>
       </div>
