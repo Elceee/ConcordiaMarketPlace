@@ -110,15 +110,16 @@ class UnconnectedItemDetails extends Component {
           <div className="card center">
             <h3>{this.state.item.name}</h3>
             <img src={this.state.item.imagePath} />
-            <h4>Sold by: {this.state.item.seller}</h4>
+            <h4>
+              Sold by:{" "}
+              <Link to={"/sellerpage/" + this.state.item.seller}>
+                {this.state.item.seller}
+              </Link>
+            </h4>
             <div className="price">${this.state.item.price}</div>
             <div>
               <button onClick={this.addToCart}>Add to Cart</button>
             </div>
-          </div>
-          <div className="card center">
-            <h2> People who listen to this ablum also enjoyed!</h2>
-            {this.renderRecommendedAlbums()}
           </div>
         </div>
         <div className="reviewsContainer">
@@ -128,6 +129,12 @@ class UnconnectedItemDetails extends Component {
           </div>
           <div>
             <Reviews item={this.state.item} />
+          </div>
+        </div>
+        <div>
+          <div className="card center">
+            <h2> People who listen to this ablum also enjoyed!</h2>
+            {this.renderRecommendedAlbums()}
           </div>
         </div>
       </div>
