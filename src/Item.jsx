@@ -25,11 +25,11 @@ class UnconnectedItem extends Component {
   };
 
   render = () => {
-    let addToCartVisible = "visible";
-    let cartAdderVisible = "hidden";
+    let addToCartVisible = "";
+    let cartAdderVisible = "none";
     if (this.props.inCart === "true") {
-      addToCartVisible = "hidden";
-      cartAdderVisible = "visible";
+      addToCartVisible = "none";
+      cartAdderVisible = "";
     }
 
     return (
@@ -58,12 +58,12 @@ class UnconnectedItem extends Component {
           >
             <button
               onClick={this.addToCart}
-              style={{ visibility: addToCartVisible }}
+              style={{ display: addToCartVisible }}
             >
               Add to Cart
             </button>
           </div>
-          <div style={{ visibility: cartAdderVisible }}>
+          <div style={{ display: cartAdderVisible }}>
             <CartAdder contents={this.props.contents} />
           </div>
         </div>
