@@ -18,9 +18,11 @@ class UnconnectedCartItem extends Component {
 
   addQuanityToCart = () => {
     let amountInCart = parseInt(this.props.cart[this.props.contents._id]);
-
-    let newQuanity = amountInCart + 1;
-    this.sendQuantityToBackend(newQuanity);
+    let amountInStock = parseInt(this.props.contents.stock);
+    if (amountInCart + 1 <= amountInStock) {
+      let newQuanity = amountInCart + 1;
+      this.sendQuantityToBackend(newQuanity);
+    }
   };
 
   changeQuantityHandler = event => {
@@ -36,6 +38,11 @@ class UnconnectedCartItem extends Component {
     let inputNumberString = event.target.value;
     if (event.target.value === "0") {
       inputNumberString = 1;
+    }
+    let amountInStock = this.props.contents.stock;
+    console.log("amountInStock", amountInStock);
+    if (event.target.value > amountInStock) {
+      inputNumberString = amountInStock;
     }
     newQuanity = parseInt(inputNumberString);
 
@@ -105,7 +112,7 @@ class UnconnectedCartItem extends Component {
 }
 
 let mapStateToProps = state => {
-  return { cart: state.cart };
+  return { cart: state.cart, items: state.items };
 };
 
 let CartItem = connect(mapStateToProps)(UnconnectedCartItem);

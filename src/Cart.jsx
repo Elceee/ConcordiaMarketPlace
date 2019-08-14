@@ -34,7 +34,7 @@ class UnconnectedCart extends Component {
     if (emptyCart) {
       return (
         <div>
-          <h4>Your cart is empty :(</h4>
+          <h4>Your cart is empty :/</h4>
         </div>
       );
     }

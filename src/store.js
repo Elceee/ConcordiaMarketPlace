@@ -43,6 +43,10 @@ let reducer = (state, action) => {
   if (action.type === "purchaseCart") {
     return { ...state, cart: {} };
   }
+
+  if (action.type === "logOut") {
+    return initialState;
+  }
   return state;
 };
 

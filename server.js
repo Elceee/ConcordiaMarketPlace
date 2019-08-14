@@ -48,8 +48,14 @@ app.post("/signup", upload.none(), (req, res) => {
         dbo.collection("users").insertOne({
           username: usernameEntered,
           password: pwd,
-          purchaseHistory: []
+          purchaseHistory: [],
+          cart: {}
         });
+        let sessionId = generateID();
+        dbo
+          .collection("sessions")
+          .insertOne({ username: usernameEntered, sessionId: sessionId });
+        res.cookie("sid", sessionId);
         res.send(JSON.stringify({ success: true }));
         return;
       }
@@ -99,7 +105,7 @@ app.get("/all-items", (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("items: ", items);
+
       res.send(JSON.stringify(items));
     });
 });
@@ -114,7 +120,7 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
       res.send(JSON.stringify({ success: false }));
       return;
     }
-    console.log("item: ", item);
+
     res.send(JSON.stringify({ success: true, item: item }));
   });
 });
@@ -125,14 +131,12 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
   if (isNaN(newQuantity)) {
     newQuantity = 1;
   }
-
   let username = await findUsernameByCookie(req.cookies.sid);
   let userObject = await findUserObjectByName(username);
+  console.log(userObject);
   let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
-  if (cart === null || !cart[itemId]) {
-    // change to cartItem ?
-
+  if (!cart[itemId]) {
     dbo
       .collection("users")
       .updateOne(
@@ -216,7 +220,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("item: ", item);
+
       res.send(JSON.stringify({ success: true }));
     }
   );
@@ -225,6 +229,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
 app.post("/purchaseCart", upload.none(), async (req, res) => {
   let username = await findUsernameByCookie(req.cookies.sid);
   let cart = JSON.parse(req.body.cart);
+
   dbo
     .collection("users")
     .updateOne(
@@ -243,7 +248,7 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
     .collection("users")
     .updateOne(
       { username: username },
-      { $unset: { cart: "" } },
+      { $set: { cart: {} } },
       (err, update) => {
         if (err) {
           console.log("ERROR: ", err);
@@ -253,6 +258,20 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
         res.send(JSON.stringify({ success: true }));
       }
     );
+});
+
+app.post("/purchaseHistory", upload.none(), async (req, res) => {
+  console.log("purchase history end point");
+  let username = await findUsernameByCookie(req.cookies.sid);
+  console.log("HISTORY FOR USER,", username);
+  console.log("SESSSION ID", req.cookies.sid);
+  let userObject = await dbo
+    .collection("users")
+    .findOne({ username: username });
+
+  let purchaseHistory = userObject.purchaseHistory;
+  console.log("sending ", purchaseHistory);
+  res.send(JSON.stringify(purchaseHistory));
 });
 
 // Your endpoints go before this line

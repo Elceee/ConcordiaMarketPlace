@@ -8,6 +8,7 @@ import Cart from "./Cart.jsx";
 import NavBar from "./NavBar.jsx";
 import SellItem from "./SellItem.jsx";
 import CategoryRender from "./CategoryRender.jsx";
+import PurchaseHistory from "./PurchaseHistory.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import "./Card.css";
 import "./DynamicButton.css";
@@ -70,6 +71,15 @@ class UnconnectedApp extends Component {
     );
   };
 
+  renderPurchaseHistory = () => {
+    return (
+      <div>
+        <NavBar />
+        <PurchaseHistory />
+      </div>
+    );
+  };
+
   render = () => {
     if (this.props.username === undefined) {
       return <LandingPage />;
@@ -90,6 +100,11 @@ class UnconnectedApp extends Component {
             render={this.renderCategory}
           />
           <Route exact path="/sellitem" render={this.renderSellItem} />
+          <Route
+            exact
+            path="/purchaseHistory"
+            render={this.renderPurchaseHistory}
+          />
         </BrowserRouter>
       </div>
     );

@@ -1,0 +1,45 @@
+.sellItem {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type="checkbox"] {
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: solid 1px #6b8d9e;
+}
+
+input[type="checkmark"] {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: solid 1px #6b8d9e;
+}
+
+.sellItem input[type="text"] {
+  background-color: white;
+  border: solid 1px #6b8d9e;
+  color: #6b8d9e;
+  margin-top: 6px;
+  padding: 5px 5px;
+  font-size: 14px;
+}
+.sellItem input[type="text"]:focus {
+  outline: none;
+}
+
+.sellItem input[type="number"] {
+  background-color: white;
+  border: solid 1px #6b8d9e;
+  color: #6b8d9e;
+  margin-top: 6px;
+  padding: 5px 5px;
+  font-size: 14px;
+}
+.sellItem input[type="number"]:focus {
+  outline: none;
+}
