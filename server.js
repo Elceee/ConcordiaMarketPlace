@@ -248,7 +248,7 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
     .collection("users")
     .updateOne(
       { username: username },
-      { $unset: { cart: "" } },
+      { $set: { cart: {} } },
       (err, update) => {
         if (err) {
           console.log("ERROR: ", err);
