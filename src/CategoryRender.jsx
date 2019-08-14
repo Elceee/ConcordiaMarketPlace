@@ -34,7 +34,7 @@ export default class CategoryRender extends Component {
     return (
       <div className="wrapper">
         {this.state.items.map(item => {
-          return <Item contents={item} />;
+          return <Item key={item} contents={item} />;
         })}
       </div>
     );

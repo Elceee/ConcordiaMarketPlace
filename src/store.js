@@ -1,6 +1,12 @@
 import { createStore } from "redux";
 
-let initialState = { username: undefined, items: [], cart: {}, query: "" };
+let initialState = {
+  username: undefined,
+  items: [],
+  cart: {},
+  query: "",
+  cartTotal: 0
+};
 
 let reducer = (state, action) => {
   if (action.type === "login-success") {
@@ -28,7 +34,7 @@ let reducer = (state, action) => {
     let newQuantity = action.quantity;
     let cart = { ...state.cart };
     cart[action.id] = newQuantity;
-    return { ...state, cart: cart };
+    return { ...state, cart: cart, cartTotal: state.cartTotal + action.price };
   }
 
   if (action.type === "removeFromCart") {
@@ -41,12 +47,13 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "purchaseCart") {
-    return { ...state, cart: {} };
+    return { ...state, cart: {}, cartTotal: 0 };
   }
 
   if (action.type === "logOut") {
     return initialState;
   }
+
   return state;
 };
 

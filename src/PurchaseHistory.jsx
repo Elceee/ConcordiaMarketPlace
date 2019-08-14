@@ -53,6 +53,7 @@ class UnconnectedPurchaseHistory extends Component {
       );
     }
     let counter = 1;
+    let key = 1;
     return (
       <div>
         {this.state.orders.map(order => {
@@ -61,7 +62,7 @@ class UnconnectedPurchaseHistory extends Component {
               <h4>Order #{counter++}</h4>
               {order.map(object => {
                 return (
-                  <div>
+                  <div key={key++}>
                     <Item key={object.item._id} contents={object.item} />
                     <div>Bought: {object.count}</div>
                   </div>
