@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import Categories from "./Categories.jsx";
 import "./NavBar.css";
@@ -48,6 +48,6 @@ class UnconnectedNavBar extends Component {
   };
 }
 
-let NavBar = connect()(UnconnectedNavBar);
+let NavBar = connect()(withRouter(UnconnectedNavBar));
 
 export default NavBar;
