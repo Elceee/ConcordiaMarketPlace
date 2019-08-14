@@ -17,7 +17,9 @@ class UnconnectedCustomizeSellerPage extends Component {
   };
 
   colorChangeHandler = event => {
-    this.setState({ backgroundColor: event.target.value });
+    this.setState({ backgroundColor: event.target.value }, () =>
+      console.log(this.state)
+    );
   };
 
   picChangeHandler = event => {
@@ -38,7 +40,7 @@ class UnconnectedCustomizeSellerPage extends Component {
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
-      this.props.history.push("/seller-profile" + this.props.username);
+      this.props.history.push("/seller-profile/" + this.props.username);
     }
   };
 

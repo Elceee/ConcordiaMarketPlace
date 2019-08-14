@@ -37,7 +37,9 @@ class UnconnectedItem extends Component {
       <div className="card center ">
         <img src={this.props.contents.imagePath} height="150 px" />
         <h3>{this.props.contents.name}</h3>
-        <div>{this.props.contents.description}</div>
+        <div style={{ textAlign: "center" }}>
+          {this.props.contents.description}
+        </div>
         <Link to={"/sellerpage/" + this.props.contents.seller}>
           <div>{this.props.contents.seller}</div>
         </Link>
@@ -52,10 +54,10 @@ class UnconnectedItem extends Component {
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10px"
+              marginTop: "10px",
+              position: "absolute",
+              bottom: "30px",
+              left: "107px"
             }}
           >
             <button

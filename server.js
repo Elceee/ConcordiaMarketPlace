@@ -317,35 +317,39 @@ app.post("/purchaseHistory", upload.none(), async (req, res) => {
   res.send(JSON.stringify(purchaseHistory));
 });
 
-app.post("/customize-seller-page", upload.single(), async (req, res) => {
-  console.log("customize-seller-page endpoint");
-  let username = req.body.username;
-  let file = req.file;
-  let imagePath;
-  if (file === undefined) {
-    imagePath = "/uploads/no-image.png";
-  } else {
-    imagePath = "/uploads/" + file.filename;
-  }
-  let sellerPageCustomization = {};
-  sellerPageCustomization[sellerDescription] = req.body.sellerDescription;
-  sellerPageCustomization[profilePicture] = imagePath;
-  sellerPageCustomization[backgroundColor] = req.body.backgroundColor;
-  dbo
-    .collection("users")
-    .updateOne(
-      { username: username },
-      { $set: { sellerPageCustomization: sellerPageCustomization } },
-      (err, update) => {
-        if (err) {
-          console.log("Error", err);
-          res.send({ success: false });
-        } else {
-          res.send({ success: true });
+app.post(
+  "/customize-seller-page",
+  upload.single("profilePicture"),
+  async (req, res) => {
+    console.log("customize-seller-page endpoint");
+    let username = req.body.username;
+    let file = req.file;
+    let imagePath;
+    if (file === undefined) {
+      imagePath = "/uploads/no-image.png";
+    } else {
+      imagePath = "/uploads/" + file.filename;
+    }
+    let sellerPageCustomization = {};
+    sellerPageCustomization["sellerDescription"] = req.body.sellerDescription;
+    sellerPageCustomization["profilePicture"] = imagePath;
+    sellerPageCustomization["backgroundColor"] = req.body.backgroundColor;
+    dbo
+      .collection("users")
+      .updateOne(
+        { username: username },
+        { $set: { sellerPageCustomization: sellerPageCustomization } },
+        (err, update) => {
+          if (err) {
+            console.log("Error", err);
+            res.send({ success: false });
+          } else {
+            res.send({ success: true });
+          }
         }
-      }
-    );
-});
+      );
+  }
+);
 
 app.post("/seller-profile", upload.none(), (req, res) => {
   console.log("request to seller-profile endpoint");

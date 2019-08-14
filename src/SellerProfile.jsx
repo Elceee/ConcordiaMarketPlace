@@ -29,9 +29,10 @@ class UnconnectedSellerProfile extends Component {
     if (body.success) {
       this.setState(
         {
-          sellerDescription: body.custom.sellerDescription,
-          profilePicture: body.custom.profilePicture,
-          backgroundColor: body.custom.backgroundColor
+          sellerDescription:
+            body.custom.sellerPageCustomization.sellerDescription,
+          profilePicture: body.custom.sellerPageCustomization.profilePicture,
+          backgroundColor: body.custom.sellerPageCustomization.backgroundColor
         },
         () => console.log(this.state)
       );
