@@ -27,7 +27,7 @@ class UnconnectedViewAllItems extends Component {
         {this.props.items.map(item => {
           return (
             <div>
-              <Item contents={item} />
+              <Item contents={item} inCart="false" />
             </div>
           );
         })}
