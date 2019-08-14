@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "./Card.css";
+import "./sellItem.css";
 
 class UnconnectedSellItem extends Component {
   constructor(props) {
@@ -9,8 +10,8 @@ class UnconnectedSellItem extends Component {
     this.state = {
       itemName: "",
       description: "",
-      price: 0,
-      stock: 0,
+      price: "",
+      stock: "",
       genres: [],
       imageFile: ""
     };
@@ -73,82 +74,101 @@ class UnconnectedSellItem extends Component {
   render = () => {
     return (
       <div className="card center">
+        <h1>Enter Item Information</h1>
         <form onSubmit={this.sellItemSubmitHandler}>
-          <input
-            type="text"
-            onChange={this.itemNameHandler}
-            value={this.state.itemName}
-            placeholder="item name"
-          />
-          <input
-            type="text"
-            onChange={this.descriptionHandler}
-            value={this.state.description}
-            placeholder="description"
-          />
-          <input
-            type="number"
-            onChange={this.priceHandler}
-            value={this.state.price}
-            placeholder="price"
-          />
-          <input
-            type="number"
-            onChange={this.stockHandler}
-            value={this.state.stock}
-            placeholder="# to sell"
-          />
-          <div>
-            <div>Genres</div>
-            Pop
+          <div className="sellItem">
             <input
-              type="checkbox"
-              name="pop"
-              value="pop"
-              onChange={this.genreChangeHandler}
+              type="text"
+              onChange={this.itemNameHandler}
+              value={this.state.itemName}
+              placeholder="item name"
             />
-            Hip-hop
             <input
-              type="checkbox"
-              name="hip-hop"
-              value="hip-hop"
-              onChange={this.genreChangeHandler}
+              type="text"
+              onChange={this.descriptionHandler}
+              value={this.state.description}
+              placeholder="description"
             />
-            Rock
             <input
-              type="checkbox"
-              name="rock"
-              value="rock"
-              onChange={this.genreChangeHandler}
+              type="number"
+              onChange={this.priceHandler}
+              value={this.state.price}
+              placeholder="price"
             />
-            Jazz
             <input
-              type="checkbox"
-              name="jazz"
-              value="jazz"
-              onChange={this.genreChangeHandler}
+              type="number"
+              onChange={this.stockHandler}
+              value={this.state.stock}
+              placeholder="# to sell"
             />
-            Classical
-            <input
-              type="checkbox"
-              name="classical"
-              value="classical"
-              onChange={this.genreChangeHandler}
-            />
-            Metal
-            <input
-              type="checkbox"
-              name="metal"
-              value="metal"
-              onChange={this.genreChangeHandler}
-            />
-            Spoken Word
-            <input
-              type="checkbox"
-              name="spoken word"
-              value="spoken word"
-              onChange={this.genreChangeHandler}
-            />
+          </div>
+
+          <div>Genres</div>
+          <div className="sellItem">
+            <label>
+              <input
+                type="checkbox"
+                name="pop"
+                value="pop"
+                onChange={this.genreChangeHandler}
+              />
+              <span class="checkmark" />
+              Pop
+            </label>
+            <div>
+              <input
+                type="checkbox"
+                name="hip-hop"
+                value="hip-hop"
+                onChange={this.genreChangeHandler}
+              />
+              Hip-hop
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="rock"
+                value="rock"
+                onChange={this.genreChangeHandler}
+              />
+              Rock
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="jazz"
+                value="jazz"
+                onChange={this.genreChangeHandler}
+              />
+              Jazz
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="classical"
+                value="classical"
+                onChange={this.genreChangeHandler}
+              />
+              Classical
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="metal"
+                value="metal"
+                onChange={this.genreChangeHandler}
+              />
+              Metal
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="spoken word"
+                value="spoken word"
+                onChange={this.genreChangeHandler}
+              />
+              Spoken Word
+            </div>
           </div>
           <input type="file" onChange={this.imageHandler} />
           <input type="submit" value="post item to sell" />
