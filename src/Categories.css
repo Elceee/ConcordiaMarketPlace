@@ -23,6 +23,7 @@
   position: absolute;
   color: white;
   background-color: #f2b880;
+  z-index: 1;
 }
 
 .dropDown:hover .dropDownContent {
