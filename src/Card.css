@@ -3,6 +3,7 @@
   margin: 10px;
   box-shadow: 2px 2px 0px 0 #e7cfbc;
   transition: 0.3s;
+  min-height: 380px;
 }
 
 /* On mouse-over, add a deeper shadow */

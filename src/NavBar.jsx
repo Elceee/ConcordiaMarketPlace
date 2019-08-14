@@ -35,6 +35,11 @@ class UnconnectedNavBar extends Component {
           <Link to={"/sellitem"}>Sell Item</Link>
         </div>
         <div>
+          <Link to={"/customizesellerpage/" + this.props.seller}>
+            Customize Seller Page
+          </Link>
+        </div>
+        <div>
           <Categories />
         </div>
         <div>
@@ -48,6 +53,10 @@ class UnconnectedNavBar extends Component {
   };
 }
 
-let NavBar = connect()(withRouter(UnconnectedNavBar));
+let mapStateToProps = state => {
+  return { seller: state.username };
+};
+
+let NavBar = connect(mapStateToProps)(withRouter(UnconnectedNavBar));
 
 export default NavBar;
