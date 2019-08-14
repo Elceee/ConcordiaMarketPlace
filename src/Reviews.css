@@ -4,7 +4,7 @@
 
 .visible {
   animation-name: appearingDiv;
-  animation-duration: 1.5s;
+  animation-duration: 2s;
   display: block;
 }
 
@@ -19,4 +19,13 @@
 
 .reviewsContainer {
   width: 300px;
+}
+
+.normal {
+  min-height: 40px;
+  transition: min-height 1s;
+}
+
+.big {
+  min-height: 264px;
 }

@@ -123,7 +123,7 @@ class UnconnectedItemDetails extends Component {
           </div>
         </div>
         <div className="reviewsContainer">
-          <div className="card center">
+          <div className="card center short">
             <div>Leave a Review!</div>
             <AddReview id={this.state.item._id} />
           </div>

@@ -12,3 +12,7 @@ img {
   display: flex;
   justify-content: space-evenly;
 }
+
+.short {
+  min-height: 60px;
+}

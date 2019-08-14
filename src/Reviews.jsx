@@ -15,7 +15,9 @@ export default class Reviews extends Component {
   };
   render = () => {
     return (
-      <div className="card center">
+      <div
+        className={this.state.visible ? "card center big" : "card center small"}
+      >
         <div>
           <button onClick={this.revealReviews}>See Reviews</button>
         </div>
