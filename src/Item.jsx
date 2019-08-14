@@ -38,7 +38,9 @@ class UnconnectedItem extends Component {
         <img src={this.props.contents.imagePath} height="150 px" />
         <h3>{this.props.contents.name}</h3>
         <div>{this.props.contents.description}</div>
-        <div>{this.props.contents.seller}</div>
+        <Link to={"/sellerpage/" + this.props.contents.seller}>
+          <div>{this.props.contents.seller}</div>
+        </Link>
         <div>Price: ${this.props.contents.price}</div>
         <div>{this.props.contents.stock} in stock</div>
         <Link

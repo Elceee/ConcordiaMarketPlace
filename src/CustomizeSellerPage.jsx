@@ -27,8 +27,9 @@ class UnconnectedCustomizeSellerPage extends Component {
   submitCustomizationsHandler = async event => {
     event.preventDefault();
     let data = new FormData();
-    let sellerPageCustomization = this.state;
-    data.append("sellerPageCustomization", sellerPageCustomization);
+    data.append("sellerDescription", this.state.sellerDescription);
+    data.append("profilePicture", this.state.profilePicture);
+    data.append("backgroundColor", this.state.backgroundColor);
     data.append("username", this.props.username);
     let response = await fetch("/customize-seller-page", {
       method: "POST",
@@ -56,15 +57,12 @@ class UnconnectedCustomizeSellerPage extends Component {
           <label>Choose a background color:</label>
           <input
             type="color"
-            value={backgroundColor}
+            value={this.state.backgroundColor}
             onChange={this.colorChangeHandler}
           />
           <label>Add a profile picture:</label>
-          <input
-            type="file"
-            value={profilePicture}
-            onChange={this.picChangeHandler}
-          />
+          <input type="file" onChange={this.picChangeHandler} />
+          <input type="submit" value="Trick out your page!" />
         </form>
       </div>
     );
