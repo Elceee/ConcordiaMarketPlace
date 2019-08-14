@@ -21,15 +21,12 @@ class UnconnectedViewAllItems extends Component {
   };
 
   renderItemsAsLiElems = () => {
+    let key = 1;
     return (
       //class to auto-place items in css
       <div className="wrapper">
         {this.props.items.map(item => {
-          return (
-            <div>
-              <Item contents={item} />
-            </div>
-          );
+          return <Item key={key++} contents={item} inCart="false" />;
         })}
       </div>
     );

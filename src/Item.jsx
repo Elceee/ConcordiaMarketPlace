@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import CartAdder from "./CartAdder.jsx";
 import "./Card.css";
 import "./DynamicButton.css";
 
@@ -24,10 +25,13 @@ class UnconnectedItem extends Component {
   };
 
   render = () => {
-    let inCartNotVisible = "visible";
-    if (this.props.inCart) {
-      inCartNotVisible = "hidden";
+    let addToCartVisible = "visible";
+    let cartAdderVisible = "hidden";
+    if (this.props.inCart === "true") {
+      addToCartVisible = "hidden";
+      cartAdderVisible = "visible";
     }
+
     return (
       ///added card center to items
       <div className="card center ">
@@ -44,12 +48,24 @@ class UnconnectedItem extends Component {
           Item Details
         </Link>
         <div>
-          <button
-            onClick={this.addToCart}
-            style={{ visibility: inCartNotVisible }}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10px"
+            }}
           >
-            Add to Cart
-          </button>
+            <button
+              onClick={this.addToCart}
+              style={{ visibility: addToCartVisible }}
+            >
+              Add to Cart
+            </button>
+          </div>
+          <div style={{ visibility: cartAdderVisible }}>
+            <CartAdder contents={this.props.contents} />
+          </div>
         </div>
       </div>
     );

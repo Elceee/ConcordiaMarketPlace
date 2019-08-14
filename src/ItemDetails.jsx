@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import AddReview from "./AddReview.jsx";
+import Reviews from "./Reviews.jsx";
 import "./itemDetails.css";
 
 class UnconnectedItemDetails extends Component {
@@ -121,9 +122,14 @@ class UnconnectedItemDetails extends Component {
             {this.renderRecommendedAlbums()}
           </div>
         </div>
-        <div className="card center">
-          <div>Reviews here</div>
-          <AddReview id={this.state.item._id} />
+        <div>
+          <div className="card center">
+            <div>Reviews here</div>
+            <AddReview id={this.state.item._id} />
+          </div>
+          <div className="card center">
+            <Reviews item={this.state.item} />
+          </div>
         </div>
       </div>
     );
