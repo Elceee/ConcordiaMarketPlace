@@ -317,6 +317,42 @@ app.post("/purchaseHistory", upload.none(), async (req, res) => {
   res.send(JSON.stringify(purchaseHistory));
 });
 
+app.post("/customize-seller-page", upload.single(), async (req, res) => {
+  console.log("customize-seller-page endpoint");
+  let username = req.body.username;
+  let sellerPageCustomization = req.body.sellerPageCustomization;
+  let file = req.file;
+  let imagePath;
+  if (file === undefined) {
+    imagePath = "/uploads/no-image.png";
+  } else {
+    imagePath = "/uploads/" + file.filename;
+  }
+  sellerPageCustomization[profilePicture] = imagePath;
+  dbo
+    .collection("users")
+    .updateOne(
+      { username: username },
+      { $set: { sellerPageCustomization: sellerPageCustomization } },
+      (err, update) => {
+        if (err) {
+          console.log("Error", err);
+          res.send({ success: false });
+        } else {
+          res.send({ success: true });
+        }
+      }
+    );
+});
+
+app.get("/seller-profile", async (req, res) => {
+  let seller = req.body.seller;
+  let custom = await dbo
+    .collection("users")
+    .findOne({ username: seller }, { sellerPageCustomization: 1 });
+  res.send(JSON.stringify(custom));
+});
+
 // Your endpoints go before this line
 
 let generateID = () => {

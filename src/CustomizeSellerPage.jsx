@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class UnconnectedCustomizeSellerPage extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class UnconnectedCustomizeSellerPage extends Component {
   };
 
   picChangeHandler = event => {
-    this.setState({ profilePicture: event.target.value });
+    this.setState({ profilePicture: event.target.files[0] });
   };
 
   submitCustomizationsHandler = async event => {
