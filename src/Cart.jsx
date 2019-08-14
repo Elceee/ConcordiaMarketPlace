@@ -14,6 +14,10 @@ class UnconnectedCart extends Component {
     return item[0];
   };
 
+  addToTotal = price => {
+    this.setState({ total: this.state.total + price });
+  };
+
   purchaseCart = () => {
     let cart = { ...this.props.cart };
     let data = new FormData();
@@ -31,8 +35,10 @@ class UnconnectedCart extends Component {
         </div>
       );
     }
+    let cartTotal = 0;
     let items = Object.keys(this.props.cart).map(itemId => {
       let item = this.findItemById(itemId);
+      cartTotal += this.props.cart[itemId] * item.price;
       return <Item key={itemId} contents={item} inCart="true" />;
     });
     return (
@@ -40,13 +46,14 @@ class UnconnectedCart extends Component {
         <h3>Cart</h3>
         {items}
         <button onClick={this.purchaseCart}>Purchase Cart</button>
+        <div>Cart Total: {cartTotal}</div>
       </div>
     );
   }
 }
 
 let mapStateToProps = state => {
-  return { cart: state.cart, items: state.items };
+  return { cart: state.cart, items: state.items, cartTotal: state.cartTotal };
 };
 
 let Cart = connect(mapStateToProps)(UnconnectedCart);

@@ -24,13 +24,12 @@ class UnconnectedCategories extends Component {
       });
     });
     this.setState({ allCategories });
-    console.log(this.state.allCategories);
   };
 
   renderCategoiesasOptions = () => {
     return this.state.allCategories.map(category => {
       return (
-        <div className="dropDownItem">
+        <div key={category} className="dropDownItem">
           <Link to={"/category/" + category}>{category}</Link>
         </div>
       );

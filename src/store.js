@@ -1,6 +1,11 @@
 import { createStore } from "redux";
 
-let initialState = { username: undefined, items: [], cart: {}, query: "" };
+let initialState = {
+  username: undefined,
+  items: [],
+  cart: {},
+  query: ""
+};
 
 let reducer = (state, action) => {
   if (action.type === "login-success") {
@@ -47,6 +52,7 @@ let reducer = (state, action) => {
   if (action.type === "logOut") {
     return initialState;
   }
+
   return state;
 };
 
