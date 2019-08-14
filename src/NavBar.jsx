@@ -14,6 +14,11 @@ class UnconnectedNavBar extends Component {
     this.props.dispatch({ type: "searchTerms", query: "" });
   };
 
+  logOut = () => {
+    this.props.dispatch({ type: "logOut" });
+    this.props.history.push("/");
+  };
+
   render = () => {
     return (
       <div className="navcontainer navbar">
@@ -34,6 +39,9 @@ class UnconnectedNavBar extends Component {
         </div>
         <div>
           <Link to="/purchaseHistory">Purchase History</Link>
+        </div>
+        <div>
+          <button onClick={this.logOut}>Log out </button>
         </div>
       </div>
     );
