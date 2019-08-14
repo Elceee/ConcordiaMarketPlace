@@ -202,8 +202,8 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
   }
   let categories = req.body.categories.split(",");
   let description = req.body.description;
-  let price = req.body.price;
-  let stock = req.body.stock;
+  let price = parseInt(req.body.price);
+  let stock = parseInt(req.body.stock);
   dbo.collection("items").insertOne(
     {
       name,
@@ -229,6 +229,25 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
 app.post("/purchaseCart", upload.none(), async (req, res) => {
   let username = await findUsernameByCookie(req.cookies.sid);
   let cart = JSON.parse(req.body.cart);
+
+  //Change the number of the item in stock
+  Object.keys(cart).forEach(item => {
+    let numberBought = parseInt(cart[item]);
+    console.log("numberBought", numberBought);
+    dbo
+      .collection("items")
+      .updateOne(
+        { _id: ObjectID(item) },
+        { $inc: { stock: -numberBought } },
+        (err, update) => {
+          if (err) {
+            console.log("ERROR: ", err);
+            res.send(JSON.stringify({ success: false }));
+            return;
+          }
+        }
+      );
+  });
 
   dbo
     .collection("users")
