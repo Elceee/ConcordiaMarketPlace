@@ -54,11 +54,9 @@ class UnconnectedCartAdder extends Component {
     data.append("itemId", itemId);
     data.append("quantity", quantity);
     fetch("/add-to-cart", { method: "POST", body: data });
-    let price = this.props.contents.price;
     this.props.dispatch({
       type: "update-quantity",
       id: itemId,
-      price: price * quantity,
       quantity: quantity
     });
   };
