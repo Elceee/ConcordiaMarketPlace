@@ -48,8 +48,14 @@ app.post("/signup", upload.none(), (req, res) => {
         dbo.collection("users").insertOne({
           username: usernameEntered,
           password: pwd,
-          purchaseHistory: []
+          purchaseHistory: [],
+          cart: {}
         });
+        let sessionId = generateID();
+        dbo
+          .collection("sessions")
+          .insertOne({ username: usernameEntered, sessionId: sessionId });
+        res.cookie("sid", sessionId);
         res.send(JSON.stringify({ success: true }));
         return;
       }
@@ -125,14 +131,12 @@ app.post("/add-to-cart", upload.none(), async (req, res) => {
   if (isNaN(newQuantity)) {
     newQuantity = 1;
   }
-
   let username = await findUsernameByCookie(req.cookies.sid);
   let userObject = await findUserObjectByName(username);
+  console.log(userObject);
   let cart = userObject.cart;
   let cartItem = `cart.${itemId}`;
-  if (cart === null || !cart[itemId]) {
-    // change to cartItem ?
-
+  if (!cart[itemId]) {
     dbo
       .collection("users")
       .updateOne(
