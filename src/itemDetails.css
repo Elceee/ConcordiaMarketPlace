@@ -1,0 +1,13 @@
+img {
+  height: 200px;
+  width: 200px;
+}
+
+.price {
+  font-weight: bolder;
+  font-size: 20pt;
+}
+
+.itemDetailsContainer {
+  display: flex;
+}
