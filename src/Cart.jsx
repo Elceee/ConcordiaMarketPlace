@@ -5,7 +5,6 @@ import Item from "./Item.jsx";
 class UnconnectedCart extends Component {
   constructor(props) {
     super();
-    this.state = { total: 0 };
   }
 
   findItemById = itemId => {
@@ -36,8 +35,10 @@ class UnconnectedCart extends Component {
         </div>
       );
     }
+    let cartTotal = 0;
     let items = Object.keys(this.props.cart).map(itemId => {
       let item = this.findItemById(itemId);
+      cartTotal += this.props.cart[itemId] * item.price;
       return <Item key={itemId} contents={item} inCart="true" />;
     });
     return (
@@ -45,7 +46,7 @@ class UnconnectedCart extends Component {
         <h3>Cart</h3>
         {items}
         <button onClick={this.purchaseCart}>Purchase Cart</button>
-        <div>Cart Total: {this.props.cartTotal}</div>
+        <div>Cart Total: {cartTotal}</div>
       </div>
     );
   }

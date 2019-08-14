@@ -4,8 +4,7 @@ let initialState = {
   username: undefined,
   items: [],
   cart: {},
-  query: "",
-  cartTotal: 0
+  query: ""
 };
 
 let reducer = (state, action) => {
@@ -34,7 +33,7 @@ let reducer = (state, action) => {
     let newQuantity = action.quantity;
     let cart = { ...state.cart };
     cart[action.id] = newQuantity;
-    return { ...state, cart: cart, cartTotal: state.cartTotal + action.price };
+    return { ...state, cart: cart };
   }
 
   if (action.type === "removeFromCart") {
@@ -47,7 +46,7 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "purchaseCart") {
-    return { ...state, cart: {}, cartTotal: 0 };
+    return { ...state, cart: {} };
   }
 
   if (action.type === "logOut") {

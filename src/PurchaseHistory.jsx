@@ -57,17 +57,26 @@ class UnconnectedPurchaseHistory extends Component {
     return (
       <div>
         {this.state.orders.map(order => {
+          let orderTotal = 0;
           return (
             <div>
               <h4>Order #{counter++}</h4>
               {order.map(object => {
+                orderTotal += object.count * object.item.price;
                 return (
                   <div key={key++}>
                     <Item key={object.item._id} contents={object.item} />
-                    <div>Bought: {object.count}</div>
+                    <div>
+                      Bought: {object.count}
+                      <div>
+                        Price:$
+                        {object.count * object.item.price}
+                      </div>
+                    </div>
                   </div>
                 );
               })}
+              <h4>Total: ${orderTotal}</h4>
             </div>
           );
         })}
