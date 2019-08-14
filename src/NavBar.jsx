@@ -32,6 +32,9 @@ class UnconnectedNavBar extends Component {
         <div>
           <Categories />
         </div>
+        <div>
+          <Link to="/purchaseHistory">Purchase History</Link>
+        </div>
       </div>
     );
   };

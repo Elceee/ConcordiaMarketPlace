@@ -99,7 +99,7 @@ app.get("/all-items", (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("items: ", items);
+
       res.send(JSON.stringify(items));
     });
 });
@@ -114,7 +114,7 @@ app.post("/get-item-by-id", upload.none(), (req, res) => {
       res.send(JSON.stringify({ success: false }));
       return;
     }
-    console.log("item: ", item);
+
     res.send(JSON.stringify({ success: true, item: item }));
   });
 });
@@ -216,7 +216,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("item: ", item);
+
       res.send(JSON.stringify({ success: true }));
     }
   );
@@ -225,6 +225,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
 app.post("/purchaseCart", upload.none(), async (req, res) => {
   let username = await findUsernameByCookie(req.cookies.sid);
   let cart = JSON.parse(req.body.cart);
+
   dbo
     .collection("users")
     .updateOne(
@@ -253,6 +254,20 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
         res.send(JSON.stringify({ success: true }));
       }
     );
+});
+
+app.post("/purchaseHistory", upload.none(), async (req, res) => {
+  console.log("purchase history end point");
+  let username = await findUsernameByCookie(req.cookies.sid);
+  console.log("HISTORY FOR USER,", username);
+  console.log("SESSSION ID", req.cookies.sid);
+  let userObject = await dbo
+    .collection("users")
+    .findOne({ username: username });
+
+  let purchaseHistory = userObject.purchaseHistory;
+  console.log("sending ", purchaseHistory);
+  res.send(JSON.stringify(purchaseHistory));
 });
 
 // Your endpoints go before this line
