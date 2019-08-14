@@ -54,7 +54,6 @@ class UnconnectedItemDetails extends Component {
 
   findSimilarAlbums = () => {
     let categories = this.state.item.categories;
-    console.log(categories);
     let recommendAlbums = [];
     let allItems = this.state.allItems;
     categories.forEach(category => {
@@ -122,12 +121,12 @@ class UnconnectedItemDetails extends Component {
             {this.renderRecommendedAlbums()}
           </div>
         </div>
-        <div>
+        <div className="reviewsContainer">
           <div className="card center">
-            <div>Reviews here</div>
+            <div>Leave a Review!</div>
             <AddReview id={this.state.item._id} />
           </div>
-          <div className="card center">
+          <div>
             <Reviews item={this.state.item} />
           </div>
         </div>
