@@ -15,6 +15,7 @@ class UnconnectedAddReview extends Component {
     event.preventDefault();
     let review = this.state.review;
     let data = new FormData();
+    data.append("name", this.props.name);
     data.append("review", review);
     data.append("id", this.props.id);
     fetch("/addReview", { method: "POST", body: data });
@@ -37,6 +38,10 @@ class UnconnectedAddReview extends Component {
   }
 }
 
-let AddReview = connect()(UnconnectedAddReview);
+let mapStateToProps = state => {
+  return { name: state.username };
+};
+
+let AddReview = connect(mapStateToProps)(UnconnectedAddReview);
 
 export default AddReview;

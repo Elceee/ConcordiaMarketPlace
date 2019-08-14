@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Item from "./Item.jsx";
 import { connect } from "react-redux";
 
-class UnconnectedCartItem extends Component {
+class UnconnectedCartAdder extends Component {
   constructor(props) {
     super(props);
   }
@@ -77,7 +76,6 @@ class UnconnectedCartItem extends Component {
     fetch("/removeFromCart", { method: "post", body: data });
     this.props.dispatch({ type: "removeFromCart", id: itemId });
   };
-
   render() {
     let amountInCart = parseInt(
       this.props.cart[this.props.contents._id]
@@ -86,24 +84,18 @@ class UnconnectedCartItem extends Component {
     if (isNaN(amountInCart)) {
       amountInCart = "";
     }
-
     return (
       <div>
-        <Item contents={this.props.contents} inCart="true" />
-        <div>
-          <input
-            type="text"
-            size="25"
-            value={amountInCart}
-            onChange={this.changeQuantityHandler}
-            onBlur={this.checkForNull}
-          />
-          <input
-            type="button"
-            value="-"
-            onClick={this.subtractQuanityFromCart}
-          />
-          <input type="button" value="+" onClick={this.addQuanityToCart} />
+        <input
+          type="text"
+          size="15"
+          value={amountInCart}
+          onChange={this.changeQuantityHandler}
+          onBlur={this.checkForNull}
+        />
+        <input type="button" value="-" onClick={this.subtractQuanityFromCart} />
+        <input type="button" value="+" onClick={this.addQuanityToCart} />
+        <div style={{ textAlign: "center", margin: "5px" }}>
           <button onClick={this.removeFromCart}>Remove From Cart</button>
         </div>
       </div>
@@ -115,6 +107,6 @@ let mapStateToProps = state => {
   return { cart: state.cart, items: state.items };
 };
 
-let CartItem = connect(mapStateToProps)(UnconnectedCartItem);
+let CartAdder = connect(mapStateToProps)(UnconnectedCartAdder);
 
-export default CartItem;
+export default CartAdder;

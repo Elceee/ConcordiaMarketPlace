@@ -112,7 +112,6 @@ class UnconnectedSellItem extends Component {
                 value="pop"
                 onChange={this.genreChangeHandler}
               />
-              <span class="checkmark" />
               Pop
             </label>
             <div>

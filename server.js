@@ -194,6 +194,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
   let name = req.body.name;
   let file = req.file;
   let imagePath;
+  let reviews = [];
   if (file === undefined) {
     imagePath = "/uploads/no-image.png";
     too;
@@ -212,7 +213,8 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
       description,
       seller,
       price,
-      stock
+      stock,
+      reviews
     },
     (err, item) => {
       if (err) {
@@ -275,6 +277,28 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
           return;
         }
         res.send(JSON.stringify({ success: true }));
+      }
+    );
+});
+
+app.post("/addReview", upload.none(), (req, res) => {
+  console.log("attempting to add review");
+  let user = req.body.name;
+  let review = req.body.review;
+  let id = req.body.id;
+  let reviewObj = { user, review };
+  dbo
+    .collection("items")
+    .updateOne(
+      { _id: ObjectID(id) },
+      { $push: { reviews: reviewObj } },
+      (err, results) => {
+        if (err) {
+          console.log("error adding review");
+          res.send({ success: false });
+        } else {
+          res.send({ success: true });
+        }
       }
     );
 });

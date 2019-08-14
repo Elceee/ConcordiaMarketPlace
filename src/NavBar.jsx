@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import Categories from "./Categories.jsx";
 import "./NavBar.css";
@@ -40,14 +40,14 @@ class UnconnectedNavBar extends Component {
         <div>
           <Link to="/purchaseHistory">Purchase History</Link>
         </div>
-        <div>
-          <button onClick={this.logOut}>Log out </button>
+        <div className="logOut" onClick={this.logOut}>
+          Logout
         </div>
       </div>
     );
   };
 }
 
-let NavBar = connect()(UnconnectedNavBar);
+let NavBar = connect()(withRouter(UnconnectedNavBar));
 
 export default NavBar;
