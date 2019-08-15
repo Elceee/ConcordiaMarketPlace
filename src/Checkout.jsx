@@ -4,15 +4,22 @@ import StripeCheckout from "react-stripe-checkout";
 import "./checkout.css";
 
 class UnconnectedCheckout extends Component {
-  onToken = token => {
-    fetch("/save-stripe-token", {
+  onToken = async token => {
+    console.log("token is: ", token);
+    console.log("cart total is", this.props.amount);
+    let data = new FormData();
+    data.append("token", JSON.stringify(token));
+    data.append("amount", this.props.amount);
+    let response = await fetch("/stripe-charge", {
       method: "POST",
-      body: JSON.stringify(token)
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
-      });
+      body: data
     });
+    let responseBody = await response.text();
+    let body = JSON.parse(responseBody);
+    console.log("saving stripe token");
+    if (body.success === true) {
+      alert("We are in business!");
+    }
   };
 
   render() {

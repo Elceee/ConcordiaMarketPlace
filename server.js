@@ -4,7 +4,10 @@ let reloadMagic = require("./reload-magic.js");
 let MongoClient = require("mongodb").MongoClient;
 let ObjectID = require("mongodb").ObjectID;
 let cookieParser = require("cookie-parser");
+////remove before uloading to github
+let stripe = require("stripe")("sk_test_ij8ccrx5coPCqChvwdDs4OTP00nsEQfsv7");
 app.use(cookieParser());
+app.use(require("body-parser").text());
 let multer = require("multer");
 let upload = multer({ dest: __dirname + "/uploads/" });
 app.use("/uploads", express.static("uploads"));
@@ -250,7 +253,6 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
         }
       );
   });
-
   dbo
     .collection("users")
     .updateOne(
@@ -279,6 +281,26 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
         res.send(JSON.stringify({ success: true }));
       }
     );
+});
+
+//// stripe endpoint
+
+app.post("/stripe-charge", upload.none(), (req, res) => {
+  console.log("stripe charge endpoint hit");
+  let token = req.body.token;
+  let amount = req.body.amount;
+  console.log("making a charge on stripe for the amount: ", amount);
+  res.send(JSON.stringify({ success: true }));
+  let charge = async () => {
+    console.log("sending charge to stripe");
+    await stripe.charges.create({
+      amount: amount * 100,
+      currency: "cad",
+      description: "Charge from Vynil Store",
+      source: "tok_visa"
+    });
+  };
+  charge();
 });
 
 app.post("/addReview", upload.none(), (req, res) => {
@@ -350,8 +372,6 @@ app.post(
       );
   }
 );
-
-
 
 app.post("/seller-profile", upload.none(), (req, res) => {
   console.log("request to seller-profile endpoint");
