@@ -19,8 +19,7 @@ class UnconnectedCheckout extends Component {
     return (
       <StripeCheckout
         token={this.onToken}
-        stripeKey="pk_test_t4ISlyycf6sw9ZbwoENR1qmq006YSBSRHX
-        "
+        stripeKey="pk_test_t4ISlyycf6sw9ZbwoENR1qmq006YSBSRHX"
       />
     );
   }
