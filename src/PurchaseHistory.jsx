@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Item from "./Item.jsx";
+import PurchasedItem from "./PurchasedItem.jsx";
 import { connect } from "react-redux";
 
 class UnconnectedPurchaseHistory extends Component {
@@ -63,18 +63,7 @@ class UnconnectedPurchaseHistory extends Component {
               <h4>Order #{counter++}</h4>
               {order.map(object => {
                 orderTotal += object.count * object.item.price;
-                return (
-                  <div key={key++}>
-                    <Item key={object.item._id} contents={object.item} />
-                    <div>
-                      Bought: {object.count}
-                      <div>
-                        Price:$
-                        {object.count * object.item.price}
-                      </div>
-                    </div>
-                  </div>
-                );
+                return <PurchasedItem item={object.item} />;
               })}
               <h4>Total: ${orderTotal}</h4>
             </div>

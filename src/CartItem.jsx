@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CartAdder from "./CartAdder.jsx";
+import { Link } from "react-router-dom";
 import "./CartItem.css";
 
 class UnconnectCartItem extends Component {
@@ -31,6 +32,16 @@ class UnconnectCartItem extends Component {
           <img src={this.props.item.imagePath} height="100 px" />
           <div className="cartItemDesc">
             <div>{this.props.item.name}</div>
+            <div>
+              <Link to={"/itemdetails/" + this.props.item._id}>
+                Item Details
+              </Link>
+            </div>
+            <div className="sellerDiv">
+              <Link to={"/sellerpage/" + this.props.item.seller}>
+                Seller: {this.props.item.seller}
+              </Link>
+            </div>
             <div>Price: ${this.props.item.price}</div>
           </div>
         </div>

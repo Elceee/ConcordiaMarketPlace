@@ -30,3 +30,12 @@
   left: 935px;
   top: 30px;
 }
+
+a:hover {
+  font-size: 100%;
+}
+
+.sellerDiv {
+  display: flex;
+  font-size: 12px;
+}
