@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Item from "./Item.jsx";
+import Checkout from "./Checkout.jsx";
 
 class UnconnectedCart extends Component {
   constructor(props) {
@@ -45,8 +46,13 @@ class UnconnectedCart extends Component {
       <div>
         <h3>Cart</h3>
         {items}
-        <button onClick={this.purchaseCart}>Purchase Cart</button>
-        <div>Cart Total: {cartTotal}</div>
+        <div className="card center">
+          <button onClick={this.purchaseCart}>Purchase Cart</button>
+          <div className="pad">
+            <Checkout amount={cartTotal} currency="CAD" bitcoin />
+          </div>
+          <div className="pad">Cart Total: {cartTotal}</div>
+        </div>
       </div>
     );
   }

@@ -35,3 +35,7 @@
   border-radius: 2px;
   min-width: 250px;
 }
+
+.pad {
+  padding: 20px;
+}

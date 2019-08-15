@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
+import "./checkout.css";
 
 class UnconnectedCheckout extends Component {
   onToken = token => {
@@ -14,20 +15,16 @@ class UnconnectedCheckout extends Component {
     });
   };
 
-  // ...
-
   render() {
     return (
-      // ...
       <StripeCheckout
         token={this.onToken}
-        stripeKey="pk_test_eVGbOfPC4Q4VVWcP7wJ4ZGEF00n8wPjAYu
-        "
+        stripeKey="pk_test_t4ISlyycf6sw9ZbwoENR1qmq006YSBSRHX"
       />
     );
   }
 }
 
-let Checkout = connect()(Unc)
+let Checkout = connect()(UnconnectedCheckout);
 
 export default Checkout;
