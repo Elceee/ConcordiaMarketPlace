@@ -69,13 +69,6 @@ class UnconnectedCartAdder extends Component {
     this.sendQuantityToBackend(newQuanity);
   };
 
-  removeFromCart = () => {
-    let itemId = this.props.contents._id;
-    let data = new FormData();
-    data.append("itemId", itemId);
-    fetch("/removeFromCart", { method: "post", body: data });
-    this.props.dispatch({ type: "removeFromCart", id: itemId });
-  };
   render() {
     let amountInCart = parseInt(
       this.props.cart[this.props.contents._id]
@@ -84,8 +77,6 @@ class UnconnectedCartAdder extends Component {
     if (isNaN(amountInCart)) {
       amountInCart = "";
     }
-
-    let itemsPrice = this.props.contents.price * amountInCart;
     return (
       <div>
         <input
@@ -97,10 +88,6 @@ class UnconnectedCartAdder extends Component {
         />
         <input type="button" value="-" onClick={this.subtractQuanityFromCart} />
         <input type="button" value="+" onClick={this.addQuanityToCart} />
-        <div style={{ textAlign: "center", margin: "5px" }}>
-          <button onClick={this.removeFromCart}>Remove From Cart</button>
-        </div>
-        <div>Price: ${itemsPrice}</div>
       </div>
     );
   }

@@ -1,0 +1,32 @@
+.cartItem img {
+  height: 100px;
+  width: 100px;
+}
+
+.cartItemContainer {
+  position: relative;
+  padding: 16px 16px;
+  display: flex;
+  border-bottom: #6b8d9e 1px dashed;
+}
+
+.cartAdder {
+  position: absolute;
+  left: 730px;
+  top: 30px;
+}
+
+.cartItem {
+  display: flex;
+}
+
+.cartItemDesc {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.itemPrice {
+  position: absolute;
+  left: 935px;
+  top: 30px;
+}

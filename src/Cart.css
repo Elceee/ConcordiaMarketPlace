@@ -1,0 +1,40 @@
+.cartContainer {
+  padding: 20px 70px;
+}
+
+.cartTitle {
+  display: flex;
+  border-top: #6b8d9e 1px dashed;
+  border-bottom: #6b8d9e 1px dashed;
+  padding: 13px 0;
+}
+
+.itemTitle {
+  padding-left: 35px;
+}
+
+.quantTitle {
+  padding-left: 700px;
+}
+
+.totalTitle {
+  padding-left: 100px;
+}
+
+.continueDiv {
+  position: relative;
+  left: 850px;
+  padding: 25px 0;
+}
+
+.continueDiv a {
+  background-color: #f2b880;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+}
+
+.continueDiv a:hover {
+  background-color: #fffaf7;
+  color: #6b8d9e;
+}
