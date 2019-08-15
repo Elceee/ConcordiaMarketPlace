@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
+import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
 import "./NavBar.css";
 
@@ -32,18 +33,10 @@ class UnconnectedNavBar extends Component {
           <Link to={"/cart"}>Cart</Link>
         </div>
         <div>
-          <Link to={"/sellitem"}>Sell Item</Link>
-        </div>
-        <div>
-          <Link to={"/customizesellerpage/" + this.props.seller}>
-            Customize Seller Page
-          </Link>
-        </div>
-        <div>
           <Categories />
         </div>
         <div>
-          <Link to="/purchaseHistory">Purchase History</Link>
+          <UserActions />
         </div>
         <div className="logOut" onClick={this.logOut}>
           Logout

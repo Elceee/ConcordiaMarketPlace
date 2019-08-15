@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CartAdder from "./CartAdder.jsx";
 import "./Card.css";
 import "./DynamicButton.css";
+import "./item.css";
 
 class UnconnectedItem extends Component {
   constructor(props) {
@@ -35,11 +36,9 @@ class UnconnectedItem extends Component {
     return (
       ///added card center to items
       <div className="card center ">
-        <img src={this.props.contents.imagePath} height="150 px" />
+        <img src={this.props.contents.imagePath} />
         <h3>{this.props.contents.name}</h3>
-        <div style={{ textAlign: "center" }}>
-          {this.props.contents.description}
-        </div>
+        <div class="description">{this.props.contents.description}</div>
         <Link to={"/sellerpage/" + this.props.contents.seller}>
           <div>{this.props.contents.seller}</div>
         </Link>
@@ -52,14 +51,7 @@ class UnconnectedItem extends Component {
           Item Details
         </Link>
         <div>
-          <div
-            style={{
-              marginTop: "10px",
-              position: "absolute",
-              bottom: "30px",
-              left: "107px"
-            }}
-          >
+          <div className="Cartbutton">
             <button
               onClick={this.addToCart}
               style={{ display: addToCartVisible }}
