@@ -351,6 +351,8 @@ app.post(
   }
 );
 
+
+
 app.post("/seller-profile", upload.none(), (req, res) => {
   console.log("request to seller-profile endpoint");
   console.log("req.body", req.body);
