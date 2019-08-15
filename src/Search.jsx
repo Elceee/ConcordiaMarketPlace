@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class UnconnectedSearch extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class UnconnectedSearch extends Component {
     event.preventDefault();
     let query = this.state.userSearchInput;
     this.props.dispatch({ type: "searchTerms", query: query });
+    this.props.history.push("/");
   };
 
   render = () => {
@@ -33,6 +35,6 @@ class UnconnectedSearch extends Component {
   };
 }
 
-let Search = connect()(UnconnectedSearch);
+let Search = connect()(withRouter(UnconnectedSearch));
 
 export default Search;
