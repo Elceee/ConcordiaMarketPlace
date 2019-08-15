@@ -56,7 +56,7 @@ class UnconnectedCustomizeSellerPage extends Component {
                 <label>Add a description</label>
               </div>
               <input
-                type="textarea"
+                type="text"
                 rows="6"
                 columns="50"
                 value={this.state.sellerDescription}
