@@ -38,7 +38,7 @@ class UnconnectedItem extends Component {
       <div className="card center ">
         <img src={this.props.contents.imagePath} />
         <h3>{this.props.contents.name}</h3>
-        <div class="description">{this.props.contents.description}</div>
+        <div className="description">{this.props.contents.description}</div>
         <Link to={"/sellerpage/" + this.props.contents.seller}>
           <div>{this.props.contents.seller}</div>
         </Link>
