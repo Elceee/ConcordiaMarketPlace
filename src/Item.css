@@ -1,0 +1,14 @@
+img {
+  height: 150px;
+}
+
+.description {
+  text-align: center;
+}
+
+.Cartbutton {
+  margin-top: 10px;
+  position: absolute;
+  bottom: 30px;
+  left: 120px;
+}
