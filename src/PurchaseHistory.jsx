@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PurchasedItem from "./PurchasedItem.jsx";
 import { connect } from "react-redux";
+import "./PurchaseHistory.css";
 
 class UnconnectedPurchaseHistory extends Component {
   constructor(props) {
@@ -59,13 +60,20 @@ class UnconnectedPurchaseHistory extends Component {
         {this.state.orders.map(order => {
           let orderTotal = 0;
           return (
-            <div>
-              <h4>Order #{counter++}</h4>
+            <div className="historyContainer">
+              <div className="orderHead">Order #{counter++}</div>
+              <div className="cartTitle">
+                <div className="itemTitle">Item</div>
+                <div className="quantTitle">Quantity</div>
+                <div className="totalTitle">Total</div>
+              </div>
               {order.map(object => {
                 orderTotal += object.count * object.item.price;
-                return <PurchasedItem item={object.item} />;
+                return (
+                  <PurchasedItem item={object.item} count={object.count} />
+                );
               })}
-              <h4>Total: ${orderTotal}</h4>
+              <h3 style={{ paddingLeft: "872px" }}>Total: ${orderTotal}</h3>
             </div>
           );
         })}

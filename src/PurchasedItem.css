@@ -1,0 +1,11 @@
+.amountPurchased {
+  position: absolute;
+  left: 795px;
+  top: 54px;
+}
+
+.itemsTotal {
+  position: absolute;
+  left: 930px;
+  top: 54px;
+}
