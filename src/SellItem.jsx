@@ -105,7 +105,7 @@ class UnconnectedSellItem extends Component {
 
           <div>Genres</div>
           <div className="sellItem">
-            <label>
+            <div>
               <input
                 type="checkbox"
                 name="pop"
@@ -113,7 +113,7 @@ class UnconnectedSellItem extends Component {
                 onChange={this.genreChangeHandler}
               />
               Pop
-            </label>
+            </div>
             <div>
               <input
                 type="checkbox"

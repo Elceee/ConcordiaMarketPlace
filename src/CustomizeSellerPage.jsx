@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import "./CustomizeSellerPage.css";
+import "./Card.css";
 
 class UnconnectedCustomizeSellerPage extends Component {
   constructor(props) {
@@ -46,25 +48,42 @@ class UnconnectedCustomizeSellerPage extends Component {
 
   render = () => {
     return (
-      <div>
+      <div className="card center customize">
         <form onSubmit={this.submitCustomizationsHandler}>
-          <label>Add a description:</label>
-          <input
-            type="textarea"
-            rows="6"
-            columns="50"
-            value={this.state.sellerDescription}
-            onChange={this.descriptionChangeHandler}
-          />
-          <label>Choose a background color:</label>
-          <input
-            type="color"
-            value={this.state.backgroundColor}
-            onChange={this.colorChangeHandler}
-          />
-          <label>Add a profile picture:</label>
-          <input type="file" onChange={this.picChangeHandler} />
-          <input type="submit" value="Trick out your page!" />
+          <div className="customize">
+            <div>
+              <div>
+                <label>Add a description</label>
+              </div>
+              <input
+                type="textarea"
+                rows="6"
+                columns="50"
+                value={this.state.sellerDescription}
+                onChange={this.descriptionChangeHandler}
+                placeholder="Description"
+              />
+            </div>
+            <div>
+              <div>
+                <label>Choose a background color:</label>
+              </div>
+              <input
+                type="color"
+                value={this.state.backgroundColor}
+                onChange={this.colorChangeHandler}
+              />
+            </div>
+            <div>
+              <div>
+                <label>Add a profile picture:</label>
+              </div>
+              <input type="file" onChange={this.picChangeHandler} />
+            </div>
+            <div>
+              <input type="submit" value="Trick out your page!" />
+            </div>
+          </div>
         </form>
       </div>
     );
