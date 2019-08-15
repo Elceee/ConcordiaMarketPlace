@@ -63,7 +63,8 @@ app.post("/signup", upload.none(), (req, res) => {
     });
 });
 
-//// login endpoint
+// login endpoint
+
 app.post("/login", upload.none(), (req, res) => {
   let usernameEntered = req.body.username;
   let pwd = req.body.password;
