@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Item from "./Item.jsx";
 
 class UnconnectedSellerProfile extends Component {
   constructor(props) {
@@ -14,20 +15,34 @@ class UnconnectedSellerProfile extends Component {
   }
 
   componentDidMount = async () => {
+    console.log("sellerProfile mounted");
     let seller = this.props.seller;
     let data = new FormData();
     data.append("seller", seller);
     let response = await fetch("/seller-profile", {
-      method: "GET",
+      method: "POST",
       body: data
     });
     let responseBody = await response.text();
     let body = JSON.parse(responseBody);
+    console.log(body);
     if (body.success) {
+      this.setState(
+        {
+          sellerDescription:
+            body.custom.sellerPageCustomization.sellerDescription,
+          profilePicture: body.custom.sellerPageCustomization.profilePicture,
+          backgroundColor: body.custom.sellerPageCustomization.backgroundColor
+        },
+        () => console.log(this.state)
+      );
+    }
+    if (this.state.profilePicture === undefined) {
+      this.setState({ profilePicture: "/uploads/no-image.png" });
+    }
+    if (this.state.sellerDescription === undefined) {
       this.setState({
-        sellerDescription: body.custom.sellerDescription,
-        profilePicture: body.custom.profilePicture,
-        backgroundColor: body.custom.backgroundColor
+        sellerDesctription: "This seller has not entered a description"
       });
     }
   };
@@ -50,19 +65,24 @@ class UnconnectedSellerProfile extends Component {
     );
   };
 
-  render = () => {
+  renderBackgroundColor = () => {
     if (this.state.backgroundColor === "") {
-      let background = "#fffaf7";
+      return "#f2b880";
     } else {
-      let background = this.state.backgroundColor;
+      return this.state.backgroundColor;
     }
+  };
+
+  render = () => {
+    let color = this.renderBackgroundColor();
+    console.log("Color:", color);
     return (
-      <div style={{ backgroundColor: background }}>
+      <div style={{ backgroundColor: color }}>
         <h1>{this.state.seller}'s Seller Page</h1>
         <div>
           <img src={this.state.profilePicture} />
           <h3>{this.state.sellerDescription}</h3>
-          <div>{this.renderSellerItemsAsLiElems}</div>
+          <div>{this.renderSellerItemsAsLiElems()}</div>
         </div>
       </div>
     );
