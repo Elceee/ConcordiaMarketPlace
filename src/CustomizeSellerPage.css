@@ -1,0 +1,26 @@
+.customize {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.customize input {
+  background-color: white;
+  border: solid 1px #6b8d9e;
+  color: #6b8d9e;
+  margin-top: 6px;
+  padding: 5px 5px;
+  font-size: 14px;
+}
+
+.customize input[type="textarea"] {
+  width: 300px;
+}
+
+.customize label {
+  font-size: 14px;
+}
+
+.customize input[type="submit"] {
+  align-self: stretch;
+}
