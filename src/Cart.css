@@ -1,3 +1,7 @@
+.header {
+  text-align: center;
+}
+
 .cartContainer {
   padding: 20px 70px;
 }
@@ -37,4 +41,33 @@
 .continueDiv a:hover {
   background-color: #fffaf7;
   color: #6b8d9e;
+}
+
+.nomin {
+  min-height: 100px;
+}
+
+.subTotal {
+  display: flex;
+  position: relative;
+  left: 130px;
+}
+
+.paymentContainer {
+  text-align: center;
+}
+
+dd {
+  display: block;
+  margin-left: 250px;
+  float: right;
+  font-size: 14px;
+}
+dt {
+  float: left;
+  clear: left;
+  display: block;
+  margin-right: 40px;
+  font-weight: bolder;
+  font-size: 18px;
 }

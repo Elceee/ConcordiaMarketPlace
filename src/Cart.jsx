@@ -10,6 +10,21 @@ class UnconnectedCart extends Component {
     super();
   }
 
+  componentDidMount = () => {
+    let cartTotal = 0;
+    let items = Object.keys(this.props.cart).map(itemId => {
+      let item = this.findItemById(itemId);
+      cartTotal += this.props.cart[itemId] * item.price;
+    });
+    let shippingIn = this.calculatedShipping() + cartTotal;
+    console.log("this should include shipping", shippingIn);
+    this.props.dispatch({ type: "addToTotal", total: shippingIn });
+  };
+
+  calculatedShipping = () => {
+    return 5.95;
+  };
+
   findItemById = itemId => {
     let item = this.props.items.filter(item => {
       return item._id === itemId;
@@ -17,21 +32,25 @@ class UnconnectedCart extends Component {
     return item[0];
   };
 
-  addToTotal = price => {
-    this.setState({ total: this.state.total + price });
+  numberOfItems = () => {
+    let numItems = 0;
+    let cart = this.props.cart;
+    Object.keys(cart).forEach(item => {
+      numItems = numItems + cart[item];
+    });
+    return numItems;
   };
 
-  purchaseCart = () => {
-    let cart = { ...this.props.cart };
-    let data = new FormData();
-    data.append("cart", JSON.stringify(cart));
-    fetch("/purchaseCart", { method: "post", body: data });
-    this.props.dispatch({ type: "purchaseCart" });
+  itemsWording = items => {
+    if (items === 1) {
+      return "1 Item";
+    } else {
+      return items + " Items";
+    }
   };
 
   render() {
     let emptyCart = Object.keys(this.props.cart).length === 0;
-
     if (emptyCart) {
       return (
         <div className="cartContainer emptyCart">
@@ -49,9 +68,10 @@ class UnconnectedCart extends Component {
       cartTotal += this.props.cart[itemId] * item.price;
       return <CartItem key={itemId} item={item} />;
     });
+    ///changing state of total in the store
     return (
       <div className="cartContainer">
-        <h3>Your Shopping Cart</h3>
+        <h3 className="header">Your Shopping Cart</h3>
         <div>
           <div className="cartTitle">
             <div className="itemTitle">Item</div>
@@ -63,12 +83,30 @@ class UnconnectedCart extends Component {
             <Link to={"/"}>Continue Shopping</Link>
           </div>
         </div>
-        <div className="card center">
-          <button onClick={this.purchaseCart}>Purchase Cart</button>
-          <div className="pad">
-            <Checkout amount={cartTotal} currency="CAD" bitcoin />
+
+        <div className="card center nomin">
+          <div className="paymentContainer">
+            <div>
+              <dt>{this.itemsWording(this.numberOfItems())}</dt>
+              <dd>${"" + cartTotal}.00</dd>
+            </div>
+            <div>
+              <dt>Shipping</dt>
+              <dd>${this.calculatedShipping() + ""}</dd>
+            </div>
+            <div>
+              <dt>Your Total</dt>
+              <dd>${"" + (this.calculatedShipping() + cartTotal)}</dd>
+            </div>
           </div>
-          <div className="pad">Cart Total: {cartTotal}</div>
+          <div className="pad">
+            <Checkout
+              cart={this.props.cart}
+              amount={this.props.total}
+              currency="CAD"
+              bitcoin
+            />
+          </div>
         </div>
       </div>
     );
@@ -76,7 +114,7 @@ class UnconnectedCart extends Component {
 }
 
 let mapStateToProps = state => {
-  return { cart: state.cart, items: state.items, cartTotal: state.cartTotal };
+  return { cart: state.cart, items: state.items, total: state.total };
 };
 
 let Cart = connect(mapStateToProps)(UnconnectedCart);

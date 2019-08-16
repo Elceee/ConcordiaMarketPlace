@@ -1,0 +1,13 @@
+.subTotal {
+  position: absolute;
+  left: 730px;
+  top: 30px;
+}
+.down {
+  top: 60px;
+}
+.grandTotal {
+  position: absolute;
+  left: 730px;
+  top: 90px;
+}

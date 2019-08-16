@@ -9,7 +9,7 @@ class UnconnectedCheckout extends Component {
     console.log("cart total is", this.props.amount);
     let data = new FormData();
     data.append("token", JSON.stringify(token));
-    data.append("amount", this.props.amount);
+    data.append("amount", this.props.total);
     let response = await fetch("/stripe-charge", {
       method: "POST",
       body: data
@@ -19,7 +19,17 @@ class UnconnectedCheckout extends Component {
     console.log("saving stripe token");
     if (body.success === true) {
       alert("We are in business!");
+      this.purchaseCart();
     }
+  };
+
+  purchaseCart = () => {
+    let cart = { ...this.props.cart };
+    console.log("logging cart in cart endpoint", cart);
+    let data = new FormData();
+    data.append("cart", JSON.stringify(cart));
+    fetch("/purchaseCart", { method: "post", body: data });
+    this.props.dispatch({ type: "purchaseCart" });
   };
 
   render() {
@@ -31,7 +41,10 @@ class UnconnectedCheckout extends Component {
     );
   }
 }
+let mapStateToProps = state => {
+  return { total: state.total };
+};
 
-let Checkout = connect()(UnconnectedCheckout);
+let Checkout = connect(mapStateToProps)(UnconnectedCheckout);
 
 export default Checkout;

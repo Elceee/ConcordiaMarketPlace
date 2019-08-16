@@ -235,7 +235,7 @@ app.post("/sell-item", upload.single("image"), async (req, res) => {
 app.post("/purchaseCart", upload.none(), async (req, res) => {
   let username = await findUsernameByCookie(req.cookies.sid);
   let cart = JSON.parse(req.body.cart);
-
+  console.log("purchasing the cart");
   //Change the number of the item in stock
   Object.keys(cart).forEach(item => {
     let numberBought = parseInt(cart[item]);
@@ -297,7 +297,7 @@ app.post("/stripe-charge", upload.none(), (req, res) => {
     await stripe.charges.create({
       amount: amount * 100,
       currency: "cad",
-      description: "Charge from Vynil Store",
+      description: "Charge from Vinyl Store",
       source: "tok_visa"
     });
   };
