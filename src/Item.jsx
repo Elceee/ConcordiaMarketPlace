@@ -28,15 +28,22 @@ class UnconnectedItem extends Component {
   render = () => {
     let addToCartVisible = "";
     let cartAdderVisible = "none";
+    let x = <div />;
     if (this.props.inCart === "true") {
       addToCartVisible = "none";
       cartAdderVisible = "";
+    }
+    if (this.props.contents.stock === 0) {
+      x = <img className="soldOut" src="/uploads/sold out.png" />;
     }
 
     return (
       ///added card center to items
       <div className="card center ">
-        <img src={this.props.contents.imagePath} />
+        <div className="albumImage">
+          {x}
+          <img src={this.props.contents.imagePath} />
+        </div>
         <h3>{this.props.contents.name}</h3>
         <div className="description">{this.props.contents.description}</div>
         <Link to={"/sellerpage/" + this.props.contents.seller}>
