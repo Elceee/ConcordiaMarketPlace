@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./Reviews.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-export default class Reviews extends Component {
+class UnconnectedReviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,3 +45,7 @@ export default class Reviews extends Component {
     );
   };
 }
+
+let Reviews = connect()(withRouter(UnconnectedReviews));
+
+export default Reviews;
