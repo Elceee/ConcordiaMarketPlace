@@ -12,20 +12,20 @@ class UnconnectedUserActions extends Component {
   render = () => {
     return (
       <div className="dropDown">
-        <div>Profile</div>
+        <div style={{ minWidth: "159.49px" }}>Profile</div>
         <div className="dropDownContent">
-          <div>
-            <Link style={{ width: "164.2px" }} to={"/sellitem"}>
-              Sell Item
-            </Link>
+          <div className="dropDownItem">
+            <Link to={"/sellitem"}>Sell Item</Link>
           </div>
-          <div>
+          <div className="dropDownItem">
             <Link to={"/customizesellerpage/" + this.props.seller}>
-              Customize Seller Page
+              Seller Page
             </Link>
           </div>
-          <div>
-            <Link to="/purchaseHistory">Purchase History</Link>
+          <div className="dropDownItem">
+            <Link to="/purchaseHistory" style={{ width: "127.49px" }}>
+              Purchase History
+            </Link>
           </div>
         </div>
       </div>

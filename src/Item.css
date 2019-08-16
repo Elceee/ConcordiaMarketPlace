@@ -8,7 +8,35 @@ img {
 
 .Cartbutton {
   margin-top: 10px;
-  position: absolute;
   bottom: 27px;
   left: 107px;
+}
+
+.albumImage {
+  position: relative;
+}
+
+.soldOut {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.itemAlert {
+  margin-top: 10px;
+  bottom: 27px;
+  left: 107px;
+  transition: 1s;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.hidden {
+  display: none;
 }

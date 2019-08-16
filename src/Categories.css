@@ -4,7 +4,7 @@
   text-decoration: none;
   float: right;
   text-align: center;
-  padding: 10px 16px;
+  padding: 10px 0;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
@@ -26,9 +26,11 @@
 }
 
 .dropDown:hover .dropDownContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   box-shadow: 4px 4px 0px 0 #6b8d9e;
+}
+
+.dropDown .dropDownItem a {
+  display: block;
+  float: none;
 }

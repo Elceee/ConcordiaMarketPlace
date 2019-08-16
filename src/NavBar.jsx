@@ -4,20 +4,38 @@ import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
+import Modal from "react-modal";
+import LandingPage from "./LandingPage.jsx";
 import "./NavBar.css";
 
 class UnconnectedNavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { landingPageOpen: false };
   }
   resetQuery = () => {
     this.props.dispatch({ type: "searchTerms", query: "" });
   };
 
-  logOut = () => {
-    this.props.dispatch({ type: "logOut" });
-    this.props.history.push("/");
+  resetQueryAndPage = () => {
+    console.log("home");
+    this.props.dispatch({ type: "searchTerms", query: "" });
+    this.props.dispatch({ type: "pageChange", page: 0 });
+  };
+
+  logOut = async () => {
+    this.setState({ landingPageOpen: false });
+    let response = await fetch("/logout");
+    let responseBody = await response.text();
+    let body = JSON.parse(responseBody);
+    if (body.success) {
+      this.props.dispatch({ type: "logOut" });
+      this.props.history.push("/");
+    }
+  };
+
+  renderLandingPage = () => {
+    this.setState({ landingPageOpen: true });
   };
 
   render = () => {
@@ -27,15 +45,21 @@ class UnconnectedNavBar extends Component {
           <div>
             <Search />
           </div>
-          <div onClick={this.resetQuery}>
+          <div onClick={this.resetQueryAndPage}>
             <Link to={"/"}>Home</Link>
           </div>
           <div>
-            <Categories />
+            <Categories loggedIn="false" />
           </div>
           <div onClick={this.resetQuery}>
-            <Link to={"/login"}>Login</Link>
+            <Link onClick={this.renderLandingPage}>Login</Link>
           </div>
+          <Modal
+            isOpen={this.state.landingPageOpen}
+            style={{ content: { border: "none", background: "none" } }}
+          >
+            <LandingPage />
+          </Modal>
         </div>
       );
     }
@@ -45,14 +69,14 @@ class UnconnectedNavBar extends Component {
           <div>
             <Search />
           </div>
-          <div onClick={this.resetQuery}>
+          <div onClick={this.resetQueryandPage}>
             <Link to={"/"}>Home</Link>
           </div>
           <div>
             <Link to={"/cart"}>Cart</Link>
           </div>
           <div>
-            <Categories />
+            <Categories loggedIn="true" />
           </div>
           <div>
             <UserActions />

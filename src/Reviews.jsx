@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./Reviews.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-export default class Reviews extends Component {
+class UnconnectedReviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +11,12 @@ export default class Reviews extends Component {
       visible: false
     };
   }
+
+  componentDidUpdate = prevProps => {
+    if (prevProps !== this.props) {
+      this.setState({ item: this.props.item });
+    }
+  };
 
   revealReviews = () => {
     this.setState({ visible: !this.state.visible });
@@ -37,3 +45,7 @@ export default class Reviews extends Component {
     );
   };
 }
+
+let Reviews = connect()(withRouter(UnconnectedReviews));
+
+export default Reviews;

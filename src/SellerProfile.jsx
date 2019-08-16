@@ -77,7 +77,11 @@ class UnconnectedSellerProfile extends Component {
     let color = this.renderBackgroundColor();
     console.log("Color:", color);
     return (
-      <div style={{ backgroundColor: color }}>
+      <div
+        style={{
+          backgroundImage: `linear-gradient(to right, ${color}, white)`
+        }}
+      >
         <h1>{this.state.seller}'s Seller Page</h1>
         <div>
           <img src={this.state.profilePicture} />

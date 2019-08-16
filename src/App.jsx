@@ -26,7 +26,16 @@ class UnconnectedApp extends Component {
         this.props.dispatch({ type: "updateItems", items: body });
       }
     };
+    let isUserLoggedIn = async () => {
+      let response = await fetch("/isUserLoggedIn");
+      let responseBody = await response.text();
+      let body = JSON.parse(responseBody);
+      if (body.success) {
+        this.props.dispatch({ type: "login-success", username: body.username });
+      }
+    };
     getAllItems();
+    isUserLoggedIn();
   };
 
   renderLogin = () => {

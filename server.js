@@ -25,6 +25,8 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
   dbo = db.db("alibay"); //Let's choose a name to add here.
 });
 
+let itemsArray = [];
+
 //Signup endpoint
 
 app.post("/signup", upload.none(), (req, res) => {
@@ -95,6 +97,42 @@ app.post("/login", upload.none(), (req, res) => {
       }
       res.send(JSON.stringify({ success: false }));
     });
+});
+
+// endpoint to check is a user is already logged in
+
+app.get("/isUserLoggedIn", (req, res) => {
+  let sid = req.cookies.sid;
+  if (sid !== undefined) {
+    dbo.collection("sessions").findOne({ sessionId: sid }, (err, result) => {
+      if (err) {
+        console.log("error checking cookie");
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      if (result === null) {
+        res.send(JSON.stringify({ success: false }));
+      } else {
+        res.send(JSON.stringify({ success: true, username: result.username }));
+        return;
+      }
+    });
+  }
+});
+
+app.get("/logout", (req, res) => {
+  let sid = req.cookies.sid;
+  if (sid !== undefined) {
+    dbo.collection("sessions").deleteOne({ sessionId: sid }, (err, result) => {
+      if (err) {
+        console.log("error logging out");
+        res.send({ success: false });
+        return;
+      }
+      res.send({ success: true });
+      return;
+    });
+  }
 });
 
 // all-itmes endpoint. "items" is my provisional collection name
@@ -250,6 +288,17 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
             console.log("ERROR: ", err);
             res.send(JSON.stringify({ success: false }));
             return;
+          }
+        }
+      );
+    dbo
+      .collection("items")
+      .updateOne(
+        { _id: ObjectID(item) },
+        { $inc: { quantityBought: +numberBought } },
+        (err, update) => {
+          if (err) {
+            console.log("ERRO", err);
           }
         }
       );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import CartAdder from "./CartAdder.jsx";
 import "./Card.css";
 import "./DynamicButton.css";
@@ -9,10 +9,25 @@ import "./item.css";
 class UnconnectedItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { putIncart: false, outOfStock: "" };
   }
 
+  componentDidMount = () => {
+    if (this.props.contents.stock <= 0) {
+      this.setState({ outOfStock: true });
+    } else {
+      this.setState({ outOfStock: false });
+    }
+  };
+
   addToCart = () => {
+    if (this.props.user === undefined) {
+      this.props.history.push("/login");
+      return;
+    }
+    if (this.props.contents.stock <= 0) {
+      return;
+    }
     let item = this.props.contents;
     let amountInCart = this.props.cart[this.props.contents._id];
     if (amountInCart === undefined) {
@@ -23,20 +38,51 @@ class UnconnectedItem extends Component {
     data.append("quantity", amountInCart + 1);
     fetch("/add-to-cart", { method: "POST", body: data });
     this.props.dispatch({ type: "addToCart", item: item });
+    this.setState({ putIncart: true });
+  };
+
+  isItemInStock = () => {
+    if (this.state.outOfStock) {
+      return <div>Out of Stock</div>;
+    } else {
+      return (
+        <div>
+          <div
+            className={
+              this.state.putIncart ? "visible itemAlert" : "invisible itemAlert"
+            }
+          >
+            Item Added to Cart
+          </div>
+          <div
+            className={
+              this.state.putIncart ? "hidden Cartbutton" : "Cartbutton"
+            }
+          >
+            <button onClick={this.addToCart}>Add to Cart</button>
+          </div>
+        </div>
+      );
+    }
   };
 
   render = () => {
-    let addToCartVisible = "";
-    let cartAdderVisible = "none";
+    let x = <div />;
     if (this.props.inCart === "true") {
       addToCartVisible = "none";
       cartAdderVisible = "";
+    }
+    if (this.props.contents.stock <= 0) {
+      x = <img className="soldOut" src="/uploads/sold out.png" />;
     }
 
     return (
       ///added card center to items
       <div className="card center ">
-        <img src={this.props.contents.imagePath} />
+        <div className="albumImage">
+          {x}
+          <img src={this.props.contents.imagePath} />
+        </div>
         <h3>{this.props.contents.name}</h3>
         <div className="description">{this.props.contents.description}</div>
         <Link to={"/sellerpage/" + this.props.contents.seller}>
@@ -50,28 +96,16 @@ class UnconnectedItem extends Component {
         >
           Item Details
         </Link>
-        <div>
-          <div className="Cartbutton">
-            <button
-              onClick={this.addToCart}
-              style={{ display: addToCartVisible }}
-            >
-              Add to Cart
-            </button>
-          </div>
-          <div style={{ display: cartAdderVisible }}>
-            <CartAdder contents={this.props.contents} />
-          </div>
-        </div>
+        <div>{this.isItemInStock()}</div>
       </div>
     );
   };
 }
 
 let mapStateToProps = state => {
-  return { cart: state.cart };
+  return { cart: state.cart, user: state.username };
 };
 
-let Item = connect(mapStateToProps)(UnconnectedItem);
+let Item = connect(mapStateToProps)(withRouter(UnconnectedItem));
 
 export default Item;

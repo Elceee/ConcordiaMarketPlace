@@ -5,7 +5,8 @@ let initialState = {
   items: [],
   cart: {},
   query: "",
-  total: 0
+  total: 0,
+  page: 0
 };
 
 let reducer = (state, action) => {
@@ -56,6 +57,10 @@ let reducer = (state, action) => {
 
   if (action.type === "logOut") {
     return { ...state, cart: {}, query: "", username: undefined };
+  }
+
+  if (action.type === "pageChange") {
+    return { ...state, page: action.page };
   }
 
   return state;
