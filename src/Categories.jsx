@@ -30,7 +30,10 @@ class UnconnectedCategories extends Component {
 
   render = () => {
     return (
-      <div className="dropDown">
+      <div
+        className="dropDown"
+        style={{ minWidth: "129px", padding: "10px 0" }}
+      >
         <div>Categories</div>
         <div className="dropDownContent">{this.renderCategoiesasOptions()}</div>
       </div>

@@ -13,7 +13,7 @@ class UnconnectedUserActions extends Component {
     return (
       <div className="dropDown" style={{ width: "126.49px" }}>
         <div>Profile</div>
-        <div className="dropDownContent" style={{ left: "827px" }}>
+        <div className="dropDownContent" style={{ left: "880px" }}>
           <div>
             <Link to={"/sellitem"} style={{ width: "127.49px" }}>
               Sell Item

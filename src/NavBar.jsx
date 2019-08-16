@@ -31,7 +31,7 @@ class UnconnectedNavBar extends Component {
             <Link to={"/"}>Home</Link>
           </div>
           <div>
-            <Categories />
+            <Categories loggedIn="false" />
           </div>
           <div onClick={this.resetQuery}>
             <Link to={"/login"}>Login</Link>
@@ -52,7 +52,7 @@ class UnconnectedNavBar extends Component {
             <Link to={"/cart"}>Cart</Link>
           </div>
           <div>
-            <Categories />
+            <Categories loggedIn="true" />
           </div>
           <div>
             <UserActions />
