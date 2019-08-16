@@ -21,28 +21,48 @@ class UnconnectedNavBar extends Component {
   };
 
   render = () => {
-    return (
-      <div className="navcontainer navbar">
-        <div>
-          <Search />
+    if (this.props.seller === undefined) {
+      return (
+        <div className="navcontainer navbar">
+          <div>
+            <Search />
+          </div>
+          <div onClick={this.resetQuery}>
+            <Link to={"/"}>Home</Link>
+          </div>
+          <div>
+            <Categories />
+          </div>
+          <div onClick={this.resetQuery}>
+            <Link to={"/login"}>Login</Link>
+          </div>
         </div>
-        <div onClick={this.resetQuery}>
-          <Link to={"/"}>Home</Link>
+      );
+    }
+    if (this.props.seller !== undefined) {
+      return (
+        <div className="navcontainer navbar">
+          <div>
+            <Search />
+          </div>
+          <div onClick={this.resetQuery}>
+            <Link to={"/"}>Home</Link>
+          </div>
+          <div>
+            <Link to={"/cart"}>Cart</Link>
+          </div>
+          <div>
+            <Categories />
+          </div>
+          <div>
+            <UserActions />
+          </div>
+          <div className="logOut" onClick={this.logOut}>
+            Logout
+          </div>
         </div>
-        <div>
-          <Link to={"/cart"}>Cart</Link>
-        </div>
-        <div>
-          <Categories />
-        </div>
-        <div>
-          <UserActions />
-        </div>
-        <div className="logOut" onClick={this.logOut}>
-          Logout
-        </div>
-      </div>
-    );
+      );
+    }
   };
 }
 

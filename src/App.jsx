@@ -17,6 +17,26 @@ import "./DynamicButton.css";
 import "./FormButton.css";
 
 class UnconnectedApp extends Component {
+  componentDidMount = () => {
+    let getAllItems = async () => {
+      let response = await fetch("/all-items");
+      let responseBody = await response.text();
+      let body = JSON.parse(responseBody);
+      if (body.success !== false) {
+        this.props.dispatch({ type: "updateItems", items: body });
+      }
+    };
+    getAllItems();
+  };
+
+  renderLogin = () => {
+    return (
+      <div>
+        <LandingPage />
+      </div>
+    );
+  };
+
   renderAllItems = () => {
     if (this.props.query === "") {
       return (
@@ -56,6 +76,9 @@ class UnconnectedApp extends Component {
   };
 
   renderCart = () => {
+    if (this.props.username === undefined) {
+      return <LandingPage />;
+    }
     return (
       <div>
         <NavBar />
@@ -65,6 +88,9 @@ class UnconnectedApp extends Component {
   };
 
   renderSellItem = () => {
+    if (this.props.username === undefined) {
+      return <LandingPage />;
+    }
     return (
       <div>
         <NavBar />
@@ -74,6 +100,9 @@ class UnconnectedApp extends Component {
   };
 
   renderCustomizeSellerPage = rd => {
+    if (this.props.username === undefined) {
+      return <LandingPage />;
+    }
     let username = rd.match.params.sellerId;
     return (
       <div>
@@ -94,6 +123,9 @@ class UnconnectedApp extends Component {
   };
 
   renderPurchaseHistory = () => {
+    if (this.props.username === undefined) {
+      return <LandingPage />;
+    }
     return (
       <div>
         <NavBar />
@@ -103,13 +135,11 @@ class UnconnectedApp extends Component {
   };
 
   render = () => {
-    if (this.props.username === undefined) {
-      return <LandingPage />;
-    }
     return (
       <div>
         <BrowserRouter>
           <Route exact path="/" render={this.renderAllItems} />
+          <Route exact path="/login" render={this.renderLogin} />
           <Route
             exact
             path="/itemdetails/:itemId"

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./signup.css";
 import "./FormButton.css";
+import { withRouter } from "react-router-dom";
 
 class UnconnectedSignup extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class UnconnectedSignup extends Component {
       return;
     }
     this.props.dispatch({ type: "login-success", username: username });
+    this.props.history.push("/");
   };
 
   render() {
@@ -63,6 +65,6 @@ class UnconnectedSignup extends Component {
   }
 }
 
-let Signup = connect()(UnconnectedSignup);
+let Signup = connect()(withRouter(UnconnectedSignup));
 
 export default Signup;
