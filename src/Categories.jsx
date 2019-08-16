@@ -4,14 +4,7 @@ import { connect } from "react-redux";
 import "./Categories.css";
 
 class UnconnectedCategories extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      allCategories: []
-    };
-  }
-
-  componentDidMount = async () => {
+  renderCategoiesasOptions = () => {
     let allCategories = [];
     this.props.items.forEach(item => {
       item.categories.forEach(category => {
@@ -20,11 +13,7 @@ class UnconnectedCategories extends Component {
         }
       });
     });
-    this.setState({ allCategories });
-  };
-
-  renderCategoiesasOptions = () => {
-    return this.state.allCategories.map(category => {
+    return allCategories.map(category => {
       return (
         <div key={category} className="dropDownItem">
           <Link to={"/category/" + category}>{category}</Link>
