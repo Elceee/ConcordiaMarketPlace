@@ -5,38 +5,47 @@ import { connect } from "react-redux";
 class UnconnectedViewAllItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { page: 0 };
+    this.state = { page: this.props.state };
   }
 
   //diplays the next 9 items in the items array
   nextHandler = () => {
     console.log("next");
     console.log("items", this.props.items.length);
-    let nextPage = this.state.page + 1;
+    let nextPage = this.props.page + 1;
     if (nextPage * 9 <= this.props.items.length) {
-      this.setState({ page: nextPage }, () => this.renderItemsAsLiElems());
+      this.setState({ page: nextPage }, () => {
+        this.props.dispatch({ type: "pageChange", page: this.state.page });
+        this.renderItemsAsLiElems();
+      });
     }
   };
 
   //displays the previous 9 items in the items array
   previousHandler = () => {
     console.log("previous");
-    let previousPage = this.state.page - 1;
+    let previousPage = this.props.page - 1;
     if (previousPage >= 0) {
-      this.setState({ page: previousPage }, () => this.renderItemsAsLiElems());
+      this.setState({ page: previousPage }, () => {
+        this.props.dispatch({ type: "pageChange", page: this.state.page });
+        this.renderItemsAsLiElems();
+      });
     }
   };
 
   //slices the items array depending on which page you're on.
   itemsToDisplay = () => {
-    let x = 0 + this.state.page * 9;
-    let y = 9 + this.state.page * 9;
+    let x = 0 + this.props.page * 9;
+    let y = 9 + this.props.page * 9;
     return this.props.items.slice(x, y);
   };
 
   pageButtonHandler = event => {
     let newPage = event.target.value - 1;
-    this.setState({ page: newPage }, () => this.renderItemsAsLiElems());
+    this.setState({ page: newPage }, () => {
+      this.props.dispatch({ type: "pageChange", page: this.state.page });
+      this.renderItemsAsLiElems();
+    });
   };
 
   displayPageLinks = () => {
@@ -86,7 +95,7 @@ class UnconnectedViewAllItems extends Component {
 }
 
 let mapStateToProps = state => {
-  return { items: state.items };
+  return { items: state.items, page: state.page };
 };
 
 let ViewAllItems = connect(mapStateToProps)(UnconnectedViewAllItems);

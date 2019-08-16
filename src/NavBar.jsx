@@ -15,6 +15,12 @@ class UnconnectedNavBar extends Component {
     this.props.dispatch({ type: "searchTerms", query: "" });
   };
 
+  resetQueryAndPage = () => {
+    console.log("home");
+    this.props.dispatch({ type: "searchTerms", query: "" });
+    this.props.dispatch({ type: "pageChange", page: 0 });
+  };
+
   logOut = () => {
     this.props.dispatch({ type: "logOut" });
     this.props.history.push("/");
@@ -27,7 +33,7 @@ class UnconnectedNavBar extends Component {
           <div>
             <Search />
           </div>
-          <div onClick={this.resetQuery}>
+          <div onClick={this.resetQueryAndPage}>
             <Link to={"/"}>Home</Link>
           </div>
           <div>
@@ -45,7 +51,7 @@ class UnconnectedNavBar extends Component {
           <div>
             <Search />
           </div>
-          <div onClick={this.resetQuery}>
+          <div onClick={this.resetQueryandPage}>
             <Link to={"/"}>Home</Link>
           </div>
           <div>
