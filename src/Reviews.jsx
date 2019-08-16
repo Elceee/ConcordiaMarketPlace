@@ -10,6 +10,12 @@ export default class Reviews extends Component {
     };
   }
 
+  componentDidUpdate = prevProps => {
+    if (prevProps !== this.props) {
+      this.setState({ item: this.props.item });
+    }
+  };
+
   revealReviews = () => {
     this.setState({ visible: !this.state.visible });
   };
