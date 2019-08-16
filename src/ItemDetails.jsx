@@ -116,6 +116,7 @@ class UnconnectedItemDetails extends Component {
                 {this.state.item.seller}
               </Link>
             </h4>
+            <div>Units Sold: {this.state.item.quantityBought}</div>
             <div className="price">${this.state.item.price}</div>
             <div>
               <button onClick={this.addToCart}>Add to Cart</button>
