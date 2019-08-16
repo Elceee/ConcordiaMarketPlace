@@ -12,3 +12,13 @@ img {
   bottom: 27px;
   left: 107px;
 }
+
+.albumImage {
+  position: relative;
+}
+
+.soldOut {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
