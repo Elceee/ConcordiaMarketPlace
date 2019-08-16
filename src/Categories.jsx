@@ -13,6 +13,7 @@ class UnconnectedCategories extends Component {
         }
       });
     });
+    allCategories = allCategories.sort();
     return allCategories.map(category => {
       return (
         <div key={category} className="dropDownItem">
