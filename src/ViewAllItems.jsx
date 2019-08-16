@@ -8,6 +8,7 @@ class UnconnectedViewAllItems extends Component {
     this.state = { page: 0 };
   }
 
+  //diplays the next 9 items in the items array
   nextHandler = () => {
     console.log("next");
     console.log("items", this.props.items.length);
@@ -17,6 +18,7 @@ class UnconnectedViewAllItems extends Component {
     }
   };
 
+  //displays the previous 9 items in the items array
   previousHandler = () => {
     console.log("previous");
     let previousPage = this.state.page - 1;
@@ -30,6 +32,31 @@ class UnconnectedViewAllItems extends Component {
     let x = 0 + this.state.page * 9;
     let y = 9 + this.state.page * 9;
     return this.props.items.slice(x, y);
+  };
+
+  pageButtonHandler = event => {
+    let newPage = event.target.value - 1;
+    this.setState({ page: newPage }, () => this.renderItemsAsLiElems());
+  };
+
+  displayPageLinks = () => {
+    let numberOfPages = Math.ceil(this.props.items.length / 9);
+    console.log("number of pages: ", numberOfPages);
+    let pageArray = [];
+    for (let p = 1; p <= numberOfPages; p++) {
+      pageArray.push(p);
+    }
+    return (
+      <div className="pageNumbers">
+        {pageArray.map(p => {
+          return (
+            <button value={p} onClick={this.pageButtonHandler}>
+              {p}
+            </button>
+          );
+        })}
+      </div>
+    );
   };
 
   renderItemsAsLiElems = () => {
@@ -51,6 +78,7 @@ class UnconnectedViewAllItems extends Component {
         <div>
           <button onClick={this.previousHandler}>Previous</button>
           <button onClick={this.nextHandler}>Next</button>
+          <div>{this.displayPageLinks()}</div>
         </div>
       </div>
     );
