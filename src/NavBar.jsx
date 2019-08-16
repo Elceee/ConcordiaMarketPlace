@@ -21,9 +21,14 @@ class UnconnectedNavBar extends Component {
     this.props.dispatch({ type: "pageChange", page: 0 });
   };
 
-  logOut = () => {
-    this.props.dispatch({ type: "logOut" });
-    this.props.history.push("/");
+  logOut = async () => {
+    let response = await fetch("/logout");
+    let responseBody = await response.text();
+    let body = JSON.parse(responseBody);
+    if (body.success) {
+      this.props.dispatch({ type: "logOut" });
+      this.props.history.push("/");
+    }
   };
 
   render = () => {

@@ -99,6 +99,42 @@ app.post("/login", upload.none(), (req, res) => {
     });
 });
 
+// endpoint to check is a user is already logged in
+
+app.get("/isUserLoggedIn", (req, res) => {
+  let sid = req.cookies.sid;
+  if (sid !== undefined) {
+    dbo.collection("sessions").findOne({ sessionId: sid }, (err, result) => {
+      if (err) {
+        console.log("error checking cookie");
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      if (result === null) {
+        res.send(JSON.stringify({ success: false }));
+      } else {
+        res.send(JSON.stringify({ success: true, username: result.username }));
+        return;
+      }
+    });
+  }
+});
+
+app.get("/logout", (req, res) => {
+  let sid = req.cookies.sid;
+  if (sid !== undefined) {
+    dbo.collection("sessions").deleteOne({ sessionId: sid }, (err, result) => {
+      if (err) {
+        console.log("error logging out");
+        res.send({ success: false });
+        return;
+      }
+      res.send({ success: true });
+      return;
+    });
+  }
+});
+
 // all-itmes endpoint. "items" is my provisional collection name
 app.get("/all-items", (req, res) => {
   console.log("request to /all-items endpoint");
