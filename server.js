@@ -25,6 +25,8 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
   dbo = db.db("alibay"); //Let's choose a name to add here.
 });
 
+let itemsArray = [];
+
 //Signup endpoint
 
 app.post("/signup", upload.none(), (req, res) => {
@@ -250,6 +252,17 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
             console.log("ERROR: ", err);
             res.send(JSON.stringify({ success: false }));
             return;
+          }
+        }
+      );
+    dbo
+      .collection("items")
+      .updateOne(
+        { _id: ObjectID(item) },
+        { $inc: { quantityBought: +numberBought } },
+        (err, update) => {
+          if (err) {
+            console.log("ERRO", err);
           }
         }
       );

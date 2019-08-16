@@ -31,6 +31,7 @@ class UnconnectedPurchaseHistory extends Component {
       return Object.keys(order).map(itemId => {
         {
           let item = this.findItemById(itemId);
+
           return { item: item, count: order[itemId] };
         }
       });
