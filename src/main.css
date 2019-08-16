@@ -58,3 +58,8 @@ a:active {
 button:active {
   border-style: none;
 }
+
+.pageButtons button {
+  background-color: #f2b880;
+  font-size: 130%;
+}
