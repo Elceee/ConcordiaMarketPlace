@@ -12,11 +12,8 @@ class UnconnectedCategories extends Component {
   }
 
   componentDidMount = async () => {
-    let response = await fetch("/all-items");
-    let responseBody = await response.text();
-    let body = JSON.parse(responseBody);
     let allCategories = [];
-    body.forEach(item => {
+    this.props.items.forEach(item => {
       item.categories.forEach(category => {
         if (!allCategories.includes(category)) {
           allCategories.push(category);
@@ -51,6 +48,10 @@ class UnconnectedCategories extends Component {
   };
 }
 
-let Categories = connect()(withRouter(UnconnectedCategories));
+let mapStateToProps = state => {
+  return { items: state.items };
+};
+
+let Categories = connect(mapStateToProps)(withRouter(UnconnectedCategories));
 
 export default Categories;

@@ -8,18 +8,6 @@ class UnconnectedViewAllItems extends Component {
     this.state = {};
   }
 
-  componentDidMount = () => {
-    let getAllItems = async () => {
-      let response = await fetch("/all-items");
-      let responseBody = await response.text();
-      let body = JSON.parse(responseBody);
-      if (body.success !== false) {
-        this.props.dispatch({ type: "updateItems", items: body });
-      }
-    };
-    getAllItems();
-  };
-
   renderItemsAsLiElems = () => {
     let key = 1;
     return (

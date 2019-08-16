@@ -50,7 +50,7 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "logOut") {
-    return initialState;
+    return { ...state, cart: {}, query: "", username: undefined };
   }
 
   return state;
