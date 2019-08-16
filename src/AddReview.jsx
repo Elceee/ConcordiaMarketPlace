@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { withRouter } from "react-router-dom";
 class UnconnectedAddReview extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +13,10 @@ class UnconnectedAddReview extends Component {
 
   submitHandler = event => {
     event.preventDefault();
+    if (this.props.name === undefined) {
+      this.props.history.push("/login");
+      return;
+    }
     let review = this.state.review;
     let data = new FormData();
     data.append("name", this.props.name);
@@ -42,6 +46,6 @@ let mapStateToProps = state => {
   return { name: state.username };
 };
 
-let AddReview = connect(mapStateToProps)(UnconnectedAddReview);
+let AddReview = connect(mapStateToProps)(withRouter(UnconnectedAddReview));
 
 export default AddReview;

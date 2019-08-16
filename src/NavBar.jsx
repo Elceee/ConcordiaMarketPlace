@@ -4,12 +4,14 @@ import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
+import Modal from "react-modal";
+import LandingPage from "./LandingPage.jsx";
 import "./NavBar.css";
 
 class UnconnectedNavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { landingPageOpen: false };
   }
   resetQuery = () => {
     this.props.dispatch({ type: "searchTerms", query: "" });
@@ -22,8 +24,13 @@ class UnconnectedNavBar extends Component {
   };
 
   logOut = () => {
+    this.setState({ landingPageOpen: false });
     this.props.dispatch({ type: "logOut" });
     this.props.history.push("/");
+  };
+
+  renderLandingPage = () => {
+    this.setState({ landingPageOpen: true });
   };
 
   render = () => {
@@ -40,8 +47,14 @@ class UnconnectedNavBar extends Component {
             <Categories loggedIn="false" />
           </div>
           <div onClick={this.resetQuery}>
-            <Link to={"/login"}>Login</Link>
+            <Link onClick={this.renderLandingPage}>Login</Link>
           </div>
+          <Modal
+            isOpen={this.state.landingPageOpen}
+            style={{ content: { border: "none", background: "none" } }}
+          >
+            <LandingPage />
+          </Modal>
         </div>
       );
     }
