@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Item from "./Item.jsx";
 import { connect } from "react-redux";
+import EventListener, { withOptions } from "react-event-listener";
 
 class UnconnectedViewAllItems extends Component {
   constructor(props) {
@@ -30,6 +31,15 @@ class UnconnectedViewAllItems extends Component {
         this.props.dispatch({ type: "pageChange", page: this.state.page });
         this.renderItemsAsLiElems();
       });
+    }
+  };
+
+  handleKeyPress = event => {
+    if (event.keyCode === 37) {
+      this.previousHandler();
+    }
+    if (event.keyCode === 39) {
+      this.nextHandler();
     }
   };
 
@@ -84,11 +94,12 @@ class UnconnectedViewAllItems extends Component {
     return (
       <div>
         <div>{this.renderItemsAsLiElems()}</div>;
-        <div>
+        <div className="pageButtons">
           <button onClick={this.previousHandler}>Previous</button>
           <button onClick={this.nextHandler}>Next</button>
           <div>{this.displayPageLinks()}</div>
         </div>
+        <EventListener target={document} onKeyDown={this.handleKeyPress} />
       </div>
     );
   };
