@@ -6,7 +6,8 @@ let initialState = {
   cart: {},
   query: "",
   total: 0,
-  page: 0
+  page: 0,
+  location: undefined
 };
 
 let reducer = (state, action) => {
@@ -61,6 +62,9 @@ let reducer = (state, action) => {
 
   if (action.type === "pageChange") {
     return { ...state, page: action.page };
+  }
+  if (action.type === "location") {
+    return { ...state, location: action.location };
   }
 
   return state;

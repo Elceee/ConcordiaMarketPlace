@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Checkout from "./Checkout.jsx";
 import CartItem from "./CartItem.jsx";
+import Location from "./Location.jsx";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 
@@ -21,7 +22,25 @@ class UnconnectedCart extends Component {
     this.props.dispatch({ type: "addToTotal", total: shippingIn });
   };
 
-  calculatedShipping = () => {
+  calculatedShipping = location => {
+    if (location === "Canada") {
+      return 5.95;
+    }
+    if (location === "United-States") {
+      return 6.95;
+    }
+    if (location === "Europe") {
+      return 25.95;
+    }
+    if (location === "South-America") {
+      return 10.95;
+    }
+    if (location === "Africa") {
+      return 29.95;
+    }
+    if (location === "Asia") {
+      return 21.95;
+    }
     return 5.95;
   };
 
@@ -85,6 +104,7 @@ class UnconnectedCart extends Component {
         </div>
 
         <div className="card center nomin">
+          <Location />`
           <div className="paymentContainer">
             <div>
               <dt>{this.itemsWording(this.numberOfItems())}</dt>
@@ -92,11 +112,15 @@ class UnconnectedCart extends Component {
             </div>
             <div>
               <dt>Shipping</dt>
-              <dd>${this.calculatedShipping() + ""}</dd>
+              <dd>${this.calculatedShipping(this.props.location) + ""}</dd>
             </div>
             <div>
               <dt>Your Total</dt>
-              <dd>${"" + (this.calculatedShipping() + cartTotal)}</dd>
+              <dd>
+                $
+                {"" +
+                  (this.calculatedShipping(this.props.location) + cartTotal)}
+              </dd>
             </div>
           </div>
           <div className="pad">
@@ -114,7 +138,12 @@ class UnconnectedCart extends Component {
 }
 
 let mapStateToProps = state => {
-  return { cart: state.cart, items: state.items, total: state.total };
+  return {
+    cart: state.cart,
+    items: state.items,
+    total: state.total,
+    location: state.location
+  };
 };
 
 let Cart = connect(mapStateToProps)(UnconnectedCart);
