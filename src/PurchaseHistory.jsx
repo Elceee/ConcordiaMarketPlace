@@ -69,12 +69,14 @@ class UnconnectedPurchaseHistory extends Component {
                 <div className="totalTitle">Total</div>
               </div>
               {order.map(object => {
-                orderTotal += object.count * object.item.price;
+                orderTotal += parseInt(object.count * object.item.price);
                 return (
                   <PurchasedItem item={object.item} count={object.count} />
                 );
               })}
-              <h3 style={{ paddingLeft: "872px" }}>Total: ${orderTotal}</h3>
+              <h3 style={{ paddingLeft: "872px" }}>
+                Total: ${(orderTotal / 100).toFixed(2)}
+              </h3>
             </div>
           );
         })}

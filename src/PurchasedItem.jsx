@@ -27,11 +27,11 @@ class UnconnectPurchasedItem extends Component {
                 Seller: {this.props.item.seller}
               </Link>
             </div>
-            <div>Price: ${this.props.item.price}</div>
+            <div>Price: ${(this.props.item.price / 100).toFixed(2)}</div>
           </div>
         </div>
         <div className="amountPurchased">{amountPurchased}</div>
-        <div className="itemsTotal">${itemsPrice}</div>
+        <div className="itemsTotal">${(itemsPrice / 100).toFixed(2)}</div>
       </div>
     );
   }

@@ -12,7 +12,7 @@ class UnconnectedShippingInfo extends Component {
         <form className="containerShip">
           <div className="left">
             Name:
-            <input type="text" value={this.props.username} />
+            <input type="text" />
           </div>
           <div className="left">
             Address Line 1:

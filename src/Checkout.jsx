@@ -42,7 +42,7 @@ class UnconnectedCheckout extends Component {
   }
 }
 let mapStateToProps = state => {
-  return { total: state.total };
+  return { total: state.total / 100 };
 };
 
 let Checkout = connect(mapStateToProps)(UnconnectedCheckout);

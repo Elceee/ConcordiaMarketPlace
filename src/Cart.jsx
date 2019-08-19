@@ -16,8 +16,10 @@ class UnconnectedCart extends Component {
   componentDidMount = () => {
     let cartTotal = 0;
     let items = Object.keys(this.props.cart).map(itemId => {
+      console.log(itemId);
       let item = this.findItemById(itemId);
       cartTotal += this.props.cart[itemId] * item.price;
+      console.log(cartTotal);
     });
     let shippingIn = this.calculatedShipping() + cartTotal;
     console.log("this should include shipping", shippingIn);
@@ -26,7 +28,7 @@ class UnconnectedCart extends Component {
 
   calculatedShipping = location => {
     if (locations[location] === undefined) {
-      return 5.95;
+      return 595;
     }
     return locations[location];
   };
@@ -102,18 +104,27 @@ class UnconnectedCart extends Component {
           <div className="paymentContainer">
             <div>
               <dt>{this.itemsWording(this.numberOfItems())}</dt>
-              <dd>${"" + cartTotal}</dd>
+              <dd>${"" + parseInt(cartTotal / 100).toFixed(2)}</dd>
             </div>
             <div>
               <dt>Shipping</dt>
-              <dd>${this.calculatedShipping(this.props.location) + ""}</dd>
+              <dd>
+                $
+                {(this.calculatedShipping(this.props.location) / 100).toFixed(
+                  2
+                ) + ""}
+              </dd>
             </div>
             <div>
               <dt>Your Total</dt>
               <dd>
                 $
                 {"" +
-                  (this.calculatedShipping(this.props.location) + cartTotal)}
+                  (
+                    (parseInt(cartTotal) +
+                      this.calculatedShipping(this.props.location)) /
+                    100
+                  ).toFixed(2)}
               </dd>
             </div>
           </div>
@@ -135,7 +146,7 @@ let mapStateToProps = state => {
   return {
     cart: state.cart,
     items: state.items,
-    total: state.total,
+    total: (state.total / 100).toFixed(2),
     location: state.location
   };
 };

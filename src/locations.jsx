@@ -1,11 +1,11 @@
 let locations = {
-  Canada: 5.95,
-  UnitedStates: 6.95,
-  Europe: 25.95,
-  SouthAmerica: 10.95,
-  Africa: 29.95,
-  Asia: 21.95,
-  Australia: 18.99
+  Canada: 595,
+  UnitedStates: 695,
+  Europe: 2595,
+  SouthAmerica: 1095,
+  Africa: 2995,
+  Asia: 2195,
+  Australia: 1899
 };
 
 export default locations;

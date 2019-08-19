@@ -25,7 +25,8 @@ class UnconnectCartItem extends Component {
       amountInCart = "";
     }
 
-    let itemsPrice = this.props.item.price * amountInCart;
+    let itemsPrice =
+      (this.props.item.price / 100).toFixed(2) * parseInt(amountInCart);
     return (
       <div className="cartItemContainer">
         <div className="cartItem">
@@ -42,7 +43,7 @@ class UnconnectCartItem extends Component {
                 Seller: {this.props.item.seller}
               </Link>
             </div>
-            <div>Price: ${this.props.item.price}</div>
+            <div>Price: ${(this.props.item.price / 100).toFixed(2)}</div>
           </div>
         </div>
         <div className="cartAdder">
@@ -51,7 +52,7 @@ class UnconnectCartItem extends Component {
             <button onClick={this.removeFromCart}>Remove From Cart</button>
           </div>
         </div>
-        <div className="itemPrice">${itemsPrice}</div>
+        <div className="itemPrice">${itemsPrice.toFixed(2)}</div>
       </div>
     );
   }
