@@ -20,6 +20,19 @@ class UnconnectedItem extends Component {
     }
   };
 
+  componentDidUpdate = prevProps => {
+    if (this.props !== prevProps) {
+      if (this.props.contents.stock <= 0) {
+        this.setState({ outOfStock: true });
+      } else {
+        this.setState({ outOfStock: false });
+      }
+    }
+    if (this.props.contents._id !== prevProps.contents._id) {
+      this.setState({ putIncart: false });
+    }
+  };
+
   openLandingPage = () => {
     this.props.dispatch({ type: "openModal" });
   };
