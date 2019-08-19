@@ -9,6 +9,20 @@ class UnconnectedViewAllItems extends Component {
     this.state = { page: this.props.state, viewAll: false };
   }
 
+  fromAtoZ = (a, b) => {
+    let albumA = a.name.toUpperCase();
+    let albumB = b.name.toUpperCase();
+
+    let comparison = 0;
+    if (albumA > albumB) {
+      comparison = 1;
+    }
+    if (albumA < albumB) {
+      comparison = -1;
+    }
+    return comparison;
+  };
+
   //diplays the next 9 items in the items array
   nextHandler = async () => {
     console.log("next");
@@ -47,10 +61,11 @@ class UnconnectedViewAllItems extends Component {
 
   //slices the items array depending on which page you're on.
   itemsToDisplay = () => {
+    let alphabeticalItems = this.props.items.sort(this.fromAtoZ);
     if (this.state.viewAll === false) {
       let x = 0 + this.props.page * 9;
       let y = 9 + this.props.page * 9;
-      return this.props.items.slice(x, y);
+      return alphabeticalItems.slice(x, y);
     }
     if (this.state.viewAll === true) {
       return this.props.items;
@@ -83,12 +98,13 @@ class UnconnectedViewAllItems extends Component {
   };
 
   viewAllHandler = () => {
+    let alphabeticalItems = this.props.items.sort(this.fromAtoZ);
     let key = 1;
     this.setState({ viewAll: true }, () => {
       return (
         //class to auto-place items in css
         <div className="wrapper">
-          {this.props.items.map(item => {
+          {alphabeticalItems.map(item => {
             return <Item key={key++} contents={item} inCart="false" />;
           })}
         </div>
