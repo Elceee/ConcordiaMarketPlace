@@ -69,7 +69,7 @@ class UnconnectedNavBar extends Component {
           <div>
             <Search />
           </div>
-          <div onClick={this.resetQueryandPage}>
+          <div onClick={this.resetQueryAndPage}>
             <Link to={"/"}>Home</Link>
           </div>
           <div>
