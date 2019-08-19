@@ -93,12 +93,6 @@ class UnconnectedApp extends Component {
       <div>
         <NavBar />
         <CategoryRender category={category} />
-        <Modal
-          isOpen={this.props.landingPageOpen}
-          style={{ content: { border: "none", background: "none" } }}
-        >
-          <LandingPage />
-        </Modal>
       </div>
     );
   };

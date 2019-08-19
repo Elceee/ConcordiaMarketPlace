@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import Checkout from "./Checkout.jsx";
 import CartItem from "./CartItem.jsx";
 import Location from "./Location.jsx";
+import ShippingInfo from "./ShippingInfo.jsx";
 import { Link } from "react-router-dom";
 import "./Cart.css";
+import locations from "./locations.jsx";
 
 class UnconnectedCart extends Component {
   constructor(props) {
@@ -23,25 +25,10 @@ class UnconnectedCart extends Component {
   };
 
   calculatedShipping = location => {
-    if (location === "Canada") {
+    if (locations[location] === undefined) {
       return 5.95;
     }
-    if (location === "United-States") {
-      return 6.95;
-    }
-    if (location === "Europe") {
-      return 25.95;
-    }
-    if (location === "South-America") {
-      return 10.95;
-    }
-    if (location === "Africa") {
-      return 29.95;
-    }
-    if (location === "Asia") {
-      return 21.95;
-    }
-    return 5.95;
+    return locations[location];
   };
 
   findItemById = itemId => {
@@ -104,11 +91,18 @@ class UnconnectedCart extends Component {
         </div>
 
         <div className="card center nomin">
-          <Location />`
+          <div className="offWhite">
+            <div>
+              <ShippingInfo />
+            </div>
+            <div className="centerMe">
+              <Location />
+            </div>
+          </div>
           <div className="paymentContainer">
             <div>
               <dt>{this.itemsWording(this.numberOfItems())}</dt>
-              <dd>${"" + cartTotal}.00</dd>
+              <dd>${"" + cartTotal}</dd>
             </div>
             <div>
               <dt>Shipping</dt>

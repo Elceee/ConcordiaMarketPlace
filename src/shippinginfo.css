@@ -1,0 +1,50 @@
+.containerShip {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.containerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 0px;
+}
+
+.input[type="text"]:focus {
+  outline: none;
+}
+
+input[type="text"] {
+  outline: none;
+  background-color: #fffaf7;
+  border-color: black;
+  color: #6b8d9e;
+  margin: 6px;
+  padding: 2px 2px;
+  font-size: 12px;
+  box-shadow: 2px 2px 0px 0 #e7cfbc;
+}
+
+.longBox {
+  width: 350px;
+}
+select {
+  border-color: black;
+  padding: 4px;
+  margin: 4px;
+}
+
+.left {
+  margin-left: 0px;
+}
+
+.offWhite {
+  padding: 10px;
+  z-index: 1000;
+}
+
+.centerMe {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}

@@ -18,7 +18,7 @@ class UnconnectedCheckout extends Component {
     let body = JSON.parse(responseBody);
     console.log("saving stripe token");
     if (body.success === true) {
-      alert("We are in business!");
+      alert("Payment Approved");
       this.purchaseCart();
     }
   };
