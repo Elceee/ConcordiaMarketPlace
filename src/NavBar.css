@@ -63,3 +63,53 @@
   color: #6b8d9e;
   font-size: 100%;
 }
+
+.toFront {
+  height: 20px;
+  z-index: 1000;
+  justify-content: flex-start;
+  margin-right: -90px;
+  margin-left: -40px;
+  margin-top: -10px;
+}
+.toFront img {
+  height: 100px;
+  width: 100px;
+  transition: 10s;
+  transition-timing-function: linear;
+}
+
+.arm {
+  z-index: 1000000;
+  margin-top: -150px;
+  margin-left: 50px;
+}
+
+.arm img {
+  height: 130px;
+  width: 130px;
+}
+
+#armm {
+  transition: 0.7s;
+}
+
+.toFront:hover #armm {
+  transform: rotate(30deg);
+}
+
+.toFront:hover #record {
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
