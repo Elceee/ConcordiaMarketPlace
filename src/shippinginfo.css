@@ -10,11 +10,11 @@
   margin-left: 0px;
 }
 
-.input[type="text"]:focus {
+.containerShip input[type="text"]:focus {
   outline: none;
 }
 
-input[type="text"] {
+.containerShip input[type="text"] {
   outline: none;
   background-color: #fffaf7;
   border-color: black;
