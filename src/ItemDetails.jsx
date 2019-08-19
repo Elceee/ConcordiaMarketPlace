@@ -44,7 +44,15 @@ class UnconnectedItemDetails extends Component {
       }
     }
   };
+
+  openLandingPage = () => {
+    this.props.dispatch({ type: "openModal" });
+  };
   addToCart = () => {
+    if (this.props.user === undefined) {
+      this.openLandingPage();
+      return;
+    }
     let item = this.state.item;
     let data = new FormData();
     data.append("item", item);
@@ -146,7 +154,7 @@ class UnconnectedItemDetails extends Component {
 }
 
 let mapStateToProps = state => {
-  return { items: state.items };
+  return { items: state.items, user: state.username };
 };
 
 let ItemDetails = connect(mapStateToProps)(UnconnectedItemDetails);
