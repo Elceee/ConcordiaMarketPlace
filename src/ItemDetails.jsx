@@ -111,13 +111,20 @@ class UnconnectedItemDetails extends Component {
   };
 
   render = () => {
+    let x = <div />;
     if (!this.state.item) return "Loading...";
+    if (this.state.item.stock <= 0) {
+      x = <img className="soldOut" src="/uploads/sold out.png" />;
+    }
     return (
       <div className="itemDetailsContainer">
         <div>
           <div className="card center">
             <h3>{this.state.item.name}</h3>
-            <img src={this.state.item.imagePath} />
+            <div className="albumImage">
+              {x}
+              <img src={this.state.item.imagePath} />
+            </div>
             <h4>
               Sold by:{" "}
               <Link to={"/sellerpage/" + this.state.item.seller}>
