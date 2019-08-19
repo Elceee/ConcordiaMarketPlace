@@ -88,7 +88,7 @@ class UnconnectedItem extends Component {
         <Link to={"/sellerpage/" + this.props.contents.seller}>
           <div>{this.props.contents.seller}</div>
         </Link>
-        <div>Price: ${this.props.contents.price}</div>
+        <div>Price: ${(this.props.contents.price / 100).toFixed(2)}</div>
         <div>{this.props.contents.stock} in stock</div>
         <Link
           className="detailsLink"

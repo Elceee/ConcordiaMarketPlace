@@ -59,9 +59,9 @@ class UnconnectedSellItem extends Component {
     data.append("name", this.state.itemName);
     data.append("image", this.state.imageFile);
     data.append("categories", this.state.genres);
-    data.append("description", this.state.description);
+    data.append("description", "By" + this.state.description);
     data.append("seller", this.props.seller);
-    data.append("price", this.state.price);
+    data.append("price", this.state.price * 100);
     data.append("stock", this.state.stock);
     let response = await fetch("/sell-item", { method: "POST", body: data });
     let responseBody = await response.text();
@@ -87,10 +87,10 @@ class UnconnectedSellItem extends Component {
               type="text"
               onChange={this.descriptionHandler}
               value={this.state.description}
-              placeholder="description"
+              placeholder="Artist Name"
             />
             <input
-              type="number"
+              type="text"
               onChange={this.priceHandler}
               value={this.state.price}
               placeholder="price"

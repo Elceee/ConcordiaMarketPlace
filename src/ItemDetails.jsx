@@ -117,7 +117,9 @@ class UnconnectedItemDetails extends Component {
               </Link>
             </h4>
             <div>Units Sold: {this.state.item.quantityBought}</div>
-            <div className="price">${this.state.item.price}</div>
+            <div className="price">
+              ${(this.state.item.price / 100).toFixed(2)}
+            </div>
             <div>
               <button onClick={this.addToCart}>Add to Cart</button>
             </div>

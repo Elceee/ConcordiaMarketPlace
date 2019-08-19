@@ -7,7 +7,8 @@ let initialState = {
   query: "",
   total: 0,
   page: 0,
-  location: undefined
+  location: undefined,
+  landingPageOpen: false
 };
 
 let reducer = (state, action) => {
@@ -65,6 +66,14 @@ let reducer = (state, action) => {
   }
   if (action.type === "location") {
     return { ...state, location: action.location };
+  }
+
+  if (action.type === "closeModal") {
+    return { ...state, landingPageOpen: false };
+  }
+
+  if (action.type === "openModal") {
+    return { ...state, landingPageOpen: true };
   }
 
   return state;

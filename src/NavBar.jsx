@@ -4,14 +4,14 @@ import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
-import Modal from "react-modal";
+
 import LandingPage from "./LandingPage.jsx";
 import "./NavBar.css";
 
 class UnconnectedNavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { landingPageOpen: false };
+    this.state = { loginPageOpen: false };
   }
   resetQuery = () => {
     this.props.dispatch({ type: "searchTerms", query: "" });
@@ -24,7 +24,7 @@ class UnconnectedNavBar extends Component {
   };
 
   logOut = async () => {
-    this.setState({ landingPageOpen: false });
+    this.setState({ loginPageOpen: false });
     let response = await fetch("/logout");
     let responseBody = await response.text();
     let body = JSON.parse(responseBody);
@@ -34,8 +34,8 @@ class UnconnectedNavBar extends Component {
     }
   };
 
-  renderLandingPage = () => {
-    this.setState({ landingPageOpen: true });
+  openLandingPage = () => {
+    this.props.dispatch({ type: "openModal" });
   };
 
   render = () => {
@@ -52,14 +52,8 @@ class UnconnectedNavBar extends Component {
             <Categories loggedIn="false" />
           </div>
           <div onClick={this.resetQuery}>
-            <Link onClick={this.renderLandingPage}>Login</Link>
+            <Link onClick={this.openLandingPage}>Login</Link>
           </div>
-          <Modal
-            isOpen={this.state.landingPageOpen}
-            style={{ content: { border: "none", background: "none" } }}
-          >
-            <LandingPage />
-          </Modal>
         </div>
       );
     }
@@ -91,7 +85,7 @@ class UnconnectedNavBar extends Component {
 }
 
 let mapStateToProps = state => {
-  return { seller: state.username };
+  return { seller: state.username, landingPageOpen: state.landingPageOpen };
 };
 
 let NavBar = connect(mapStateToProps)(withRouter(UnconnectedNavBar));
