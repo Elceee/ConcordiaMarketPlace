@@ -55,12 +55,11 @@ class UnconnectedApp extends Component {
           <ViewAllItems />
           <Modal
             isOpen={this.props.landingPageOpen}
+            className="login-modal"
             style={{
               content: {
                 border: "none",
-                background: "none",
-                opacity: "1",
-                transition: "opacity 0.15s linear"
+                background: "none"
               }
             }}
           >
@@ -75,12 +74,11 @@ class UnconnectedApp extends Component {
         <SearchResults />
         <Modal
           isOpen={this.props.landingPageOpen}
+          className="login-modal"
           style={{
             content: {
               border: "none",
-              background: "none",
-              opacity: "1",
-              transition: "opacity 0.15s linear"
+              background: "none"
             }
           }}
         >
@@ -99,12 +97,11 @@ class UnconnectedApp extends Component {
         <ItemDetails _id={itemId} />
         <Modal
           isOpen={this.props.landingPageOpen}
+          className="login-modal"
           style={{
             content: {
               border: "none",
-              background: "none",
-              opacity: "1",
-              transition: "opacity 0.15s linear"
+              background: "none"
             }
           }}
         >
@@ -116,22 +113,18 @@ class UnconnectedApp extends Component {
 
   renderCategory = rd => {
     let category = rd.match.params.categoryID;
-    let opacity = "0;";
-    if (this.props.landingPageOpen) {
-      opacity = "1";
-    }
+
     return (
       <div>
         <NavBar />
         <CategoryRender category={category} />
         <Modal
           isOpen={this.props.landingPageOpen}
+          className="login-modal"
           style={{
             content: {
               border: "none",
-              background: "none",
-              opacity: opacity,
-              transition: "opacity 0.15s linear"
+              background: "none"
             }
           }}
         >

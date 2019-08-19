@@ -83,3 +83,33 @@ button:active {
   align-items: center;
   justify-content: center;
 }
+
+.login-modal {
+  animation: opacity 1s;
+  margin-top: 8%;
+}
+
+@-webkit-keyframes opacity {
+  from {
+    opacity: 0;
+    transform: translate(0, -25%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes opacity {
+  from {
+    opacity: 0;
+    transform: translate(0, -25%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.login-modal:focus {
+  outline: none;
+}
