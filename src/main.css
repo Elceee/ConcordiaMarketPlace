@@ -59,6 +59,8 @@ button:active {
   border-style: none;
 }
 
+/*navigation buttons on viewAllItems page*/
+
 .pageButtons {
   display: flex;
   justify-content: center;
