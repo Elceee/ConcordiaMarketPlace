@@ -42,7 +42,7 @@ class UnconnectedCustomizeSellerPage extends Component {
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
-      this.props.history.push("/seller-profile/" + this.props.username);
+      this.props.history.push("/sellerpage/" + this.props.username);
     }
   };
 
