@@ -61,7 +61,7 @@ let reducer = (state, action) => {
   }
 
   if (action.type === "pageChange") {
-    return { ...state, page: action.page };
+    return { ...state, page: action.page, query: "" };
   }
   if (action.type === "location") {
     return { ...state, location: action.location };
