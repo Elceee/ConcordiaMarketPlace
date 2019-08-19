@@ -13,7 +13,7 @@ let initialState = {
 
 let reducer = (state, action) => {
   if (action.type === "login-success") {
-    return { ...state, username: action.username };
+    return { ...state, username: action.username, landingPageOpen: false };
   }
 
   if (action.type === "updateItems") {
