@@ -4,7 +4,6 @@ import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
-
 import LandingPage from "./LandingPage.jsx";
 import "./NavBar.css";
 
@@ -42,6 +41,22 @@ class UnconnectedNavBar extends Component {
     if (this.props.seller === undefined) {
       return (
         <div className="navcontainer navbar">
+          <div className="toFront">
+            <img
+              id="record"
+              src="/uploads/logobiggest.png"
+              height="20px"
+              width="20px"
+            />
+            <div className="arm">
+              <img
+                id="armm"
+                src="/uploads/arm.png"
+                height="20px"
+                width="20px"
+              />
+            </div>
+          </div>
           <div>
             <Search />
           </div>
@@ -60,6 +75,22 @@ class UnconnectedNavBar extends Component {
     if (this.props.seller !== undefined) {
       return (
         <div className="navcontainer navbar">
+          <div className="toFront">
+            <img
+              id="record"
+              src="/uploads/logobiggest.png"
+              height="20px"
+              width="20px"
+            />
+            <div className="arm">
+              <img
+                id="armm"
+                src="/uploads/arm.png"
+                height="20px"
+                width="20px"
+              />
+            </div>
+          </div>
           <div>
             <Search />
           </div>
@@ -69,6 +100,7 @@ class UnconnectedNavBar extends Component {
           <div>
             <Link to={"/cart"}>Cart</Link>
           </div>
+
           <div>
             <Categories loggedIn="true" />
           </div>
