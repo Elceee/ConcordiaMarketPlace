@@ -19,13 +19,15 @@ class UnconnectedLocation extends Component {
   render() {
     return (
       <form onSubmit={this.submitHandler}>
+        Select Shipping Region:
         <select name="location" onChange={this.changeHandler}>
           <option value="Canada">Canada</option>
-          <option value="United-States">United-States</option>
-          <option value="South-America">South-America</option>
+          <option value="UnitedStates">United-States</option>
+          <option value="SouthAmerica">South-America</option>
           <option value="Africa">Africa</option>
           <option value="Europe">Europe</option>
           <option value="Asia">Asia</option>
+          <option value="Australia">Australia / New Zealand</option>
         </select>
       </form>
     );

@@ -86,10 +86,12 @@ class UnconnectedSellerProfile extends Component {
           backgroundImage: `linear-gradient(to right, ${color}, white)`
         }}
       >
-        <h1>{this.state.seller}'s Seller Page</h1>
         <div>
-          <img src={this.state.profilePicture} />
-          <h3>{this.state.sellerDescription}</h3>
+          <div className="sellerPageTop">
+            <h1>{this.state.seller}'s Seller Page</h1>
+            <img src={this.state.profilePicture} />
+            <h3>{this.state.sellerDescription}</h3>
+          </div>
           <div>{this.renderSellerItemsAsLiElems()}</div>
         </div>
       </div>
