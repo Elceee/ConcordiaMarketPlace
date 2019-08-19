@@ -45,6 +45,7 @@ a:active {
 }
 
 /*grid view of items*/
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -74,4 +75,11 @@ button:active {
 .pageButtons button {
   background-color: #f2b880;
   font-size: 130%;
+}
+
+.sellerPageTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
