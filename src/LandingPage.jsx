@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import "./Card.css";
 import "./LandingPage.css";
 
-export default class LandingPage extends Component {
+class UnconnectedLandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,11 +23,19 @@ export default class LandingPage extends Component {
     this.setState({ status: "signup" });
   };
 
+  closeModal = () => {
+    this.props.dispatch({ type: "closeModal" });
+  };
   render = () => {
     if (this.state.status === "") {
       return (
         <div className="card center landingPageContainer">
-          <h1>Welcome to Alibay!</h1>
+          <div>
+            <h1>Welcome to Alibay!</h1>
+            <button onClick={this.closeModal} id="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
           <div className="landingPageContainer">
             <h4>New to the site? Create an account here!</h4>
             <button onClick={this.sigunpOnclick}>Sign Up</button>
@@ -41,6 +50,9 @@ export default class LandingPage extends Component {
     if (this.state.status === "signup") {
       return (
         <div className="card center landingPageContainer">
+          <button onClick={this.closeModal} id="close" data-dismiss="modal">
+            &times;
+          </button>
           <Signup />
           <div>
             <button onClick={this.loginOnclick}>
@@ -53,6 +65,9 @@ export default class LandingPage extends Component {
     if (this.state.status === "login") {
       return (
         <div className="card center landingPageContainer">
+          <button onClick={this.closeModal} id="close" data-dismiss="modal">
+            &times;
+          </button>
           <Login />
           <div>
             <button onClick={this.sigunpOnclick}>
@@ -64,3 +79,7 @@ export default class LandingPage extends Component {
     }
   };
 }
+
+let LandingPage = connect()(UnconnectedLandingPage);
+
+export default LandingPage;
