@@ -135,7 +135,7 @@ app.get("/logout", (req, res) => {
   }
 });
 
-// all-itmes endpoint. "items" is my provisional collection name
+// all-items endpoint
 app.get("/all-items", (req, res) => {
   console.log("request to /all-items endpoint");
   dbo

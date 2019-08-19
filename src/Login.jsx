@@ -36,7 +36,6 @@ class UnconnectedLogin extends Component {
     }
 
     this.props.dispatch({ type: "login-success", username: username });
-    this.props.history.push("/");
   };
 
   render() {
@@ -52,7 +51,7 @@ class UnconnectedLogin extends Component {
           />
           <p>Password</p>
           <input
-            type="text"
+            type="password"
             onChange={this.passwordChangeHandler}
             value={this.state.password}
           />
