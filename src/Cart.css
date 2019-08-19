@@ -26,8 +26,8 @@
 }
 
 .continueDiv {
-  position: relative;
-  left: 850px;
+  position: absolute;
+  right: 70px;
   padding: 25px 0;
 }
 
@@ -70,4 +70,8 @@ dt {
   margin-right: 40px;
   font-weight: bolder;
   font-size: 18px;
+}
+
+.mt50 {
+  margin-top: 70px;
 }
