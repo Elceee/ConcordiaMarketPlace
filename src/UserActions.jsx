@@ -18,14 +18,17 @@ class UnconnectedUserActions extends Component {
             <Link to={"/sellitem"}>Sell Item</Link>
           </div>
           <div className="dropDownItem">
-            <Link to={"/customizesellerpage/" + this.props.seller}>
-              Seller Page
+            <Link to={"/sellerpage/" + this.props.seller}>
+              View Seller Page
             </Link>
           </div>
           <div className="dropDownItem">
-            <Link to="/purchaseHistory" style={{ width: "127.49px" }}>
-              Purchase History
+            <Link to={"/customizesellerpage/" + this.props.seller}>
+              Customize Seller Page
             </Link>
+          </div>
+          <div className="dropDownItem">
+            <Link to="/purchaseHistory">Purchase History</Link>
           </div>
         </div>
       </div>
