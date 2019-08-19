@@ -31,7 +31,7 @@ class UnconnectedLandingPage extends Component {
       return (
         <div className="card center landingPageContainer">
           <div>
-            <h1>Welcome to Alibay!</h1>
+            <h1>Welcome to Vynil Bliss!</h1>
             <button onClick={this.closeModal} id="close" data-dismiss="modal">
               &times;
             </button>
