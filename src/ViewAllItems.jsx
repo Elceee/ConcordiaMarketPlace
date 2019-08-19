@@ -6,13 +6,14 @@ import EventListener, { withOptions } from "react-event-listener";
 class UnconnectedViewAllItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { page: this.props.state };
+    this.state = { page: this.props.state, viewAll: false };
   }
 
   //diplays the next 9 items in the items array
-  nextHandler = () => {
+  nextHandler = async () => {
     console.log("next");
     console.log("items", this.props.items.length);
+    await this.setState({ viewAll: false });
     let nextPage = this.props.page + 1;
     if (nextPage * 9 <= this.props.items.length) {
       this.setState({ page: nextPage }, () => {
@@ -23,8 +24,9 @@ class UnconnectedViewAllItems extends Component {
   };
 
   //displays the previous 9 items in the items array
-  previousHandler = () => {
+  previousHandler = async () => {
     console.log("previous");
+    await this.setState({ viewAll: false });
     let previousPage = this.props.page - 1;
     if (previousPage >= 0) {
       this.setState({ page: previousPage }, () => {
@@ -45,13 +47,19 @@ class UnconnectedViewAllItems extends Component {
 
   //slices the items array depending on which page you're on.
   itemsToDisplay = () => {
-    let x = 0 + this.props.page * 9;
-    let y = 9 + this.props.page * 9;
-    return this.props.items.slice(x, y);
+    if (this.state.viewAll === false) {
+      let x = 0 + this.props.page * 9;
+      let y = 9 + this.props.page * 9;
+      return this.props.items.slice(x, y);
+    }
+    if (this.state.viewAll === true) {
+      return this.props.items;
+    }
   };
 
-  pageButtonHandler = event => {
-    let newPage = event.target.value - 1;
+  pageButtonHandler = async value => {
+    await this.setState({ viewAll: false });
+    let newPage = value - 1;
     this.setState({ page: newPage }, () => {
       this.props.dispatch({ type: "pageChange", page: this.state.page });
       this.renderItemsAsLiElems();
@@ -68,14 +76,24 @@ class UnconnectedViewAllItems extends Component {
     return (
       <div className="pageNumbers">
         {pageArray.map(p => {
-          return (
-            <button value={p} onClick={this.pageButtonHandler}>
-              {p}
-            </button>
-          );
+          return <button onClick={() => this.pageButtonHandler(p)}>{p}</button>;
         })}
       </div>
     );
+  };
+
+  viewAllHandler = () => {
+    let key = 1;
+    this.setState({ viewAll: true }, () => {
+      return (
+        //class to auto-place items in css
+        <div className="wrapper">
+          {this.props.items.map(item => {
+            return <Item key={key++} contents={item} inCart="false" />;
+          })}
+        </div>
+      );
+    });
   };
 
   renderItemsAsLiElems = () => {
@@ -97,7 +115,10 @@ class UnconnectedViewAllItems extends Component {
         <div className="pageButtons">
           <button onClick={this.previousHandler}>Previous</button>
           <button onClick={this.nextHandler}>Next</button>
-          <div>{this.displayPageLinks()}</div>
+          <div>
+            <div>{this.displayPageLinks()}</div>
+            <button onClick={this.viewAllHandler}>View All Items</button>
+          </div>
         </div>
         <EventListener target={document} onKeyDown={this.handleKeyPress} />
       </div>

@@ -44,7 +44,15 @@ class UnconnectedItemDetails extends Component {
       }
     }
   };
+
+  openLandingPage = () => {
+    this.props.dispatch({ type: "openModal" });
+  };
   addToCart = () => {
+    if (this.props.user === undefined) {
+      this.openLandingPage();
+      return;
+    }
     let item = this.state.item;
     let data = new FormData();
     data.append("item", item);
@@ -117,7 +125,9 @@ class UnconnectedItemDetails extends Component {
               </Link>
             </h4>
             <div>Units Sold: {this.state.item.quantityBought}</div>
-            <div className="price">${this.state.item.price}</div>
+            <div className="price">
+              ${(this.state.item.price / 100).toFixed(2)}
+            </div>
             <div>
               <button onClick={this.addToCart}>Add to Cart</button>
             </div>
@@ -144,7 +154,7 @@ class UnconnectedItemDetails extends Component {
 }
 
 let mapStateToProps = state => {
-  return { items: state.items };
+  return { items: state.items, user: state.username };
 };
 
 let ItemDetails = connect(mapStateToProps)(UnconnectedItemDetails);
