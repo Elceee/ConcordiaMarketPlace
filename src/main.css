@@ -59,6 +59,16 @@ button:active {
   border-style: none;
 }
 
+.pageButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.pageButtons div {
+  display: inline-block;
+}
+
 .pageButtons button {
   background-color: #f2b880;
   font-size: 130%;

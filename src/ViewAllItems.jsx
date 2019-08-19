@@ -111,13 +111,17 @@ class UnconnectedViewAllItems extends Component {
   render = () => {
     return (
       <div>
-        <div>{this.renderItemsAsLiElems()}</div>;
+        <div>{this.renderItemsAsLiElems()}</div>
         <div className="pageButtons">
-          <button onClick={this.previousHandler}>Previous</button>
-          <button onClick={this.nextHandler}>Next</button>
+          <div>
+            <button onClick={this.previousHandler}>Previous</button>
+            <button onClick={this.nextHandler}>Next</button>
+          </div>
           <div>
             <div>{this.displayPageLinks()}</div>
-            <button onClick={this.viewAllHandler}>View All Items</button>
+            <div>
+              <button onClick={this.viewAllHandler}>View All Items</button>
+            </div>
           </div>
         </div>
         <EventListener target={document} onKeyDown={this.handleKeyPress} />
