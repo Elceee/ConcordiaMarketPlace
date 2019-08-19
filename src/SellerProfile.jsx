@@ -6,6 +6,7 @@ class UnconnectedSellerProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: this.props.username,
       seller: this.props.seller,
       sellerDescription: "",
       profilePicture: "",
@@ -17,6 +18,9 @@ class UnconnectedSellerProfile extends Component {
   componentDidMount = async () => {
     console.log("sellerProfile mounted");
     let seller = this.props.seller;
+    if (seller === undefined) {
+      seller = this.props.username;
+    }
     let data = new FormData();
     data.append("seller", seller);
     let response = await fetch("/seller-profile", {
@@ -94,7 +98,7 @@ class UnconnectedSellerProfile extends Component {
 }
 
 let mapStateToProps = state => {
-  return { items: state.items };
+  return { items: state.items, username: state.username };
 };
 
 let SellerProfile = connect(mapStateToProps)(UnconnectedSellerProfile);
