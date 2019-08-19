@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import UserActions from "./UserActions.jsx";
 import Categories from "./Categories.jsx";
-import Modal from "react-modal";
+
 import LandingPage from "./LandingPage.jsx";
 import "./NavBar.css";
 
@@ -54,12 +54,6 @@ class UnconnectedNavBar extends Component {
           <div onClick={this.resetQuery}>
             <Link onClick={this.openLandingPage}>Login</Link>
           </div>
-          <Modal
-            isOpen={this.props.landingPageOpen}
-            style={{ content: { border: "none", background: "none" } }}
-          >
-            <LandingPage />
-          </Modal>
         </div>
       );
     }

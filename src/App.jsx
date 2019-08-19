@@ -12,6 +12,7 @@ import PurchaseHistory from "./PurchaseHistory.jsx";
 import SellerProfile from "./SellerProfile.jsx";
 import CustomizeSellerPage from "./CustomizeSellerPage.jsx";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import Modal from "react-modal";
 import "./Card.css";
 import "./DynamicButton.css";
 import "./FormButton.css";
@@ -52,6 +53,12 @@ class UnconnectedApp extends Component {
         <div>
           <NavBar />
           <ViewAllItems />
+          <Modal
+            isOpen={this.props.landingPageOpen}
+            style={{ content: { border: "none", background: "none" } }}
+          >
+            <LandingPage />
+          </Modal>
         </div>
       );
     }
@@ -70,6 +77,12 @@ class UnconnectedApp extends Component {
       <div>
         <NavBar />
         <ItemDetails _id={itemId} />
+        <Modal
+          isOpen={this.props.landingPageOpen}
+          style={{ content: { border: "none", background: "none" } }}
+        >
+          <LandingPage />
+        </Modal>
       </div>
     );
   };
@@ -80,6 +93,12 @@ class UnconnectedApp extends Component {
       <div>
         <NavBar />
         <CategoryRender category={category} />
+        <Modal
+          isOpen={this.props.landingPageOpen}
+          style={{ content: { border: "none", background: "none" } }}
+        >
+          <LandingPage />
+        </Modal>
       </div>
     );
   };
@@ -183,7 +202,12 @@ class UnconnectedApp extends Component {
 }
 
 let mapStateToProps = state => {
-  return { username: state.username, items: state.items, query: state.query };
+  return {
+    username: state.username,
+    items: state.items,
+    query: state.query,
+    landingPageOpen: state.landingPageOpen
+  };
 };
 
 let App = connect(mapStateToProps)(UnconnectedApp);
