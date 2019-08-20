@@ -92,7 +92,7 @@ class UnconnectedCart extends Component {
           </div>
         </div>
 
-        <div className="card center nomin">
+        <div className="card center nomin mt50">
           <div className="offWhite">
             <div>
               <ShippingInfo />

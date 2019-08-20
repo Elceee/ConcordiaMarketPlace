@@ -1,8 +1,15 @@
 .loginForm input[type="text"] {
+  outline: none;
+  background-color: #fffaf7;
+  border-color: #6b8d9e;
+  color: #6b8d9e;
+  margin: 6px;
+  padding: 2px 2px;
+  font-size: 12px;
+  box-shadow: 2px 2px 0px 0 #e7cfbc;
   color: #6b8d9e;
   padding: 4px;
   align-items: center;
-  border-color: #6b8d9e;
 }
 
 .loginForm input[type="password"] {
