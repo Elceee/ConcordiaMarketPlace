@@ -59,7 +59,7 @@ class UnconnectedSellItem extends Component {
     data.append("name", this.state.itemName);
     data.append("image", this.state.imageFile);
     data.append("categories", this.state.genres);
-    data.append("description", "By" + this.state.description);
+    data.append("description", "By " + this.state.description);
     data.append("seller", this.props.seller);
     data.append("price", this.state.price * 100);
     data.append("stock", this.state.stock);
