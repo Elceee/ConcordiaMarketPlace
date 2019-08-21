@@ -338,18 +338,19 @@ app.post("/purchaseCart", upload.none(), async (req, res) => {
 app.post("/stripe-charge", upload.none(), (req, res) => {
   console.log("stripe charge endpoint hit");
   let token = req.body.token;
-  let amount = req.body.amount;
+  let amount = parseInt(req.body.amount * 100);
   console.log("making a charge on stripe for the amount: ", amount);
-  res.send(JSON.stringify({ success: true }));
+
   let charge = async () => {
     console.log("sending charge to stripe");
     await stripe.charges.create({
-      amount: amount * 100,
+      amount: amount,
       currency: "cad",
       description: "Charge from Vinyl Store",
       source: "tok_visa"
     });
   };
+  res.send(JSON.stringify({ success: true }));
   charge();
 });
 

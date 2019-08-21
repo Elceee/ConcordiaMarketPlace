@@ -71,12 +71,14 @@
   margin-right: -90px;
   margin-left: -40px;
   margin-top: -10px;
+  z-index: 1;
 }
 .toFront img {
   height: 100px;
   width: 100px;
   transition: 10s;
   transition-timing-function: linear;
+  z-index: -1;
 }
 
 .arm {
@@ -88,6 +90,7 @@
 .arm img {
   height: 130px;
   width: 130px;
+  z-index: -1;
 }
 
 #armm {

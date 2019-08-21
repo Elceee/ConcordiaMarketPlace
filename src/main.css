@@ -113,3 +113,7 @@ button:active {
 .login-modal:focus {
   outline: none;
 }
+
+.zToThree {
+  z-index: 3;
+}

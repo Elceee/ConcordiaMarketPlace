@@ -9,7 +9,7 @@ class UnconnectedCheckout extends Component {
     console.log("cart total is", this.props.amount);
     let data = new FormData();
     data.append("token", JSON.stringify(token));
-    data.append("amount", this.props.total);
+    data.append("amount", this.props.amount);
     let response = await fetch("/stripe-charge", {
       method: "POST",
       body: data

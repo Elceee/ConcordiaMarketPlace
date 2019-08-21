@@ -131,7 +131,11 @@ class UnconnectedCart extends Component {
           <div className="pad">
             <Checkout
               cart={this.props.cart}
-              amount={this.props.total}
+              amount={(
+                (parseInt(cartTotal) +
+                  this.calculatedShipping(this.props.location)) /
+                100
+              ).toFixed(2)}
               currency="CAD"
               bitcoin
             />
