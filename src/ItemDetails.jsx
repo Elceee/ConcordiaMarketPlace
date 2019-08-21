@@ -63,7 +63,7 @@ class UnconnectedItemDetails extends Component {
   findSimilarAlbums = () => {
     let categories = this.state.item.categories;
     let recommendAlbums = [];
-    let allItems = this.state.allItems;
+    let allItems = this.props.items;
     categories.forEach(category => {
       let relatedAlbums = allItems.filter(album => {
         return album.categories.includes(category);
